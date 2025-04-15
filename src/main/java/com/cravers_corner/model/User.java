@@ -2,14 +2,14 @@ package com.cravers_corner.model;
 
 import java.sql.Timestamp;
 
+
+
 public class User {
     private int user_id;
-    private String firstname;
-    private String lastname;
+    private String full_name;
     private String username;
     private String email;
     private String role;
-    private String gender;
     private String phone;
     private String password;
     private String profile_image_url;
@@ -22,16 +22,14 @@ public class User {
     public User() {}
 
     // Parameterized constructor
-    public User(int user_id, String firstname, String lastname, String username, String email, String role,
-                String gender, String phone, String password, String profile_image_url,
+    public User(int user_id, String full_name, String username, String email, String role,
+                String phone, String password, String profile_image_url,
                 String current_address, String shipping_address, Timestamp created_at, Timestamp updated_at) {
         this.user_id = user_id;
-        this.firstname = firstname;
-        this.lastname = lastname;
+        this.full_name = full_name;
         this.username = username;
         this.email = email;
         this.role = role;
-        this.gender = gender;
         this.phone = phone;
         this.password = password;
         this.profile_image_url = profile_image_url;
@@ -49,18 +47,11 @@ public class User {
         this.user_id = user_id;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String getFull_name() {
+        return full_name;
     }
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setFull_name(String full_name) {
+        this.full_name = full_name;
     }
 
     public String getUsername() {
@@ -82,13 +73,6 @@ public class User {
     }
     public void setRole(String role) {
         this.role = role;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-    public void setGender(String gender) {
-        this.gender = gender;
     }
 
     public String getPhone() {
