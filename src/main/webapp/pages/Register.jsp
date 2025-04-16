@@ -4,8 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Register Page</title>
 <link rel="stylesheet" href="../css/Login.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/Login.css">
 </head>
 <body>
 <div class="left">
@@ -15,25 +16,25 @@
 
     <div class="right">
         <div class="form-box">
-            <h2> Register an account</h2>
+            <h2> Register your account</h2>
 
-            <form action="" method="post">
+            <form action="${pageContext.request.contextPath}/RegisterServlet" method="post">
                 
 				
 				<input type="text" name="full_name" placeholder="Full Name" >
-				<input type="text" name="userName" placeholder="Username" >
-				<input type="text" name="phoneNumber" placeholder="Phone Number" >
+				<input type="text" name="username" placeholder="Username" >
+				<input type="text" name="phone" placeholder="Phone Number" >
 				<input type="text" name="address" placeholder="Address" >
                 <input type="email" name="email" placeholder="Your email" >
                 <input type="password" name="password" placeholder="Set password" required>
-                <input type="password" name="re-password" placeholder="Confirm password" required>
+                <input type="password" name="confirm_password" placeholder="Confirm password" required>
                 <input type="submit" value="Sign up">
 				
 				
             </form>
 
             <div class="signin">
-                Already have an account? <a href="login.jsp">Log In</a>
+                Already have an account? <a href="Login.jsp">Log In</a>
             </div>
         </div>
     </div>

@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>LogIn</title>
-<link rel="stylesheet" href="../css/Login.css">
+<title>Login Page</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/Login.css">
 </head>
 <body>
 	<div class="left">
@@ -17,17 +18,22 @@
         <div class="form-box">
             <h2>Login to your account</h2>
 
-            <form action="index.html" method="post">
+            <form action="${pageContext.request.contextPath}/LoginServlet" method="post">
                 
 
                 <input type="email" name="email" placeholder="Your email" >
                 <input type="password" name="password" placeholder="Password" >
+                   <c:if test="${not empty loginError}">
+                    <div style="color: red; text-align: center; font-size: 14px; margin:2px">
+                        ${loginError}
+                    </div>
+                </c:if>
 
                 <a href="#"><input type="submit" value="Log in"></a>
             </form>
 
             <div class="signup">
-                Don't have an account? <a href="register.jsp">Register Now</a>
+                Don't have an account? <a href="Register.jsp">Register Now</a>
             </div>
         </div>
     </div>

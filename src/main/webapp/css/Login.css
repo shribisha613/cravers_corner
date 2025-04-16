@@ -6,88 +6,96 @@
             font-family: 'Segoe UI', sans-serif;
         }
 
-        body {
-            display: flex;
-            height: 100vh;
-            background: white;
-        }
+  body {
+      display: flex;
+      height: 100vh;
+      background: white;
+  }
 
-        .left {
-            flex: 1;
-		    background:url('../images/food2.jpg');
-		    background-blend-mode: overlay;
-		    background-size: cover;
-		    background-position: center;
-		    color: white;
-		    display: flex;
-		    flex-direction: column;
-		    justify-content: center;
-		    padding: 60px;
-        }
+  .left {
+      flex: 1;
+background:url('../images/food2.jpg');
+background-blend-mode: overlay;
+background-size: cover;
+background-position: center;
+color: white;
+display: flex;
+flex-direction: column;
+justify-content: center;
+padding: 60px;
+  }
 
-        .left h1 {
-            font-size: 40px;
-            margin-bottom: 20px;
-        }
+  .left h1 {
+      font-size: 40px;
+      margin-bottom: 20px;
+  }
 
-        .left p {
-            font-size: 20px;
-            color: white;
-        }
+  .left p {
+      font-size: 20px;
+      color: white;
+  }
 
-        .right {
-            flex: 1;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+  .right {
+      flex: 1;
+      background: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
 
-        .form-box {
-            width: 350px;
-            padding: 30px;
-        }
+  .form-box {
+      width: 400px;
+      padding: 30px;
+  }
 
-        .form-box h2 {
-            margin-bottom: 20px;
-            font-size: 24px;
-            text-align: center;
-        }
+  .form-box h2 {
+      margin-bottom: 20px;
+      font-size: 24px;
+      text-align: center;
+  }
 
-        
+  
 
-        
+  
 
-        .form-box input {
-            width: 100%;
-            margin-bottom: 15px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
+  .form-box input {
+      width: 100%;
+      margin-bottom: 15px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+  }
 
-        .form-box input[type="submit"] {
-            background:#EC5228;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
+  .form-box input[type="submit"] {
+      background:#EC5228;
+      color: white;
+      border: none;
+      cursor: pointer;
+  }
 
-        .form-box .signup {
-            text-align: center;
-            margin-top: 10px;
-        }
+  .form-box .signup {
+  	
+      width: 400px;
+      text-align: center;
+      margin-top: 10px;
+  }
 
-        .form-box .signup a {
-            color: #EC5228;
-            text-decoration: none;
-        }
-        .form-box .signin {
-            text-align: center;
-            margin-top: 10px;
-        }
+  .form-box .signup a {
+      color: #EC5228;
+      text-decoration: none;
+  }
+  .form-box .signin {
+      text-align: center;
+      margin-top: 10px;
+  }
 
-        .form-box .signin a {
-            color: #991212 ;
-            text-decoration: none;
-        }
+  .form-box .signin a {
+      color: #991212 ;
+      text-decoration: none;
+  }
+  
+  
+  .error{
+       color:  #991212 ;
+       font-size: 9 px;
+  }
