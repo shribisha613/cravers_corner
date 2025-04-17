@@ -44,6 +44,14 @@ public class RegisterServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 //		doGet(request, response);
+		
+		
+		String validationMessage = validateRegistrationForm(request);
+		if (validationMessage != null) {
+			handleError(request, response, validationMessage);
+			return;
+		}
+
 		response.setContentType("text/html");
 		System.out.println("Received registration form.");
 		boolean isRegistered= false;
@@ -55,7 +63,9 @@ public class RegisterServlet extends HttpServlet {
 	        String email = request.getParameter("email");
 	        String password = request.getParameter("password");
 	        String confirm_password = request.getParameter("confirm_password");
-	
+	        
+	        
+	      
 	        try {
 	            // Basic password confirmation check
 	            if (!password.equals(confirm_password)) {
@@ -145,6 +155,24 @@ public class RegisterServlet extends HttpServlet {
 	    return null; // All validations passed
 	}
 
+	
+	private void handleError(HttpServletRequest req, HttpServletResponse resp, String message)
+            throws ServletException, IOException {
+    // Set the error message in the request attribute
+    req.setAttribute("errorMessage", message);
+
+    // Retain the values the user has entered in the form fields
+    req.setAttribute("full_name", req.getParameter("full_name"));
+    req.setAttribute("username", req.getParameter("username"));
+    req.setAttribute("phone", req.getParameter("phone"));
+    req.setAttribute("address", req.getParameter("address"));
+    req.setAttribute("email", req.getParameter("email"));
+    req.setAttribute("password", req.getParameter("password"));
+    req.setAttribute("confirm_password", req.getParameter("confirm_password"));
+
+    // Forward the request back to the register page with the error message
+    req.getRequestDispatcher("/pages/Register.jsp").forward(req, resp);
+}
 	
 	
 

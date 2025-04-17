@@ -55,14 +55,16 @@ public class UserDAO {
 	
 	
 	
-	public User login(String email, String password) throws ClassNotFoundException, SQLException {
-        String sql = "SELECT * FROM users WHERE email = ? AND password = ?";
+	public User login(String identifier, String password) throws ClassNotFoundException, SQLException {
+		String sql = "SELECT * FROM users WHERE (email = ? OR username = ?) AND password = ?";
+
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ps.setString(1, email);
-            ps.setString(2, password); 
+            ps.setString(1, identifier);//email
+            ps.setString(2, identifier);
+            ps.setString(3, password); 
 
             ResultSet rs = ps.executeQuery();
 

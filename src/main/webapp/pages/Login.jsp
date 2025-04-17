@@ -21,8 +21,8 @@
             <form action="${pageContext.request.contextPath}/LoginServlet" method="post">
                 
 
-                <input type="email" name="email" placeholder="Your email" >
-                <input type="password" name="password" placeholder="Password" >
+                <input type="text" name="identifier"  value="${param.identifier}"  placeholder=" Your email or username" required >
+                <input type="password" name="password" value="${param.password}"  placeholder="Enter your Password" required >
                    <c:if test="${not empty loginError}">
                     <div style="color: red; text-align: center; font-size: 14px; margin:2px">
                         ${loginError}
@@ -33,7 +33,7 @@
             </form>
 
             <div class="signup">
-                Don't have an account? <a href="Register.jsp">Register Now</a>
+            Don't have an account yet? <a href="Register.jsp">  Register Now</a>
             </div>
         </div>
     </div>

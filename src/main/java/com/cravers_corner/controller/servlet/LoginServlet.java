@@ -47,12 +47,12 @@ public class LoginServlet extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 
-		String email = request.getParameter("email");
+		String identifier = request.getParameter("identifier");
 		String password = request.getParameter("password");
 
 		try {
 			UserDAO userDAO = new UserDAO();
-			User user = userDAO.login(email, password);
+			User user = userDAO.login(identifier, password);
 
 			if (user != null) {
 				out.println("The user is found");
@@ -65,7 +65,7 @@ public class LoginServlet extends HttpServlet {
 				response.sendRedirect(request.getContextPath() + "/pages/Home.jsp");
 			} else {
 				// Invalid credentials
-				request.setAttribute("loginError", "Invalid email or password. Please try again.");
+				request.setAttribute("loginError", "Invalid email, username or password. Please try again.");
 				request.getRequestDispatcher("/pages/Login.jsp").forward(request, response);
 			}
 

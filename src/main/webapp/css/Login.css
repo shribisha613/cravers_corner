@@ -74,14 +74,17 @@ padding: 60px;
   }
 
   .form-box .signup {
-  	
-      width: 400px;
+  	  display:flex;
+  	  justify-content: center;
+      width: 350px;
       text-align: center;
       margin-top: 10px;
+   
   }
 
   .form-box .signup a {
       color: #EC5228;
+      margin-left: 4px;
       text-decoration: none;
   }
   .form-box .signin {
@@ -93,9 +96,14 @@ padding: 60px;
       color: #991212 ;
       text-decoration: none;
   }
-  
-  
-  .error{
-       color:  #991212 ;
-       font-size: 9 px;
-  }
+
+
+/* Error Message Styling */
+.error {
+    color: #991212;
+    font-size: 12px;
+    position: absolute;
+    bottom: -18px;
+    left: 0;
+    font-style: italic;
+}
