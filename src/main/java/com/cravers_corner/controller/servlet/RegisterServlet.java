@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.cravers_corner.controller.dao.UserDAO;
+import com.cravers_corner.controller.util.ValidationUtil;
 import com.cravers_corner.model.User;
 
 /**
@@ -103,6 +104,48 @@ public class RegisterServlet extends HttpServlet {
 	            }
 	        }
 	    } 
+	
+	private String validateRegistrationForm(HttpServletRequest request) {
+	    String fullName = request.getParameter("full_name");
+	    String username = request.getParameter("username");
+	    String phone = request.getParameter("phone");
+	    String address = request.getParameter("address");
+	    String email = request.getParameter("email");
+	    String password = request.getParameter("password");
+	    String confirmPassword = request.getParameter("confirm_password");
+
+	    // Null or empty checks
+	    if (ValidationUtil.isNullOrEmpty(fullName))
+	        return "Full name is required.";
+	    if (ValidationUtil.isNullOrEmpty(username))
+	        return "Username is required.";
+	    if (ValidationUtil.isNullOrEmpty(phone))
+	        return "Phone number is required.";
+	    if (ValidationUtil.isNullOrEmpty(address))
+	        return "Address is required.";
+	    if (ValidationUtil.isNullOrEmpty(email))
+	        return "Email is required.";
+	    if (ValidationUtil.isNullOrEmpty(password))
+	        return "Password is required.";
+	    if (ValidationUtil.isNullOrEmpty(confirmPassword))
+	        return "Please confirm your password.";
+
+	    // Field-specific validations
+	    if (!ValidationUtil.isAlphanumericStartingWithLetter(username) || username.length() < 7)
+	        return "Username must start with a letter, be alphanumeric, and at least 7 characters long.";
+	    if (!ValidationUtil.isValidPhoneNumber(phone))
+	        return "Phone number must be exactly 10 digits.";
+	    if (!ValidationUtil.isValidEmail(email))
+	        return "Invalid email format.";
+	    if (!ValidationUtil.isValidPassword(password))
+	        return "Password must be at least 8 characters long and include an uppercase letter, a number, and a symbol.";
+	    if (!ValidationUtil.doPasswordsMatch(password, confirmPassword))
+	        return "Passwords do not match.";
+
+	    return null; // All validations passed
+	}
+
+	
 	
 
 }
