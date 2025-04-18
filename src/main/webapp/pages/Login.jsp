@@ -34,7 +34,7 @@
             </form>
 
             <div class="signup">
-            Don't have an account yet? <a href="Register.jsp">  Register Now</a>
+            Don't have an account yet? <a href="Register.jsp">Register Now</a>
             </div>
         </div>
     </div>

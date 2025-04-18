@@ -74,8 +74,7 @@ padding: 60px;
   }
 
   .form-box .signup {
-  	  display:flex;
-  	  justify-content: center;
+  	  
       width: 350px;
       text-align: center;
       margin-top: 10px;
@@ -84,7 +83,7 @@ padding: 60px;
 
   .form-box .signup a {
       color: #EC5228;
-      margin-left: 4px;
+      margin-left: 3px;
       text-decoration: none;
   }
   .form-box .signin {
