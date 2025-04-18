@@ -1,1 +1,28 @@
 /build/
+target/
+
+#Eclipse
+.project
+.classpath
+.settings/
+
+#Intellij IDEA specific files
+.idea/
+*.iml
+*.iws
+
+#Tomcat work and temp files
+logs/
+work/
+temp/
+
+#Ignore complied java classes
+*.class
+
+#Ignore OS specific files
+.DS_Store
+Thumbs.db
+
+
+#Ignore environment specific files
+.env

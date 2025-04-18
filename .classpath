@@ -14,5 +14,6 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="D:/2nd_SEMESTER_ALL_MODULES_2nd_YEAR/ADVANCED PROGRAMMING AND TECHNOLOGIES/mysqlconnectorj9.2.0_/mysql-connector-j-9.2.0/mysql-connector-j-9.2.0.jar"/>
+	<classpathentry kind="lib" path="D:/2nd_SEMESTER_ALL_MODULES_2nd_YEAR/ADVANCED PROGRAMMING AND TECHNOLOGIES/jstl/jstl-1.2.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
