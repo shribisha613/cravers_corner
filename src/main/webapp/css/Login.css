@@ -75,7 +75,7 @@
 
   .form-box .signup {
   	  
-      width: 350px;
+      width: 370px;
       text-align: center;
       margin-top: 10px;
    
@@ -83,7 +83,7 @@
 
   .form-box .signup a {
       color:  #991212;
-      margin-left: 3px;
+      margin-left: 2 px;
       text-decoration: none;
   }
   .form-box .signin {

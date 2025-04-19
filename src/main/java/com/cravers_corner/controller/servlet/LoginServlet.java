@@ -59,7 +59,7 @@ public class LoginServlet extends HttpServlet {
 				// Create a session for the logged-in user
 				HttpSession session = request.getSession();
 				session.setAttribute("userWithSession", user);
-				session.setMaxInactiveInterval(15 * 60); // 15 minutes
+				session.setMaxInactiveInterval(30 * 60); // 30 minutes
 
 				// Redirect to home/dashboard page
 				response.sendRedirect(request.getContextPath() + "/pages/Home.jsp");

@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Register Page</title>
+<title>Cravers Corner Register Page</title>
 
 
 <link rel="stylesheet" href="../css/Login.css">

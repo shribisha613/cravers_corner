@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Login Page</title>
+<title>Cravers Corner Login Page</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Login.css">
 </head>
 <body>
