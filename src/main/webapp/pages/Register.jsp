@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,8 +29,12 @@
         <form action="${pageContext.request.contextPath}/RegisterServlet" method="post">
 
             <div class="form-group">
-                <input type="text" id="full_name" name="full_name" value="${full_name}" placeholder="Enter your Full Name" required>
-            </div>
+			    <input type="text" id="first_name" name="first_name" value="${first_name}" placeholder="Enter your First Name" required>
+			</div>
+			
+			<div class="form-group">
+			    <input type="text" id="last_name" name="last_name" value="${last_name}" placeholder="Enter your Last Name" required>
+			</div>
 
             <div class="form-group">
                 <input type="text" id="username" name="username" value="${username}" placeholder="Enter your Username" required>

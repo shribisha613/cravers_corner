@@ -2,11 +2,10 @@ package com.cravers_corner.model;
 
 import java.sql.Timestamp;
 
-
-
 public class User {
     private int user_id;
-    private String full_name;
+    private String first_name;
+    private String last_name;
     private String username;
     private String email;
     private String role;
@@ -22,11 +21,12 @@ public class User {
     public User() {}
 
     // Parameterized constructor
-    public User(int user_id, String full_name, String username, String email, String role,
+    public User(int user_id, String first_name, String last_name, String username, String email, String role,
                 String phone, String password, String profile_image_url,
                 String current_address, String shipping_address, Timestamp created_at, Timestamp updated_at) {
         this.user_id = user_id;
-        this.full_name = full_name;
+        this.first_name = first_name;
+        this.last_name = last_name;
         this.username = username;
         this.email = email;
         this.role = role;
@@ -47,11 +47,18 @@ public class User {
         this.user_id = user_id;
     }
 
-    public String getFull_name() {
-        return full_name;
+    public String getFirst_name() {
+        return first_name;
     }
-    public void setFull_name(String full_name) {
-        this.full_name = full_name;
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
+    }
+
+    public String getLast_name() {
+        return last_name;
+    }
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
     }
 
     public String getUsername() {

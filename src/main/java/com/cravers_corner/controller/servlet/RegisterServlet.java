@@ -56,7 +56,8 @@ public class RegisterServlet extends HttpServlet {
 		System.out.println("Received registration form.");
 		boolean isRegistered= false;
 		PrintWriter out = response.getWriter();
-		 String full_name = request.getParameter("full_name");
+			String first_name = request.getParameter("first_name");
+			String last_name = request.getParameter("last_name");
 	        String username = request.getParameter("username");
 	        String phone = request.getParameter("phone");
 	        String address = request.getParameter("address");
@@ -76,7 +77,8 @@ public class RegisterServlet extends HttpServlet {
 	        
 
 	            User user = new User();
-	            user.setFull_name(full_name);
+	            user.setFirst_name(first_name);
+	            user.setLast_name(last_name);
 	            user.setUsername(username);
 	            user.setPhone(phone);
 	            user.setCurrent_address(address);
@@ -116,7 +118,8 @@ public class RegisterServlet extends HttpServlet {
 	    } 
 	
 	private String validateRegistrationForm(HttpServletRequest request) {
-	    String fullName = request.getParameter("full_name");
+		String first_name = request.getParameter("first_name");
+	    String last_name = request.getParameter("last_name");
 	    String username = request.getParameter("username");
 	    String phone = request.getParameter("phone");
 	    String address = request.getParameter("address");
@@ -125,8 +128,10 @@ public class RegisterServlet extends HttpServlet {
 	    String confirmPassword = request.getParameter("confirm_password");
 
 	    // Null or empty checks
-	    if (ValidationUtil.isNullOrEmpty(fullName))
-	        return "Full name is required.";
+	    if (ValidationUtil.isNullOrEmpty(first_name))
+	        return "First name is required.";
+	    if (ValidationUtil.isNullOrEmpty(last_name))
+	        return "Last name is required.";
 	    if (ValidationUtil.isNullOrEmpty(username))
 	        return "Username is required.";
 	    if (ValidationUtil.isNullOrEmpty(phone))
@@ -141,7 +146,12 @@ public class RegisterServlet extends HttpServlet {
 	        return "Please confirm your password.";
 
 	    // Field-specific validations
-	    if (!ValidationUtil.isAlphanumericStartingWithLetter(username) || username.length() < 7)
+	    
+	    if (!ValidationUtil.isValidName(first_name))
+	        return "First name must contain only letters and be at least 2 characters long.";
+	    if (!ValidationUtil.isValidName(last_name))
+	        return "Last name must contain only letters and be at least 2 characters long.";
+	    if (!ValidationUtil.isValidUsername(username) || username.length() < 7)
 	        return "Username must start with a letter, be alphanumeric, and at least 7 characters long.";
 	    if (!ValidationUtil.isValidPhoneNumber(phone))
 	        return "Phone number must be exactly 10 digits.";
@@ -162,7 +172,8 @@ public class RegisterServlet extends HttpServlet {
     req.setAttribute("errorMessage", message);
 
     // Retain the values the user has entered in the form fields
-    req.setAttribute("full_name", req.getParameter("full_name"));
+    req.setAttribute("first_name", req.getParameter("first_name"));
+    req.setAttribute("last_name", req.getParameter("last_name"));
     req.setAttribute("username", req.getParameter("username"));
     req.setAttribute("phone", req.getParameter("phone"));
     req.setAttribute("address", req.getParameter("address"));

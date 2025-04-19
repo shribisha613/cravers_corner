@@ -10,11 +10,12 @@ INSERT INTO Categories (name, description) VALUES
 ('Snacks', 'Quick, light foods like chips, samosas, and sandwiches.');
 
 -- Insert Users Data (Nepali Romanized Names)
-INSERT INTO Users (full_name, email, role, phone, password, username, profile_image_url, current_address, shipping_address) VALUES
-('Shribisha Buddhacharya', 'shribisha@example.com', 'customer', '9801234567', 'hashed_password', 'shribishab', 'https://example.com/profile/shribisha.jpg', 'Pokhara-17, Nepal', 'Pokhara-15, Nepal'),
-('Rajeev Sharma', 'rajeeve@example.com', 'customer', '9812345678', 'hashed_password', 'rajeeve', 'https://example.com/profile/rajeeve.jpg', 'Kathmandu-10, Nepal', 'Kathmandu-12, Nepal'),
-('Anjali Thapa', 'anjali@example.com', 'admin', '9823456789', 'hashed_password', 'anjaliadmin', 'https://example.com/profile/anjali.jpg', 'Lalitpur-5, Nepal', 'Lalitpur-3, Nepal');
-
+INSERT INTO Users (
+    first_name, last_name, email, role, phone, password, username, profile_image_url, current_address, shipping_address
+) VALUES
+('Shribisha', 'Buddhacharya', 'shribisha@example.com', 'customer', '9801234567', 'hashed_password', 'shribishab', 'https://example.com/profile/shribisha.jpg', 'Pokhara-17, Nepal', 'Pokhara-15, Nepal'),
+('Rajeev', 'Sharma', 'rajeeve@example.com', 'customer', '9812345678', 'hashed_password', 'rajeeve', 'https://example.com/profile/rajeeve.jpg', 'Kathmandu-10, Nepal', 'Kathmandu-12, Nepal'),
+('Anjali', 'Thapa', 'anjali@example.com', 'admin', '9823456789', 'hashed_password', 'anjaliadmin', 'https://example.com/profile/anjali.jpg', 'Lalitpur-5, Nepal', 'Lalitpur-3, Nepal');
 
 -- Insert Foods Data
 INSERT INTO Foods (name, description, price, category_id, image_url, status, serving_size) VALUES
