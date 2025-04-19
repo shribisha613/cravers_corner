@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 
 import com.cravers_corner.controller.database.DatabaseConnection;
+import com.cravers_corner.controller.util.PasswordUtil;
 import com.cravers_corner.model.User;
 
 
@@ -57,33 +58,62 @@ public class UserDAO {
 	
 	
 	public User login(String identifier, String password) throws ClassNotFoundException, SQLException {
-		String sql = "SELECT * FROM users WHERE (email = ? OR username = ?) AND password = ?";
+		 String sql = "SELECT * FROM users WHERE (email = ? OR username = ?)";
 
+		    try (Connection conn = DatabaseConnection.getConnection();
+		         PreparedStatement ps = conn.prepareStatement(sql)) {
 
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+		        ps.setString(1, identifier); // email or username
+		        ps.setString(2, identifier);
+		        
+		        ResultSet rs = ps.executeQuery();
 
-            ps.setString(1, identifier);//email
-            ps.setString(2, identifier);
-            ps.setString(3, password); 
+		        if (rs.next()) {
+		            
+		        	//getting the encrypted pw from db
+		            String encrypted_password_from_db = rs.getString("password");
 
-            ResultSet rs = ps.executeQuery();
+		            //encrypting the user entered password
+		            String encrypted_entered_password = PasswordUtil.encrypt(password);
 
-            if (rs.next()) {
-                User user = new User();
-                user.setUser_id(rs.getInt("user_id"));
-                user.setFirst_name(rs.getString("first_name"));
-                user.setLast_name(rs.getString("last_name"));
-                user.setUsername(rs.getString("username"));
-                user.setEmail(rs.getString("email"));
-                user.setPhone(rs.getString("phone"));
-                user.setRole(rs.getString("role"));
-                return user;
-            } else {
-                return null; // No user found
-            }
-        }
-    }
+		            //if the both are equal then only:
+		            if (encrypted_password_from_db.equals(encrypted_entered_password )) {
+		                // Passwords match, login successful
+		                User user = new User();
+		                user.setUser_id(rs.getInt("user_id"));
+		                user.setFirst_name(rs.getString("first_name"));
+		                user.setLast_name(rs.getString("last_name"));
+		                user.setUsername(rs.getString("username"));
+		                user.setEmail(rs.getString("email"));
+		                user.setPhone(rs.getString("phone"));
+		                user.setRole(rs.getString("role"));
+		                return user;
+		            } else {
+		                // Password does not match
+		                return null; // No user found or wrong password
+		            }
+		        } else {
+		            return null; // No user found
+		        }
+		    }
+	}
+	
+	public boolean isUsernameTaken(String username) throws SQLException, ClassNotFoundException {
+	    String sql = "SELECT COUNT(*) FROM users WHERE username = ?";
+
+	    try (Connection conn = DatabaseConnection.getConnection();
+	         PreparedStatement ps = conn.prepareStatement(sql)) {
+
+	        ps.setString(1, username);
+	        
+	        ResultSet rs = ps.executeQuery();
+	        if (rs.next()) {
+	            // If the count is greater than 0, the username is taken
+	            return rs.getInt(1) > 0;
+	        }
+	    }
+	    return false;
+	}
 }
 
 

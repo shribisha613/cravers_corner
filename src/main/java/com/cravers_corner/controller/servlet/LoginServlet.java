@@ -48,11 +48,11 @@ public class LoginServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 		String identifier = request.getParameter("identifier");
-		String password = request.getParameter("password");
+		String entered_password = request.getParameter("password");
 
 		try {
 			UserDAO userDAO = new UserDAO();
-			User user = userDAO.login(identifier, password);
+			User user = userDAO.login(identifier, entered_password);
 
 			if (user != null) {
 				out.println("The user is found");

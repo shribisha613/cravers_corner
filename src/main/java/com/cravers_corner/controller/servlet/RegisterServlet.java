@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.cravers_corner.controller.dao.UserDAO;
+import com.cravers_corner.controller.util.PasswordUtil;
 import com.cravers_corner.controller.util.ValidationUtil;
 import com.cravers_corner.model.User;
 
@@ -51,6 +52,34 @@ public class RegisterServlet extends HttpServlet {
 			handleError(request, response, validationMessage);
 			return;
 		}
+		
+		 String username = request.getParameter("username");
+
+		  
+		    String usernameAvailabilityMessage;
+			try {
+				usernameAvailabilityMessage = ValidationUtil.validateUsernameAvailability(username);
+				
+				 if (usernameAvailabilityMessage != null) {
+				        request.setAttribute("errorMessage", usernameAvailabilityMessage);
+				        request.setAttribute("first_name", request.getParameter("first_name"));
+			            request.setAttribute("last_name", request.getParameter("last_name"));
+			            request.setAttribute("username", username);
+			            request.setAttribute("phone", request.getParameter("phone"));
+			            request.setAttribute("address", request.getParameter("address"));
+			            request.setAttribute("email", request.getParameter("email"));
+			            request.setAttribute("password", request.getParameter("password"));
+			            request.setAttribute("confirm_password", request.getParameter("confirm_password"));
+			            // Forward the request to the register page again
+			            
+				        request.getRequestDispatcher("/pages/Register.jsp").forward(request, response);
+				        return;
+				    }
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		   
 
 		response.setContentType("text/html");
 		System.out.println("Received registration form.");
@@ -58,7 +87,6 @@ public class RegisterServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 			String first_name = request.getParameter("first_name");
 			String last_name = request.getParameter("last_name");
-	        String username = request.getParameter("username");
 	        String phone = request.getParameter("phone");
 	        String address = request.getParameter("address");
 	        String email = request.getParameter("email");
@@ -75,6 +103,7 @@ public class RegisterServlet extends HttpServlet {
 	                return;
 	            }
 	        
+	            String encrypted_password = PasswordUtil.encrypt(password);
 
 	            User user = new User();
 	            user.setFirst_name(first_name);
@@ -84,7 +113,7 @@ public class RegisterServlet extends HttpServlet {
 	            user.setCurrent_address(address);
 	            user.setShipping_address(address); // same for now
 	            user.setEmail(email);
-	            user.setPassword(password); // Note: Add hashing in production
+	            user.setPassword(encrypted_password); // Note: Add hashing in production
 	            user.setRole("customer"); // default role
 	            user.setProfile_image_url(""); // default profile image
 	            user.setCreated_at(new Timestamp(System.currentTimeMillis()));
@@ -160,7 +189,7 @@ public class RegisterServlet extends HttpServlet {
 	    if (!ValidationUtil.isValidPassword(password))
 	        return "Password must be at least 8 characters long and include an uppercase letter, a number, and a symbol.";
 	    if (!ValidationUtil.doPasswordsMatch(password, confirmPassword))
-	        return "Passwords do not match.";
+	        return "Passwords do not match. Please try again. ";
 
 	    return null; // All validations passed
 	}

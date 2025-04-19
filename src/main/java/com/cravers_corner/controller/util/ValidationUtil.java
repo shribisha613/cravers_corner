@@ -1,8 +1,11 @@
 package com.cravers_corner.controller.util;
 
+import java.sql.SQLException;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.Part;
+
+import com.cravers_corner.controller.dao.UserDAO;
 
 
 public class ValidationUtil {
@@ -60,4 +63,19 @@ public class ValidationUtil {
         return fileName.endsWith(".jpg") || fileName.endsWith(".jpeg") || fileName.endsWith(".png") || fileName.endsWith(".gif");
     }
 
+    public static String validateUsernameAvailability(String username) throws ClassNotFoundException {
+        UserDAO userDAO = null;
+        try {
+            userDAO = new UserDAO();  
+            if (userDAO.isUsernameTaken(username)) {
+                return "Username is already taken. Please choose a different username.";
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return "Database error occurred while checking username availability.";
+        }
+        return null; // Username is available for the user
+    }
+    
+    
 }
