@@ -18,23 +18,27 @@
     <div class="right">
         <div class="form-box">
             <h2>Login to your account</h2>
-
-            <form action="${pageContext.request.contextPath}/LoginServlet" method="post">
-                
-
-                <input type="text" name="identifier"  value="${param.identifier}"  placeholder=" Your email or username" required >
-                <input type="password" name="password" value="${param.password}"  placeholder="Enter your Password" required >
-                   <c:if test="${not empty loginError}">
-                    <div style="color: red; text-align: center; font-size: 14px; margin:2px">
+            
+            <c:if test="${not empty loginError}">
+                    <div class="error-alert">
                         ${loginError}
+                        
+                        <button class="close-btn" onclick="this.parentElement.style.display='none'">x</button>
                     </div>
                 </c:if>
 
+            <form action="${pageContext.request.contextPath}/LoginServlet" method="post">
+                
+     
+
+                <input type="text" name="identifier"  value="${param.identifier}"  placeholder=" Your email or username" required >
+                <input type="password" name="password" value="${param.password}"  placeholder="Enter your Password" required >
+              
                 <a href="#"><input type="submit" value="Log in"></a>
             </form>
 
             <div class="signup">
-            Don't have an account yet? <a href="Register.jsp">Register Now</a>
+            Don't have an account yet? <a href="${pageContext.request.contextPath}/pages/Register.jsp">Register Now</a>
             </div>
         </div>
     </div>

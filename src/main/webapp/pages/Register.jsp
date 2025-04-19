@@ -7,7 +7,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Register Page</title>
+
+
 <link rel="stylesheet" href="../css/Login.css">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Login.css">
 </head>
 <body>
@@ -20,14 +24,19 @@
 <div class="right">
     <div class="form-box">
         <h2>Register your account</h2>
-
-        <!-- Show error message if present -->
-        <c:if test="${not empty errorMessage}">
-            <div class="error-message">${errorMessage}</div>
-        </c:if>
+        
+        	
+	<c:if test="${not empty errorMessage}">
+     <div class="error-alert">
+                  ${errorMessage}
+                  
+                   <button class="close-btn" onclick="this.parentElement.style.display='none'">x</button>
+      </div>
+	</c:if>
 
         <form action="${pageContext.request.contextPath}/RegisterServlet" method="post">
-
+    
+            
             <div class="form-group">
 			    <input type="text" id="first_name" name="first_name" value="${first_name}" placeholder="Enter your First Name" required>
 			</div>
@@ -57,7 +66,7 @@
             </div>
 
             <div class="form-group">
-                <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password your password" required>
+                <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm your password" required>
             </div>
 
             <div class="form-group">
@@ -66,7 +75,7 @@
         </form>
 
         <div class="signin">
-            Already have an account? <a href="Login.jsp">Log In</a>
+            Already have an account? <a href="${pageContext.request.contextPath}/pages/Login.jsp">Log In</a>
         </div>
     </div>
 </div>

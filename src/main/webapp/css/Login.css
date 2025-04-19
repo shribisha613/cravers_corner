@@ -13,16 +13,16 @@
   }
 
   .left {
-      flex: 1;
-background:url('../images/food2.jpg');
-background-blend-mode: overlay;
-background-size: cover;
-background-position: center;
-color: white;
-display: flex;
-flex-direction: column;
-justify-content: center;
-padding: 60px;
+      	flex: 1;
+		background:url('../images/food2.jpg');
+		background-blend-mode: overlay;
+		background-size: cover;
+		background-position: center;
+		color: white;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		padding: 60px;
   }
 
   .left h1 {
@@ -82,7 +82,7 @@ padding: 60px;
   }
 
   .form-box .signup a {
-      color: #EC5228;
+      color:  #991212;
       margin-left: 3px;
       text-decoration: none;
   }
@@ -95,14 +95,41 @@ padding: 60px;
       color: #991212 ;
       text-decoration: none;
   }
+  
+  
+.error-alert {
+    display: inline-block;
+    max-width: max-content;
+    border: 1px solid darkred;
+    background: #FFF0F0; /* subtle red tint */
+    color: darkred;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    position: relative;
+    margin-bottom: 10px;
+    box-shadow: 0 0 2px rgb(128, 128, 128) ; 
+    line-height: 1.4;
 
-
-/* Error Message Styling */
-.error {
-    color: #991212;
-    font-size: 12px;
-    position: absolute;
-    bottom: -18px;
-    left: 0;
-    font-style: italic;
 }
+
+.error-alert .close-btn {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: darkred;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Optional: hover effect */
+.error-alert .close-btn:hover {
+    color: brown ;
+}
+/* Error Mergb(128, 0, 64)ge Styling */
+
+
