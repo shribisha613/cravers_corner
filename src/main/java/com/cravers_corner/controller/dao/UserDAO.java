@@ -121,8 +121,8 @@ public class UserDAO {
 		String sql = "SELECT * FROM users WHERE id = ?";
 		
 		try (Connection conn = DatabaseConnection.getConnection();
-		         PreparedStatement ps = conn.prepareStatement(sql)) {
-	    PreparedStatement stmt = conn.prepareStatement(sql);
+		         PreparedStatement stmt = conn.prepareStatement(sql)) {
+	    
 	    stmt.setInt(1, user_id);
 	    ResultSet rs = stmt.executeQuery();
 
@@ -141,6 +141,31 @@ public class UserDAO {
 		}
 	    return null;
 		
+	}
+	
+	public User getUserByUsername(String username) throws SQLException, ClassNotFoundException {
+	    String sql = "SELECT * FROM users WHERE username = ?";
+
+	    try (Connection conn = DatabaseConnection.getConnection();
+	         PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+	        stmt.setString(1, username); // Set the username parameter
+	        ResultSet rs = stmt.executeQuery();
+
+	        if (rs.next()) {
+	            User user = new User();
+	            user.setUser_id(rs.getInt("id"));
+	            user.setFirst_name(rs.getString("first_name"));
+	            user.setLast_name(rs.getString("last_name"));
+	            user.setEmail(rs.getString("email"));
+	            user.setPhone(rs.getString("phone"));
+	            user.setPassword(rs.getString("password"));
+	            user.setCurrent_address(rs.getString("address"));
+	            user.setUsername(rs.getString("username"));
+	            return user;
+	        }
+	    }
+	    return null; // Return null if no user is found
 	}
 	
 	

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.cravers_corner.controller.dao.UserDAO;
 import com.cravers_corner.controller.util.PasswordUtil;
+import com.cravers_corner.controller.util.ValidationUtil;
 import com.cravers_corner.model.User;
 
 /**
@@ -45,7 +46,8 @@ public class UserProfileServlet extends HttpServlet {
 		 
 		 try {
 	            UserDAO userDAO = new UserDAO();
-	            User user = userDAO.getUserByID(sessionUser.getUser_id());
+	            User user = userDAO.getUserByUsername(sessionUser.getUsername());
+	            System.out.println(sessionUser.getUsername());
 	            request.setAttribute("userProfile", user);
 	            request.getRequestDispatcher("/pages/UserProfile.jsp").forward(request, response); // your JSP to show data
 	        } catch (ClassNotFoundException | SQLException e) {
@@ -79,6 +81,57 @@ public class UserProfileServlet extends HttpServlet {
 
         String newPassword = request.getParameter("password");
         String confirmPassword = request.getParameter("confirm_password");
+        
+        if (ValidationUtil.isNullOrEmpty(firstName) || !ValidationUtil.isValidName(firstName)) {
+            request.setAttribute("errorMessage", "First name is invalid. Please enter a valid first name.");
+            request.getRequestDispatcher("/pages/UserProfile.jsp").forward(request, response);
+            return;
+        }
+        
+        if (ValidationUtil.isNullOrEmpty(lastName) || !ValidationUtil.isValidName(lastName)) {
+            request.setAttribute("errorMessage", "Last name is invalid. Please enter a valid last name.");
+            request.getRequestDispatcher("/pages/UserProfile.jsp").forward(request, response);
+            return;
+        }
+
+        if (ValidationUtil.isNullOrEmpty(email) || !ValidationUtil.isValidEmail(email)) {
+            request.setAttribute("errorMessage", "Email is invalid. Please enter a valid email address.");
+            request.getRequestDispatcher("/pages/UserProfile.jsp").forward(request, response);
+            return;
+        }
+
+        if (ValidationUtil.isNullOrEmpty(username) || !ValidationUtil.isValidUsername(username)) {
+            request.setAttribute("errorMessage", "Username is invalid. Please enter a valid username.");
+            request.getRequestDispatcher("/pages/UserProfile.jsp").forward(request, response);
+            return;
+        }
+
+        if (ValidationUtil.isNullOrEmpty(phone) || !ValidationUtil.isValidPhoneNumber(phone)) {
+            request.setAttribute("errorMessage", "Phone number is invalid. Please enter a valid phone number.");
+            request.getRequestDispatcher("/pages/UserProfile.jsp").forward(request, response);
+            return;
+        }
+
+        if (ValidationUtil.isNullOrEmpty(address) || !ValidationUtil.isValidAddress(address)) {
+            request.setAttribute("errorMessage", "Address is invalid. Please enter a valid address.");
+            request.getRequestDispatcher("/pages/UserProfile.jsp").forward(request, response);
+            return;
+        }
+
+        // Password validation
+        if (newPassword != null && !newPassword.trim().isEmpty()) {
+            if (!ValidationUtil.doPasswordsMatch(newPassword, confirmPassword)) {
+                request.setAttribute("errorMessage", "Passwords do not match.");
+                request.getRequestDispatcher("/pages/UserProfile.jsp").forward(request, response);
+                return;
+            }
+            
+            if (!ValidationUtil.isValidPassword(newPassword)) {
+                request.setAttribute("errorMessage", "Password must be at least 8 characters long, contain an uppercase letter, a number, and a special character.");
+                request.getRequestDispatcher("/pages/UserProfile.jsp").forward(request, response);
+                return;
+            }
+        }
         
         
         try {
