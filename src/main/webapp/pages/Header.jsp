@@ -57,12 +57,12 @@
 		}
         .icon img {
             width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    object-fit: cover;
+		    height: 100%;
+		    border-radius: 50%;
+		    object-fit: cover;
         }
 
-			       .icon:hover {
+       .icon:hover {
 			    background-color: #f1a500;
 			}
 			
@@ -77,18 +77,19 @@
 
     <!-- Header -->
     <header>
-        <!-- Logo -->
+        
         <div class="logo">
             <img src="images/logo-placeholder.png" alt="Logo"> <!-- Placeholder for logo -->
         </div>
 
-        <!-- Navigation Icons -->
+       
         <div class="nav-icons">
-				<a href="<%=request.getContextPath()%>/pages/UserProfile.jsp">
-				    <div class="icon">
-				        <img src="<%=request.getContextPath()%>/images/food2.jpg" alt="Profile"> <!-- Profile Icon -->
-				    </div>
-				</a>
+				<a href="<%= request.getContextPath() + "/pages/UserProfile.jsp" %>">
+                <div class="icon">
+                    <img src="images/profile-placeholder.jpg" alt="Profile"> <!-- Placeholder for user profile icon -->
+                </div>
+            </a>
+				
 	            <form action="<%=request.getContextPath()%>/LogoutServlet" method="post" style="display: inline;">
 			    <button type="submit" class="icon logout-btn">
 			        <i class="fas fa-sign-out-alt"></i>
