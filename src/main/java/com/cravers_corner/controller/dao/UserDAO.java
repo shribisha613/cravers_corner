@@ -114,6 +114,64 @@ public class UserDAO {
 	    }
 	    return false;
 	}
-}
+	
+	
+	public User getUserByID(int user_id) throws SQLException, ClassNotFoundException {
+		
+		String sql = "SELECT * FROM users WHERE id = ?";
+		
+		try (Connection conn = DatabaseConnection.getConnection();
+		         PreparedStatement ps = conn.prepareStatement(sql)) {
+	    PreparedStatement stmt = conn.prepareStatement(sql);
+	    stmt.setInt(1, user_id);
+	    ResultSet rs = stmt.executeQuery();
+
+	    if (rs.next()) {
+	        User user = new User();
+	        user.setUser_id(rs.getInt("id"));
+	        user.setFirst_name(rs.getString("first_name"));
+	        user.setLast_name(rs.getString("last_name"));
+	        user.setEmail(rs.getString("email"));
+	        user.setPhone(rs.getString("phone"));
+	        user.setPassword(rs.getString("password"));
+	        user.setCurrent_address(rs.getString("address"));
+	        user.setUsername(rs.getString("username"));
+	        return user;
+	    }
+		}
+	    return null;
+		
+	}
+	
+	
+	public boolean updateUser(User user) throws SQLException, ClassNotFoundException {
+	    String sql = "UPDATE users SET first_name = ?, last_name = ?, email = ?, username = ?, phone = ?, address = ?, password = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?";
+
+	    try (Connection conn = DatabaseConnection.getConnection();
+	         PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+	        
+
+	        stmt.setString(1, user.getFirst_name());
+	        stmt.setString(2, user.getLast_name());
+	        stmt.setString(3, user.getEmail());
+	        stmt.setString(4, user.getUsername());
+	        stmt.setString(5, user.getPhone());
+	        stmt.setString(6, user.getCurrent_address());
+	        stmt.setString(7, user.getPassword());
+	        stmt.setInt(8, user.getUser_id());
+
+	        int rowsUpdated = stmt.executeUpdate();
+	        return rowsUpdated > 0;
+
+	    } catch (SQLException | ClassNotFoundException e) {
+	        e.printStackTrace();
+	        throw e; 
+	        
+	    }
+	}
+	
+	}
+
 
 
