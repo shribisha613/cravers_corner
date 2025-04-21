@@ -101,7 +101,7 @@ public class UserProfileServlet extends HttpServlet {
         }
 
         if (ValidationUtil.isNullOrEmpty(username) || !ValidationUtil.isValidUsername(username)) {
-            request.setAttribute("errorMessage", "Username is invalid. Please enter a valid username.");
+            request.setAttribute("errorMessage", "Username must be atleast 7 character long. Please enter a valid username.");
             request.getRequestDispatcher("/pages/UserProfile.jsp").forward(request, response);
             return;
         }
@@ -194,6 +194,7 @@ public class UserProfileServlet extends HttpServlet {
                 if (success) {
                     session.setAttribute("userWithSession", currentUser); // Update session
                     request.setAttribute("success", "Profile updated successfully.");
+                    System.out.println("Successfully updated profile");
                 } else {
                     request.setAttribute("errorMessage", "Update failed. Try again.");
                 }

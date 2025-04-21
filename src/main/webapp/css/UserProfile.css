@@ -156,41 +156,55 @@
             cursor: pointer;
         }
         
-    .error-alert {
-    display: inline-block;
-    max-width: max-content;
-    border: 1px solid darkred;
-    background: #FFF0F0; /* subtle red tint */
-    color: darkred;
-    padding: 8px 12px;
-    border-radius: 4px;
-    font-family: Arial, sans-serif;
-    font-size: 14px;
+   .error-alert, .popup-container.success {
+    width: 90%;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 16px 20px;
+    border-radius: 8px;
     position: relative;
-    margin-bottom: 10px;
-    box-shadow: 0 0 2px rgb(128, 128, 128) ; 
-    line-height: 1.4;
-
+    font-size: 16px;
+    font-weight: 500;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.error-alert .close-btn {
-    position: absolute;
-    right: 8px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
+/* Error styling */
+.error-alert {
+    background-color: #ffe5e5;
+    border-left: 5px solid #d93025;
+    color: #b00020;
+}
+
+/* Success styling */
+.popup-container.success {
+    background-color: #e6ffed;
+    border-left: 5px solid #34a853;
+    color: #1b5e20;
+}
+
+/* Close button (for both error and success) */
+.error-alert .close-btn,
+.popup-container.success .close-btn {
+    background: transparent;
     border: none;
-    color: darkred;
-    font-size: 16px;
+    font-size: 20px;
+    font-weight: bold;
+    color: inherit;
     cursor: pointer;
 }
 
-/* Optional: hover effect */
-.error-alert .close-btn:hover {
-    color: brown ;
+/* Optional animation (fade-in) */
+.error-alert, .popup-container.success {
+    animation: fadeIn 0.5s ease-in-out;
 }
-/* Error Mergb(128, 0, 64)ge Styling */
 
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
         
 
