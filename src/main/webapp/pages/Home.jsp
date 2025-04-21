@@ -42,36 +42,8 @@
             <div class="offer" style="background:url('../images/fam combo.jpg');">Family Combo</div>
             <div class="offer" style="background:url('../images/solo combo.jpg');">Solo Yolo Combo</div>
         </div>
-    </div>
-    
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-logo">
-                <img src="../images/logo.png" alt="logo">
-            </div>
-            <div class="footer-column">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="Home.jsp">Home</a></li>
-                    <li><a href="Menu.jsp">Menu</a></li>
-                    <li><a href="AboutUs.jsp">About Us</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h4>Socials</h4>
-                <ul>
-                    <li><a href="#">Instagram</a></li>
-                    <li><a href="#">Facebook</a></li>
-                    <li><a href="#">Twitter</a></li>
-                    <li><a href="#">YouTube</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2025 C2. All rights reserved.</p>
-        </div>
-    </footer>
 
+    <jsp:include page="Footer.jsp" />
  
 </body>
 </html>
