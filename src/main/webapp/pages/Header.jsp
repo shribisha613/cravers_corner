@@ -17,14 +17,16 @@
     </nav>
 
     <div class="icons">
-   <!-- Cart Icon -->
-            <section class="icon">
-                <a href="Cart.jsp">
-                    <button type="button" class="icon-btn cart-btn">
-                        <i class="fas fa-shopping-cart"></i>
-                    </button>
-                </a>
-            </section>
+ 
+
+		    <section class="icon">
+		        <a href="Cart.jsp">
+		            <button type="button" class="icon-btn cart-btn">
+		                <i class="fas fa-shopping-cart"></i>
+		            </button>
+		        </a>
+		    </section>
+
 
     <a href="<%=request.getContextPath()%>/UserProfileServlet" class="icon">
                      
@@ -33,13 +35,16 @@
                  </a>
 
    <section class="icon">
-                <form action="<%=request.getContextPath()%>/LogoutServlet" method="post">
-                    <button type="submit" class="icon-btn logout-btn">
-                        <i class="fas fa-sign-out-alt"></i>
-                    </button>
-                </form>
-            </section>
+
+		        <form action="<%=request.getContextPath()%>/LogoutServlet" method="post">
+		            <button type="submit" class="icon-btn logout-btn">
+		                <i class="fas fa-sign-out-alt"></i>
+		            </button>
+		        </form>
+		    </section>
 </div>
     
     
 </header>
+
+
