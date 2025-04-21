@@ -17,33 +17,38 @@
 <body>
 
 <jsp:include page="Header.jsp" />
-    
-   
-
-	
-        <!-- Hero Section -->
+    <div class="container">
         <section class="hero">
-            <h1>"Crave It, Wave It, We'll Slay It"</h1>
+            <h1>"Crave It, Wave It,<br>We'll Slay It"</h1>
             <a href="#" class="order-btn">Order Now</a>
         </section>
-        
-        <!-- Categories Section -->
+
         <h2 class="section-title">Order By Category</h2>
         <div class="categories">
-            <div class="category" style="background:url('../images/pizza.jpg');">Western</div>
-            <div class="category" style="background:url('../images/bhat.jpg');">Nepali</div>
-            <div class="category" style="background:url('../images/teok.jpg');">Korean</div>
+            <div class="category" style="background-image: url("<%=request.getContextPath()%>/images/pizza.jpg")>
+                <span>Western</span>
+            </div>
+            <div class="category" style="background-image: url('../images/bhat.jpg')">
+                <span>Nepali</span>
+            </div>
+            <div class="category" style="background-image: url('../images/teok.jpg')">
+                <span>Korean</span>
+            </div>
         </div>
-        
         <!-- Offers Section -->
         <h2 class="section-title">Best Combo Offers</h2>
         <div class="offers">
-            <div class="offer" style="background:url('../images/jodi combo.jpg');">Jodi Combo</div>
-            <div class="offer" style="background:url('../images/fam combo.jpg');">Family Combo</div>
-            <div class="offer" style="background:url('../images/solo combo.jpg');">Solo Yolo Combo</div>
+            <div class="offer" style="background-image: url('../images/jodi combo.jpg')">
+                <span>Jodi Combo</span>
+            </div>
+            <div class="offer" style="background-image: url('../images/fam combo.jpg')">
+                <span>Family Combo</span>
+            </div>
+            <div class="offer" style="background-image: url('../images/solo combo.jpg')">
+                <span>Solo Yolo Combo</span>
+            </div>
         </div>
-
-    <jsp:include page="Footer.jsp" />
- 
+    </div>
+<jsp:include page="Footer.jsp" />
 </body>
 </html>
