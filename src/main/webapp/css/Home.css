@@ -64,13 +64,13 @@ body {
 
 /* Category & Offer Cards */
 .categories, .offers{
-    display: flex;
-    justify-content: space-around;
-    padding:20px;
-    margin: 40px 10px 30px;
+	display: flex;
+	justify-content: space-around;
+	padding:20px;
+	margin: 40px 10px 30px;
 }
 .category, .offer {
-    
+	
     width: 300px;
     height: 400px;
     border-radius: 15px;
@@ -97,3 +97,5 @@ body {
     transform: translateY(-5px);
     box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
+
+
