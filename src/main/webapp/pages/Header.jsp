@@ -17,7 +17,8 @@
     </nav>
 
     <div class="icons">
-   <!-- Cart Icon -->
+ 
+
 		    <section class="icon">
 		        <a href="Cart.jsp">
 		            <button type="button" class="icon-btn cart-btn">
@@ -26,13 +27,15 @@
 		        </a>
 		    </section>
 
+
     <a href="<%=request.getContextPath()%>/UserProfileServlet" class="icon">
- 				    
- 				        <img src="<%=request.getContextPath()%>/images/pfp.jpg" alt="Profile"> <!-- Profile Icon -->
- 				   
- 				</a>
+                     
+                         <img src="<%=request.getContextPath()%>/images/pfp.jpg" alt="Profile"> <!-- Profile Icon -->
+                    
+                 </a>
 
    <section class="icon">
+
 		        <form action="<%=request.getContextPath()%>/LogoutServlet" method="post">
 		            <button type="submit" class="icon-btn logout-btn">
 		                <i class="fas fa-sign-out-alt"></i>
