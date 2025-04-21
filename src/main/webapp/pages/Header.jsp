@@ -17,31 +17,29 @@
     </nav>
 
     <div class="icons">
-    <!-- Cart Icon -->
-    <a href="<%=request.getContextPath()%>/pages/Cart.jsp" title="Cart" class="icon">
-    <i class="fas fa-shopping-cart"></i>
-</a>
+   <!-- Cart Icon -->
+            <section class="icon">
+                <a href="Cart.jsp">
+                    <button type="button" class="icon-btn cart-btn">
+                        <i class="fas fa-shopping-cart"></i>
+                    </button>
+                </a>
+            </section>
 
     <a href="<%=request.getContextPath()%>/UserProfileServlet" class="icon">
- 				    
- 				        <img src="<%=request.getContextPath()%>/images/pfp.jpg" alt="Profile"> <!-- Profile Icon -->
- 				   
- 				</a>
+                     
+                         <img src="<%=request.getContextPath()%>/images/pfp.jpg" alt="Profile"> <!-- Profile Icon -->
+                    
+                 </a>
 
-    <!-- Logout Icon -->
-    <form action="<%=request.getContextPath()%>/LogoutServlet" method="post" style="display: inline;">
-        <button type="submit" class="icon logout-btn" title="Logout">
-            <i class="fas fa-sign-out-alt"></i>
-        </button>
-    </form>
+   <section class="icon">
+                <form action="<%=request.getContextPath()%>/LogoutServlet" method="post">
+                    <button type="submit" class="icon-btn logout-btn">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </form>
+            </section>
 </div>
     
     
 </header>
-
-<div style="padding: 20px ">
-    <c:if test="${not empty userWithSession}">
-        <h2>Hi, <c:out value="${userWithSession.first_name}" /></h2>
-    </c:if>
-    
-</div>

@@ -25,7 +25,7 @@
 
         <h2 class="section-title">Order By Category</h2>
         <div class="categories">
-            <div class="category" style="background-image: url("<%=request.getContextPath()%>/images/pizza.jpg")>
+            <div class="category" style="background-image: url('../images/pizza.jpg')">
                 <span>Western</span>
             </div>
             <div class="category" style="background-image: url('../images/bhat.jpg')">
