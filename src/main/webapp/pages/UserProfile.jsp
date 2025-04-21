@@ -7,10 +7,7 @@
     <title>User Profile</title>
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-    <style>
-        /* Keep your original CSS here, unchanged (already well styled) */
-        /* ... (CSS code from your original post) ... */
-    </style>
+    
     
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Header.css">
     
