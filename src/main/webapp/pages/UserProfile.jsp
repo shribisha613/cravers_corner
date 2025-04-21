@@ -32,13 +32,18 @@
                    <button class="close-btn" onclick="this.parentElement.style.display='none'">x</button>
       </div>
 	</c:if>
+	
+	<c:if test="${not empty info}">
+ <div class="info-alert">
+      <c:out value="${info}" />
+      <button class="close-btn" onclick="this.parentElement.style.display='none'">×</button>
+ </div>
+</c:if>
     
-  <c:if test="${not empty success}">
+ <c:if test="${not empty success}">
     <div class="popup-container success">
-        <div class="popup-box">
-            <c:out value="${success}" />
-            <button class="close-btn" onclick="this.parentElement.parentElement.style.display='none'">×</button>
-        </div>
+        <c:out value="${success}" />
+        <button class="close-btn" onclick="this.parentElement.style.display='none'">×</button>
     </div>
 </c:if>
     <!-- Profile Section -->
@@ -79,14 +84,16 @@
     <input type="text" name="address" value="${param.address != null ? param.address : userProfile.current_address}" required>
 </div>
 <div class="form-group">
-    <label>Your Password</label>
-    <input type="password" name="password" value="${param.password != null ? param.password : userProfile.password}" required>
+    <label>New Password (optional)</label>
+    <input type="password" name="password" placeholder="Enter New Password" />
 </div>
+
 <div class="form-group">
-    <label>Retype Password</label>
-    <input type="password" name="confirm_password" >
+    <label>Confirm New Password</label>
+    <input type="password" name="confirm_password" placeholder="Retype the new password" />
 </div>
-            
+
+
             
             <button type="submit" class="save-btn">Save</button>
         </form>

@@ -165,7 +165,10 @@
             cursor: pointer;
         }
         
-   .error-alert, .popup-container.success {
+  /* Shared styles for alerts */
+.error-alert, 
+.popup-container.success,
+.info-alert {
     width: 90%;
     max-width: 600px;
     margin: 20px auto;
@@ -177,7 +180,13 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
+    animation: fadeIn 0.5s ease-in-out;
+    line-height: 1.6;           /* Better line spacing */
+    word-break: break-word;     /* Prevents overflow */
+    white-space: normal;        /* Allows text wrapping */
+    flex-wrap: wrap;            /* Allow content to wrap */
+    gap: 12px;                  /* Adds space between text and close button */
 }
 
 /* Error styling */
@@ -194,28 +203,32 @@
     color: #1b5e20;
 }
 
-/* Close button (for both error and success) */
+/* Info styling */
+.info-alert {
+    background-color: #e6fff7;
+    border-left: 5px solid #3fc1a0;
+    color: #045c4b;
+}
+
+/* Close buttons */
 .error-alert .close-btn,
-.popup-container.success .close-btn {
+.popup-container.success .close-btn,
+.info-alert .close-btn {
     background: transparent;
     border: none;
     font-size: 20px;
     font-weight: bold;
     color: inherit;
     cursor: pointer;
+    margin-left: auto; /* Push button to the end */
 }
 
-/* Optional animation (fade-in) */
-.error-alert, .popup-container.success {
-    animation: fadeIn 0.5s ease-in-out;
-}
-
+/* Fade-in animation */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
 }
-
-        
+  
 
         .footer {
             width: 100%;

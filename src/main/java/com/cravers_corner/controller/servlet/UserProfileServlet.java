@@ -182,7 +182,7 @@ public class UserProfileServlet extends HttpServlet {
                         isUpdated = true;
                     }
                 } else {
-                    request.setAttribute("errorMessage", "Passwords do not match.");
+                    request.setAttribute("errorMessage", "Please retype your Password to make changes.");
                     request.setAttribute("userProfile", currentUser);
                     request.getRequestDispatcher("/pages/UserProfile.jsp").forward(request, response);
                     return;
@@ -193,13 +193,13 @@ public class UserProfileServlet extends HttpServlet {
                 boolean success = userDAO.updateUser(currentUser);
                 if (success) {
                     session.setAttribute("userWithSession", currentUser); // Update session
-                    request.setAttribute("success", "Profile updated successfully.");
+                    request.setAttribute("success", "Your profile has been updated successfully. Please use your updated details to log in.");
                     System.out.println("Successfully updated profile");
                 } else {
-                    request.setAttribute("errorMessage", "Update failed. Try again.");
+                    request.setAttribute("errorMessage", "Failed to Update your profile. Please try again.");
                 }
             } else {
-                request.setAttribute("info", "No changes made.");
+                request.setAttribute("info", "It looks like nothing was changed in your profile.");
             }
 
             request.setAttribute("userProfile", currentUser);
