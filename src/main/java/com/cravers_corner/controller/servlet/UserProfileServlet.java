@@ -49,7 +49,7 @@ public class UserProfileServlet extends HttpServlet {
 	            User user = userDAO.getUserByUsername(sessionUser.getUsername());
 	            System.out.println(sessionUser.getUsername());
 	            request.setAttribute("userProfile", user);
-	            request.getRequestDispatcher("/pages/UserProfile.jsp").forward(request, response); // your JSP to show data
+	            request.getRequestDispatcher("/pages/UserProfile.jsp").forward(request, response);
 	        } catch (ClassNotFoundException | SQLException e) {
 	            e.printStackTrace();
 	            request.setAttribute("errorMessage", "A system error occurred. Please try again later.");
@@ -63,7 +63,7 @@ public class UserProfileServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		
 		
 		HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("userWithSession") == null) {
@@ -136,7 +136,8 @@ public class UserProfileServlet extends HttpServlet {
         
         try {
             UserDAO userDAO = new UserDAO();
-            User currentUser = userDAO.getUserByID(sessionUser.getUser_id());
+            User currentUser = userDAO.getUserByUsername(sessionUser.getUsername());
+            System.out.println("Fetched user: " + currentUser.getFirst_name());
 
             boolean isUpdated = false;
 
@@ -181,7 +182,7 @@ public class UserProfileServlet extends HttpServlet {
                         isUpdated = true;
                     }
                 } else {
-                    request.setAttribute("error", "Passwords do not match.");
+                    request.setAttribute("errorMessage", "Passwords do not match.");
                     request.setAttribute("userProfile", currentUser);
                     request.getRequestDispatcher("/pages/UserProfile.jsp").forward(request, response);
                     return;
@@ -194,7 +195,7 @@ public class UserProfileServlet extends HttpServlet {
                     session.setAttribute("userWithSession", currentUser); // Update session
                     request.setAttribute("success", "Profile updated successfully.");
                 } else {
-                    request.setAttribute("error", "Update failed. Try again.");
+                    request.setAttribute("errorMessage", "Update failed. Try again.");
                 }
             } else {
                 request.setAttribute("info", "No changes made.");
@@ -205,7 +206,7 @@ public class UserProfileServlet extends HttpServlet {
 
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
-            response.sendRedirect(request.getContextPath() + "/pages/Error.jsp");
+            response.sendRedirect(request.getContextPath() + "/pages/UserProfile.jsp");
         }
     }
 

@@ -154,13 +154,13 @@ public class UserDAO {
 
 	        if (rs.next()) {
 	            User user = new User();
-	            user.setUser_id(rs.getInt("id"));
+	            user.setUser_id(rs.getInt("user_id"));
 	            user.setFirst_name(rs.getString("first_name"));
 	            user.setLast_name(rs.getString("last_name"));
 	            user.setEmail(rs.getString("email"));
 	            user.setPhone(rs.getString("phone"));
 	            user.setPassword(rs.getString("password"));
-	            user.setCurrent_address(rs.getString("address"));
+	            user.setCurrent_address(rs.getString("current_address"));
 	            user.setUsername(rs.getString("username"));
 	            return user;
 	        }
@@ -170,12 +170,10 @@ public class UserDAO {
 	
 	
 	public boolean updateUser(User user) throws SQLException, ClassNotFoundException {
-	    String sql = "UPDATE users SET first_name = ?, last_name = ?, email = ?, username = ?, phone = ?, address = ?, password = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?";
+		String sql = "UPDATE users SET first_name = ?, last_name = ?, email = ?, username = ?, phone = ?, current_address = ?, password = ?, updated_at = CURRENT_TIMESTAMP WHERE user_id = ?";
 
 	    try (Connection conn = DatabaseConnection.getConnection();
 	         PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-	        
 
 	        stmt.setString(1, user.getFirst_name());
 	        stmt.setString(2, user.getLast_name());
@@ -184,19 +182,17 @@ public class UserDAO {
 	        stmt.setString(5, user.getPhone());
 	        stmt.setString(6, user.getCurrent_address());
 	        stmt.setString(7, user.getPassword());
-	        stmt.setInt(8, user.getUser_id());
+	        stmt.setInt(8, user.getUser_id()); // Ensure this is returning the actual user_id
 
 	        int rowsUpdated = stmt.executeUpdate();
 	        return rowsUpdated > 0;
 
 	    } catch (SQLException | ClassNotFoundException e) {
 	        e.printStackTrace();
-	        throw e; 
-	        
+	        throw e;
 	    }
-	}
 	
 	}
-
+}
 
 
