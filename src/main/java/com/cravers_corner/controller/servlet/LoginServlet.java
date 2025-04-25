@@ -54,7 +54,7 @@ public class LoginServlet extends HttpServlet {
 			UserDAO userDAO = new UserDAO();
 			User user = userDAO.login(identifier, entered_password);
 
-			if (user != null) {
+			if (user != null) { 
 				out.println("The user is found");
 				// Create a session for the logged-in user
 				HttpSession session = request.getSession();

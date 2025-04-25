@@ -28,9 +28,19 @@
 		    </section>
 
 
-    <a href="<%=request.getContextPath()%>/UserProfileServlet" class="icon">
+ <a href="<%=request.getContextPath()%>/UserProfileServlet" class="icon">
                      
-                         <img src="<%=request.getContextPath()%>/images/pfp.jpg" alt="Profile"> <!-- Profile Icon -->
+                         
+     <c:choose>
+    <c:when test="${empty userWithSession.profile_image_url}">
+        <!-- Default image if no profile image is uploaded -->
+          <img src="${pageContext.request.contextPath}/profile_photos/default_profile.png" alt="Profile Image" class="profile-image" />
+    </c:when>
+    <c:otherwise>
+        <!-- Custom uploaded image -->
+          <img src="${pageContext.request.contextPath}/${userWithSession.profile_image_url}" alt="Profile Image" class="profile-image" />
+    </c:otherwise>
+</c:choose>
                     
                  </a>
 

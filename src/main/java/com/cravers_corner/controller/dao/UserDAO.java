@@ -70,10 +70,10 @@ public class UserDAO {
 
 		        if (rs.next()) {
 		            
-		        	//getting the encrypted pw from db
+		        	
 		            String encrypted_password_from_db = rs.getString("password");
 
-		            //encrypting the user entered password
+		           
 		            String encrypted_entered_password = PasswordUtil.encrypt(password);
 
 		            //if the both are equal then only:
@@ -86,6 +86,7 @@ public class UserDAO {
 		                user.setUsername(rs.getString("username"));
 		                user.setEmail(rs.getString("email"));
 		                user.setPhone(rs.getString("phone"));
+		                user.setProfile_image_url(rs.getString("profile_image_url"));
 		                user.setRole(rs.getString("role"));
 		                return user;
 		            } else {
@@ -170,7 +171,8 @@ public class UserDAO {
 	
 	
 	public boolean updateUser(User user) throws SQLException, ClassNotFoundException {
-		String sql = "UPDATE users SET first_name = ?, last_name = ?, email = ?, username = ?, phone = ?, current_address = ?, password = ?, updated_at = CURRENT_TIMESTAMP WHERE user_id = ?";
+		 String sql = "UPDATE users SET first_name = ?, last_name = ?, email = ?, username = ?, phone = ?, current_address = ?, password = ?, profile_image_url = ?, updated_at = CURRENT_TIMESTAMP WHERE user_id = ?";
+
 
 	    try (Connection conn = DatabaseConnection.getConnection();
 	         PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -182,7 +184,14 @@ public class UserDAO {
 	        stmt.setString(5, user.getPhone());
 	        stmt.setString(6, user.getCurrent_address());
 	        stmt.setString(7, user.getPassword());
-	        stmt.setInt(8, user.getUser_id()); // Ensure this is returning the actual user_id
+	        
+	        if (user.getProfile_image_url() != null && !user.getProfile_image_url().isEmpty()) {
+	            stmt.setString(8, user.getProfile_image_url());
+	        } else {
+	        	stmt.setString(8, "profile_photos/default_profile.jpg"); // If no new image, set null
+	        }
+
+	        stmt.setInt(9, user.getUser_id()); // Ensure this is returning the actual user_id
 
 	        int rowsUpdated = stmt.executeUpdate();
 	        return rowsUpdated > 0;
