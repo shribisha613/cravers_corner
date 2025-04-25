@@ -41,42 +41,42 @@
         <div class="food-grid">
             <%-- Dummy Food Items (replace with DB items later) --%>
             <div class="food-item">
-                <img src="${pageContext.request.contextPath}/images/<%= type.toLowerCase() %>1.jpg" alt="Food Image">
+                 <img src="${pageContext.request.contextPath}/images/SukutiSadeko.jpg" alt="Food Image">
                 <div class="food-info">
                     <p class="food-name"><%= type %> Dish 1</p>
                     <p class="food-price">Rs. 120</p>
                 </div>
             </div>
             <div class="food-item">
-                <img src="${pageContext.request.contextPath}/images/<%= type.toLowerCase() %>2.jpg" alt="Food Image">
+                 <img src="${pageContext.request.contextPath}/images/cutemomo.jpg" alt="Food Image">
                 <div class="food-info">
                     <p class="food-name"><%= type %> Dish 2</p>
                     <p class="food-price">Rs. 130</p>
                 </div>
             </div>
             <div class="food-item">
-                <img src="${pageContext.request.contextPath}/images/<%= type.toLowerCase() %>3.jpg" alt="Food Image">
+                <img src="${pageContext.request.contextPath}/images/spicymomo.jpg" alt="Food Image">            
                 <div class="food-info">
                     <p class="food-name"><%= type %> Dish 3</p>
                     <p class="food-price">Rs. 140</p>
                 </div>
             </div>
             <div class="food-item">
-                <img src="${pageContext.request.contextPath}/images/<%= type.toLowerCase() %>4.jpg" alt="Food Image">
+                 <img src="${pageContext.request.contextPath}/images/chowmein.jpg" alt="Food Image">
                 <div class="food-info">
                     <p class="food-name"><%= type %> Dish 4</p>
                     <p class="food-price">Rs. 150</p>
                 </div>
             </div>
             <div class="food-item">
-                <img src="${pageContext.request.contextPath}/images/<%= type.toLowerCase() %>5.jpg" alt="Food Image">
+                 <img src="${pageContext.request.contextPath}/images/dalbhat.jpg" alt="Food Image">
                 <div class="food-info">
                     <p class="food-name"><%= type %> Dish 5</p>
                     <p class="food-price">Rs. 160</p>
                 </div>
             </div>
             <div class="food-item">
-                <img src="${pageContext.request.contextPath}/images/<%= type.toLowerCase() %>6.jpg" alt="Food Image">
+                <img src="${pageContext.request.contextPath}/images/JholLaphing.jpg" alt="Food Image">
                 <div class="food-info">
                     <p class="food-name"><%= type %> Dish 6</p>
                     <p class="food-price">Rs. 170</p>

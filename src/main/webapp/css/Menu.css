@@ -2,18 +2,20 @@
 
 .menu-container {
     display: flex;
-    padding: 20px;
-	align-items: flex-start; 
+    min-height: 100vh;
+    align-items: stretch;
 }
 
 .sidebar {
     width: 200px;
     padding: 20px;
-    background-color: #f8f8f8;
     border-radius: 10px;
     margin-right: 20px;
-	background: #EF9651;
-	margin-top: 60px; 
+    margin-left: 5px;
+	background: linear-gradient(to bottom, #EF9651, #EC5228);
+	align-self: stretch;       
+    height: auto;      
+	margin-top: 140px; 
 }
 
 .sidebar h3 {
@@ -37,6 +39,7 @@
 
 .menu-content {
     flex-grow: 1;
+    margin-top: 90px;
 }
 
 .menu-content h2{
