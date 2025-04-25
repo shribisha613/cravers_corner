@@ -96,6 +96,9 @@ public class UserProfileServlet extends HttpServlet {
         Part image = request.getPart("profile_image");
         
         if (image != null && image.getSize() > 0) {
+        	
+        
+        	
             if (!ValidationUtil.isValidImageExtension(image)) {
                 request.setAttribute("errorMessage", "Invalid image format. Only JPG, PNG, and GIF are allowed.");
                 request.getRequestDispatcher("/pages/UserProfile.jsp").forward(request, response);

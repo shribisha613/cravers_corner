@@ -46,6 +46,11 @@
         <button class="close-btn" onclick="this.parentElement.style.display='none'">×</button>
     </div>
 </c:if>
+
+ <div id="fileMessage" class="popup-container success" style="display: none;">
+ 
+  <button class="close-btn" onclick="this.parentElement.style.display='none'">×</button>
+ </div>
     <!-- Profile Section -->
     <div class="profile-section">
         <div class="profile-pic">
@@ -75,6 +80,24 @@
       
       
       <input type="file" id="profileImageInput" name="profile_image" accept="image/*" style="display: none;" />
+          
+         <script>
+  document.getElementById('profileImageInput').addEventListener('change', function () {
+      const file = this.files[0];
+      const messageDiv = document.getElementById('fileMessage');
+      
+      if (file) {
+          messageDiv.innerText = "File selected. Please click Save to change your profile picture.";
+          messageDiv.style.display = "block";
+      } else {
+          messageDiv.innerText = "";
+          messageDiv.style.display = "none";
+      }
+  });
+</script>
+         
+        
+          
           <div class="form-group">
           
     <label>First Name</label>
