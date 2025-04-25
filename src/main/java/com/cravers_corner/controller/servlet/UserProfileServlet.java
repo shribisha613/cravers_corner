@@ -1,14 +1,18 @@
 package com.cravers_corner.controller.servlet;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import com.cravers_corner.controller.dao.UserDAO;
 import com.cravers_corner.controller.util.PasswordUtil;
@@ -19,6 +23,11 @@ import com.cravers_corner.model.User;
  * Servlet implementation class UserProfileServlet
  */
 @WebServlet("/UserProfileServlet")
+@MultipartConfig(
+	    fileSizeThreshold = 1024 * 1024 * 2,  // 2MB
+	    maxFileSize = 1024 * 1024 * 10,       // 10MB
+	    maxRequestSize = 1024 * 1024 * 50     // 50MB
+	)
 public class UserProfileServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -78,9 +87,55 @@ public class UserProfileServlet extends HttpServlet {
         String username = request.getParameter("username");
         String phone = request.getParameter("phone");
         String address = request.getParameter("address");
+        
 
         String newPassword = request.getParameter("password");
         String confirmPassword = request.getParameter("confirm_password");
+        String profile_image_url = null;
+        
+        Part image = request.getPart("profile_image");
+        
+        if (image != null && image.getSize() > 0) {
+            if (!ValidationUtil.isValidImageExtension(image)) {
+                request.setAttribute("errorMessage", "Invalid image format. Only JPG, PNG, and GIF are allowed.");
+                request.getRequestDispatcher("/pages/UserProfile.jsp").forward(request, response);
+                return;
+            }
+        
+        String fileName = image.getSubmittedFileName();
+
+        if (fileName != null && !fileName.isEmpty()) {
+            // Get the deployment directory (root of the project)
+            String storePath = request.getServletContext().getRealPath("")+ "profile_photos" ;
+            
+            
+            
+            System.out.println(storePath);  
+            
+            
+            
+            try {
+                // Ensure the folder exists in the deployment directory
+                File folder = new File(storePath);
+                if (!folder.exists()) {
+                    folder.mkdirs();  // Create the folder if it doesn't exist
+                }
+                String filePath = storePath+File.separator +fileName;
+                System.out.println("File Path: " + filePath);
+                
+                image.write(filePath);
+                profile_image_url = "profile_photos/" + fileName; // relative path to use in JSP
+                System.out.println("File uploaded successfully: " + filePath);
+            } catch (Exception e) {
+                System.out.println("File upload failed: " + e.getMessage());
+            }
+            
+            String displayPath = request.getContextPath() + "/profile_photos/" + fileName;
+            System.out.println(displayPath);// Add context to file path
+            request.setAttribute("profileImagePath", displayPath); 
+           
+        }
+        }
         
         if (ValidationUtil.isNullOrEmpty(firstName) || !ValidationUtil.isValidName(firstName)) {
             request.setAttribute("errorMessage", "First name is invalid. Please enter a valid first name.");
@@ -188,10 +243,19 @@ public class UserProfileServlet extends HttpServlet {
                     return;
                 }
             }
+            
+            if (profile_image_url != null) {
+                currentUser.setProfile_image_url(profile_image_url);
+                isUpdated = true;
+                
+            }
 
             if (isUpdated) {
                 boolean success = userDAO.updateUser(currentUser);
                 if (success) {
+                	
+                	
+                	
                     session.setAttribute("userWithSession", currentUser); // Update session
                     request.setAttribute("success", "Your profile has been updated successfully. Please use your updated details to log in.");
                     System.out.println("Successfully updated profile");
@@ -203,6 +267,7 @@ public class UserProfileServlet extends HttpServlet {
             }
 
             request.setAttribute("userProfile", currentUser);
+          
             request.getRequestDispatcher("/pages/UserProfile.jsp").forward(request, response);
 
         } catch (ClassNotFoundException | SQLException e) {

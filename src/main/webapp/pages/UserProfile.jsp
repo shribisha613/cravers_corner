@@ -49,17 +49,34 @@
     <!-- Profile Section -->
     <div class="profile-section">
         <div class="profile-pic">
-    <img src="<%=request.getContextPath()%>/images/pfp.jpg" alt="Profile">
+    <c:choose>
+    <c:when test="${empty userWithSession.profile_image_url}">
+        <!-- Default image if no profile image is uploaded -->
+          <img src="${pageContext.request.contextPath}/profile_photos/default_profile.png" alt="Profile Image" class="profile-image" />
+    </c:when>
+    <c:otherwise>
+        <!-- Custom uploaded image -->
+          <img src="${pageContext.request.contextPath}/${userWithSession.profile_image_url}" alt="Profile Image" class="profile-image" />
+    </c:otherwise>
+</c:choose>
     
-    <!-- Edit Icon -->
-    <button type="button" class="edit-btn" title="Edit Profile">
+     <label for="profileImageInput" class="edit-btn" title="Edit Profile">
         <i class="fas fa-edit"></i>
-    </button>
-
+    </label>
+    
+     
+   
     <p style="margin-top:5px">${userProfile.username}</p>
 </div>
-        <form class="profile-form"  action="${pageContext.request.contextPath}/UserProfileServlet" method="post">
+        <form class="profile-form" 
+      action="${pageContext.request.contextPath}/UserProfileServlet" 
+      method="post" 
+      enctype="multipart/form-data">
+      
+      
+      <input type="file" id="profileImageInput" name="profile_image" accept="image/*" style="display: none;" />
           <div class="form-group">
+          
     <label>First Name</label>
     <input type="text" name="first_name" value="${param.first_name != null ? param.first_name : userProfile.first_name}" required>
 </div>
