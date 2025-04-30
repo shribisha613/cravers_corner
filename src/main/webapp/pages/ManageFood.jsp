@@ -1,75 +1,83 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ManageFood</title>
-  
+  <title>Manage Food</title>
+
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ManageFood.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
   <jsp:include page="AdminHeader.jsp" />
-  <div class="container">
-   
+  <jsp:include page="SideNavAdmin.jsp" />
 
-    <main>
-      <h2>Welcome, Username</h2>
+  <main>
+    <h2>Welcome, Admin</h2>
+    
+   <hr>
 
-      <div class="category-section">
-        <h3>Category</h3>
-        <input type="text" placeholder="Search..." class="search" style="width: 300px;" />
-        <select>
-          <option value="">Sort by</option>
-          <option value="name">Name</option>
-          <option value="price-asc">Price: Low to High</option>
-          <option value="price-desc">Price: High to Low</option>
-        </select>
+    <div class="category-section">
+      <h3>Cravers Corner’s Menu Board</h3>
+       
+      <div class="category-controls">
+        <div class="search-container">
+          <input type="text" placeholder="Search..." class="search" />
+          <i class="fas fa-search"></i>
+        </div>
+
+        <div class="sort-wrapper">
+			  <span class="sort-label">Sort By:</span>
+			  <select class="sort-dropdown">
+			    <option value="name">Name</option>
+			    <option value="price-asc">Price: Low to High</option>
+			    <option value="price-desc">Price: High to Low</option>
+			    <option value="date">Date Added</option>
+			  </select>
+			</div>
+
       </div>
+    </div>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Image</th>
-            <th>Description</th>
-            <th>Category</th>
-            <th>Price</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Pizza</td>
-            <td><img src="images/pizza.jpeg" alt="Pizza" width="60"></td>
-            <td>Cheesy and delicious</td>
-            <td>Italian</td>
-            <td>$8.99</td>
-            <td>
-              <i class="fas fa-edit" title="Edit"></i>
-              <i class="fas fa-trash" title="Delete"></i>
-            </td>
-          </tr>
-          <tr>
-            <td>Burger</td>
-            <td><img src="images/burger.jpeg" alt="Burger" width="60"></td>
-            <td>Grilled beef patty</td>
-            <td>American</td>
-            <td>$6.49</td>
-            <td>
-              <i class="fas fa-edit" title="Edit"></i>
-              <i class="fas fa-trash" title="Delete"></i>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <!-- Table-like header row -->
+    <div class="food-header">
+      <div>Name</div>
+      <div>Image</div>
+      <div>Description</div>
+      <div>Category</div>
+      <div>Price</div>
+      <div>Action</div>
+    </div>
 
-      <div class="add-category">
-        <button>Add Food</button>
+    <!-- Food item rows -->
+    <div class="food-row">
+      <div>Pizza</div>
+      <div><img src="../images/jodi combo.jpg" alt="Pizza" /></div>
+      <div>Cheesy and delicious</div>
+      <div>Italian</div>
+      <div>$8.99</div>
+      <div>
+        <i class="fas fa-edit" title="Edit"></i>
+        <i class="fas fa-trash" title="Delete"></i>
       </div>
-    </main>
-  </div>
+    </div>
+
+    <div class="food-row">
+      <div>Burger</div>
+      <div><img src="../images/jodi combo.jpg" alt="Burger" /></div>
+      <div>Grilled beef patty</div>
+      <div>American</div>
+      <div>$6.49</div>
+      <div>
+        <i class="fas fa-edit" title="Edit"></i>
+        <i class="fas fa-trash" title="Delete"></i>
+      </div>
+    </div>
+
+    <div class="add-category">
+      <button class="green-btn">Add Food</button>
+    </div>
+  </main>
 </body>
 </html>
