@@ -23,6 +23,7 @@
 
 <div class="right">
     <div class="form-box">
+        
         <h2>Register your account</h2>
         
         	
