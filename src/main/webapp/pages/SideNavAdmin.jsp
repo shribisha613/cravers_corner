@@ -11,19 +11,21 @@
 <body>
 
 <div class="side-nav">
-    <div class="nav-item">
-        <a href="dashboard.jsp"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+    <div class="nav-item ${activePage == 'dashboard' ? 'active' : ''}">
+        <a href="${pageContext.request.contextPath}/pages/Dashboard.jsp"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
     </div>
-    <div class="nav-item">
+  
+   
+    <div class="nav-item ${activePage == 'orders' ? 'active' : ''}">
         <a href="orders.jsp"><i class="fas fa-receipt"></i> Orders</a>
     </div>
-    <div class="nav-item">
-        <a href="manage-category.jsp"><i class="fas fa-list"></i> Manage Category</a>
+    <div class="nav-item ${activePage == 'category' ? 'active' : ''}">
+        <a href="${pageContext.request.contextPath}/pages/AddCategory.jsp"><i class="fas fa-list"></i> Manage Category</a>
     </div>
-    <div class="nav-item">
-        <a href="manage-food.jsp"><i class="fas fa-hamburger"></i> Manage Food</a>
+    <div class="nav-item ${activePage == 'food' ? 'active' : ''}">
+        <a href="${pageContext.request.contextPath}/pages/ManageFood.jsp"><i class="fas fa-hamburger"></i> Manage Food</a>
     </div>
-    <div class="nav-item">
+    <div class="nav-item ${activePage == 'reports' ? 'active' : ''}">
         <a href="reports.jsp"><i class="fas fa-chart-bar"></i> Reports</a>
     </div>
 </div>

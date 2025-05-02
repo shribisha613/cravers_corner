@@ -67,22 +67,25 @@
   cursor: pointer;
 }
 
-/* Active / focus / click effect */
-.nav-item:active,
-.nav-item a:focus,
-.nav-item a:active {
-  background-color: #ff7a29;
-  border-color: #ff7a29;
-}
-
-.nav-item:active a,
-.nav-item a:focus,
-.nav-item a:active {
-  color: #fff;
-}
 
 .nav-item:active a i,
 .nav-item a:focus i,
 .nav-item a:active i {
   color: #fff;
 }
+
+
+.nav-item.active {
+  background-color: #ff7a29;
+  border-color: #ff7a29;
+}
+
+.nav-item.active a {
+  color: white;
+  
+}
+
+.nav-item.active a i {
+  color: white;
+}
+
