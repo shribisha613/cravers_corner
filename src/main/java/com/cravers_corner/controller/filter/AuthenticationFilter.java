@@ -38,7 +38,7 @@ public class AuthenticationFilter implements Filter{
 	        boolean isLoginPage = uri.endsWith("Login.jsp") || uri.endsWith("LoginServlet");
 	        boolean isRegisterPage = uri.endsWith("Register.jsp") || uri.endsWith("RegisterServlet");
 	        if (isLoggedIn) {
-	        	//logged in cha ani login page ma jana khojeko cha bhane home ma pathaune user lai
+	        	
 	        	
 	        	if (isLoginPage || isRegisterPage) {// if logged in and login page or register page mai cha bhane, home ma pathaune feri login ma napathaune
 	        		res.sendRedirect(req.getContextPath()+ "/pages/Home.jsp");

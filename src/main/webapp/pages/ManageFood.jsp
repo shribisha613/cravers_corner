@@ -16,9 +16,7 @@
   <jsp:include page="SideNavAdmin.jsp" />
 
   <main>
-    <h2>Welcome, Admin</h2>
-    
-   <hr>
+   
 
     <div class="category-section">
       <h3>Cravers Corner’s Menu Board</h3>
