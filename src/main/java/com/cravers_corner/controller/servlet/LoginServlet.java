@@ -63,7 +63,7 @@ public class LoginServlet extends HttpServlet {
 				session.setMaxInactiveInterval(30 * 60); // 30 minutes
 
 				// Redirect to home/dashboard page
-				response.sendRedirect(request.getContextPath() + "/pages/customer/Home.jsp");
+				response.sendRedirect(request.getContextPath() + "/pages/Home.jsp");
 			} else {
 				// Invalid credentials
 				request.setAttribute("loginError", "Invalid email, username or password. Please try again.");
