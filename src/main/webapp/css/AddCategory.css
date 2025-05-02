@@ -1,0 +1,120 @@
+@charset "UTF-8";
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+}
+
+.form-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 120px;
+  margin-left: 300px;
+  padding: 30px;
+}
+
+.popup {
+  background-color: #ffffff;
+  width: 600px;
+  padding: 30px 35px;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.popup h3 {
+  margin-top: 0;
+  font-size: 22px;
+  color: black;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #333;
+}
+
+input[type="text"],
+input[type="file"],
+textarea {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+
+.add-button-container {
+  text-align: right;
+  margin-top: 20px;
+}
+
+.add-button-container button {
+  background-color: #28a745;
+  color: #fff;
+  padding: 12px 25px;
+  border: none;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-button-container button:hover {
+  background-color: #218838;
+}
+
+
+
+.popup-container {
+     width: 90%;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 16px 20px;
+    border-radius: 8px;
+    position: relative;
+    font-size: 16px;
+    font-weight: 500;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    line-height: 1.4;
+    word-break: break-word;
+    white-space: normal;
+}
+
+.popup-container.success {
+    background-color: #e6ffed;
+    border-left: 5px solid #34a853;
+    color: #1b5e20;
+}
+
+.popup-container.error {
+     background-color: #ffe5e5;
+    border-left: 5px solid #d93025;
+    color: #b00020;
+}
+
+.close-btn {
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    font-weight: bold;
+    color: inherit;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+

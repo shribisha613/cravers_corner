@@ -1,0 +1,58 @@
+@charset "UTF-8";
+
+.error-alert, 
+.popup-container.success,
+.info-alert {
+    width: 90%;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 16px 20px;
+    border-radius: 8px;
+    position: relative;
+    font-size: 16px;
+    font-weight: 500;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    animation: fadeIn 0.5s ease-in-out;
+    line-height: 1.6;           /* Better line spacing */
+    word-break: break-word;     /* Prevents overflow */
+    white-space: normal;        /* Allows text wrapping */
+    flex-wrap: wrap;            /* Allow content to wrap */
+    gap: 12px;                  /* Adds space between text and close button */
+}
+
+/* Error styling */
+.error-alert {
+    background-color: #ffe5e5;
+    border-left: 5px solid #d93025;
+    color: #b00020;
+}
+
+/* Success styling */
+.popup-container.success {
+    background-color: #e6ffed;
+    border-left: 5px solid #34a853;
+    color: #1b5e20;
+}
+
+/* Info styling */
+.info-alert {
+    background-color: #e6fff7;
+    border-left: 5px solid #3fc1a0;
+    color: #045c4b;
+}
+
+/* Close buttons */
+.error-alert .close-btn,
+.popup-container.success .close-btn,
+.info-alert .close-btn {
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    font-weight: bold;
+    color: inherit;
+    cursor: pointer;
+    margin-left: auto; /* Push button to the end */
+}

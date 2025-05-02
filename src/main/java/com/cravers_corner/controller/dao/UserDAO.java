@@ -171,8 +171,14 @@ public class UserDAO {
 	
 	
 	public boolean updateUser(User user) throws SQLException, ClassNotFoundException {
-		 String sql = "UPDATE users SET first_name = ?, last_name = ?, email = ?, username = ?, phone = ?, current_address = ?, password = ?, profile_image_url = ?, updated_at = CURRENT_TIMESTAMP WHERE user_id = ?";
+	    String sql;
+	    boolean hasNewProfileImage = user.getProfile_image_url() != null && !user.getProfile_image_url().isEmpty();
 
+	    if (hasNewProfileImage) {
+	        sql = "UPDATE users SET first_name = ?, last_name = ?, email = ?, username = ?, phone = ?, current_address = ?, password = ?, profile_image_url = ?, updated_at = CURRENT_TIMESTAMP WHERE user_id = ?";
+	    } else {
+	        sql = "UPDATE users SET first_name = ?, last_name = ?, email = ?, username = ?, phone = ?, current_address = ?, password = ?, updated_at = CURRENT_TIMESTAMP WHERE user_id = ?";
+	    }
 
 	    try (Connection conn = DatabaseConnection.getConnection();
 	         PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -184,14 +190,13 @@ public class UserDAO {
 	        stmt.setString(5, user.getPhone());
 	        stmt.setString(6, user.getCurrent_address());
 	        stmt.setString(7, user.getPassword());
-	        
-	        if (user.getProfile_image_url() != null && !user.getProfile_image_url().isEmpty()) {
-	            stmt.setString(8, user.getProfile_image_url());
-	        } else {
-	        	stmt.setString(8, "profile_photos/default_profile.jpg"); // If no new image, set null
-	        }
 
-	        stmt.setInt(9, user.getUser_id()); // Ensure this is returning the actual user_id
+	        if (hasNewProfileImage) {
+	            stmt.setString(8, user.getProfile_image_url());
+	            stmt.setInt(9, user.getUser_id());
+	        } else {
+	            stmt.setInt(8, user.getUser_id());
+	        }
 
 	        int rowsUpdated = stmt.executeUpdate();
 	        return rowsUpdated > 0;
@@ -200,8 +205,8 @@ public class UserDAO {
 	        e.printStackTrace();
 	        throw e;
 	    }
-	
 	}
+
 }
 
 
