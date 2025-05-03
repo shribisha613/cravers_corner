@@ -20,7 +20,8 @@
   
 
   <div class="form-wrapper">
-      <a href="${pageContext.request.contextPath}/pages/ManageFood.jsp" class="back-button">
+   
+      <a href="${pageContext.request.contextPath}/GetFoodServlet" class="back-button">
   <i class="fa-solid fa-arrow-left"></i>
 </a>
   

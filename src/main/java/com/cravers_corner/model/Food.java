@@ -15,7 +15,7 @@ public class Food {
     private String serving_size;
     private Timestamp created_at;
     private Timestamp updated_at;
-
+    private String category_name;
     // Empty constructor
     public Food() {
     }
@@ -115,5 +115,13 @@ public class Food {
 
     public void setUpdated_at(Timestamp updated_at) {
         this.updated_at = updated_at;
+    }
+    
+    public String getCategory_name() {
+        return category_name;
+    }
+
+    public void setCategory_name(String categoryName) {
+        this.category_name = categoryName;
     }
 }
