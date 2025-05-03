@@ -46,6 +46,7 @@
       <div>Image</div>
       <div>Description</div>
       <div>Category</div>
+      <div>Serving Size</div>
       <div>Price</div>
       <div>Action</div>
     </div>
@@ -56,6 +57,7 @@
       <div><img src="../images/jodi combo.jpg" alt="Pizza" /></div>
       <div>Cheesy and delicious</div>
       <div>Italian</div>
+      <div>Medium</div>
       <div>$8.99</div>
       <div>
         <i class="fas fa-edit" title="Edit"></i>
@@ -68,6 +70,7 @@
       <div><img src="../images/jodi combo.jpg" alt="Burger" /></div>
       <div>Grilled beef patty</div>
       <div>American</div>
+      <div>Medium</div>
       <div>$6.49</div>
       <div>
         <i class="fas fa-edit" title="Edit"></i>
@@ -76,7 +79,10 @@
     </div>
 
     <div class="add-category">
-      <button class="green-btn">Add Food</button>
+      <a href="${pageContext.request.contextPath}/pages/AddFood.jsp">
+    <button type="button" class="green-btn">Add Food</button>
+</a>
+    
     </div>
   </main>
 </body>

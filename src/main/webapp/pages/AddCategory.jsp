@@ -16,6 +16,7 @@
 
       <div class="form-wrapper">
       
+      
     
         <div class="popup">
         
@@ -28,7 +29,13 @@
     <!-- Clean up after display -->
     <c:remove var="message" scope="session" />
     <c:remove var="messageType" scope="session" />
+    
+  
 </c:if>
+
+ <a href="${pageContext.request.contextPath}/pages/ManageCategory.jsp" class="back-button">
+  <i class="fa-solid fa-arrow-left"></i>
+</a>
           <h3>Add a New Food Category</h3>
          
           <form action="${pageContext.request.contextPath}/AddCategoryServlet" method="post" >
