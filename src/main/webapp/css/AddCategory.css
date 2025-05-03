@@ -7,7 +7,7 @@ body {
 }
 
 .form-wrapper {
-	position: relative;
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -19,12 +19,13 @@ body {
 .back-button {
   
   position: absolute;
-  top: 20px;
-  left: 20px;
+  margin-right:500px;
+  top:50px;
   font-size: 20px;
   color:  #d93025;
   text-decoration: none;
 }
+
 
 
 .popup {
