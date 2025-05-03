@@ -12,14 +12,16 @@
   <jsp:include page="SideNavAdmin.jsp" />
   
   
-     
+    
 
       <div class="form-wrapper">
-      
+      <a href="${pageContext.request.contextPath}/pages/ManageCategory.jsp" class="back-button">
+		  <i class="fa-solid fa-arrow-left"></i>
+		</a>
       
     
         <div class="popup">
-        
+         
         <c:if test="${not empty sessionScope.message}">
     <div class="popup-container ${sessionScope.messageType}">
         <c:out value="${sessionScope.message}" />
@@ -33,9 +35,7 @@
   
 </c:if>
 
- <a href="${pageContext.request.contextPath}/pages/ManageCategory.jsp" class="back-button">
-  <i class="fa-solid fa-arrow-left"></i>
-</a>
+		 
           <h3>Add a New Food Category</h3>
          
           <form action="${pageContext.request.contextPath}/AddCategoryServlet" method="post" >

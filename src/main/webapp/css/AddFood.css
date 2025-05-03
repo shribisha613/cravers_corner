@@ -102,6 +102,54 @@
       color: white;
       cursor: pointer;
     }
+    
+    
+.popup-container {
+    width: 90%;
+    max-width: 600px;
+    margin-top: 30px;
+    padding: 16px 20px;
+    border-radius: 8px;
+    position: relative;
+    font-size: 16px;
+    font-weight: 500;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    line-height: 1.4;
+    word-break: break-word;
+    white-space: normal;
+}
+
+/* Success Popup */
+.popup-container.success {
+    background-color: #d4edda;  /* Light green */
+    border-left: 5px solid #28a745; /* Darker green */
+    color: #155724; /* Dark green text */
+}
+
+/* Error Popup */
+.popup-container.error {
+    background-color: #f8d7da;  /* Light red */
+    border-left: 5px solid #dc3545;  /* Darker red */
+    color: #721c24;  /* Dark red text */
+}
+
+/* Close Button */
+.close-btn {
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    font-weight: bold;
+    color: inherit;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+
+    
 
    
     
