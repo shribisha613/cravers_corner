@@ -82,15 +82,14 @@ public class AddFoodServlet extends HttpServlet {
         
       
         
-        
-        
+         
         String fileName = image.getSubmittedFileName();
         String image_url = ""; // Initialize image_url
 
         if (fileName != null && !fileName.isEmpty()) {
             try {
                 
-                String storePath = "C:\\Users\\DELL\\eclipse-workspace\\cravers_corner\\WebContent\\food_images";
+            	String storePath = request.getServletContext().getRealPath("")+ "food_images" ;
 
                 System.out.println("Store Path: " + storePath);
 
@@ -106,7 +105,7 @@ public class AddFoodServlet extends HttpServlet {
 
                 image.write(filePath);  // Save the image to real project path
 
-                // ✅ Store relative path for DB or frontend display
+                
                 image_url = "food_images/" + fileName;
 
                 System.out.println("Food image File uploaded successfully: " + filePath);

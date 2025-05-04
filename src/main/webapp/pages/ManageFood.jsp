@@ -54,7 +54,7 @@
     <c:forEach var="food" items="${foodList}">
       <div class="food-row">
         <div>${food.name}</div>
-        <div><img src="${pageContext.request.contextPath}/${food.image_url}" alt="${food.name}" />
+        <div><img src="${pageContext.request.contextPath}/${food.image_url}" alt="${food.name}"/>
 </div>
         <div>${food.description}</div>
         <div>${food.category_name}</div> <!-- Display the category name -->
