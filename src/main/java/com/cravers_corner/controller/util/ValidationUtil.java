@@ -77,5 +77,9 @@ public class ValidationUtil {
         return null; // Username is available for the user
     }
     
+    public static boolean isFileSizeWithinLimit(Part filePart, long maxSizeInBytes) {
+        return filePart != null && filePart.getSize() <= maxSizeInBytes;
+    }
+    
     
 }

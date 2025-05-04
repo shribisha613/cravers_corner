@@ -23,7 +23,9 @@
         <a href="${pageContext.request.contextPath}/pages/AddCategory.jsp"><i class="fas fa-list"></i> Manage Category</a>
     </div>
     <div class="nav-item ${activePage == 'food' ? 'active' : ''}">
-        <a href="${pageContext.request.contextPath}/pages/ManageFood.jsp"><i class="fas fa-hamburger"></i> Manage Food</a>
+        <a href="${pageContext.request.contextPath}/GetFoodServlet">
+  <i class="fas fa-hamburger"></i> Manage Food
+</a>
     </div>
     <div class="nav-item ${activePage == 'reports' ? 'active' : ''}">
         <a href="reports.jsp"><i class="fas fa-chart-bar"></i> Reports</a>

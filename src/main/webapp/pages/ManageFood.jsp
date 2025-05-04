@@ -16,9 +16,7 @@
   <jsp:include page="SideNavAdmin.jsp" />
 
   <main>
-    <h2>Welcome, Admin</h2>
-    
-   <hr>
+   
 
     <div class="category-section">
       <h3>Cravers Corner’s Menu Board</h3>
@@ -48,37 +46,35 @@
       <div>Image</div>
       <div>Description</div>
       <div>Category</div>
+      <div>Serving Size</div>
       <div>Price</div>
       <div>Action</div>
     </div>
 
-    <!-- Food item rows -->
-    <div class="food-row">
-      <div>Pizza</div>
-      <div><img src="../images/jodi combo.jpg" alt="Pizza" /></div>
-      <div>Cheesy and delicious</div>
-      <div>Italian</div>
-      <div>$8.99</div>
-      <div>
-        <i class="fas fa-edit" title="Edit"></i>
-        <i class="fas fa-trash" title="Delete"></i>
+    <c:forEach var="food" items="${foodList}">
+      <div class="food-row">
+        <div>${food.name}</div>
+        <div><img src="${pageContext.request.contextPath}/${food.image_url}" alt="${food.name}"/>
+</div>
+        <div>${food.description}</div>
+        <div>${food.category_name}</div> <!-- Display the category name -->
+        <div>${food.serving_size}</div>
+        <div>${food.price}</div>
+        <div>
+          <i class="fas fa-edit" title="Edit"></i>
+          <i class="fas fa-trash" title="Delete"></i>
+        </div>
       </div>
-    </div>
-
-    <div class="food-row">
-      <div>Burger</div>
-      <div><img src="../images/jodi combo.jpg" alt="Burger" /></div>
-      <div>Grilled beef patty</div>
-      <div>American</div>
-      <div>$6.49</div>
-      <div>
-        <i class="fas fa-edit" title="Edit"></i>
-        <i class="fas fa-trash" title="Delete"></i>
-      </div>
-    </div>
+    </c:forEach>
+    
+     
+    
 
     <div class="add-category">
-      <button class="green-btn">Add Food</button>
+      <a href="${pageContext.request.contextPath}/AddFoodServlet">
+    <button type="button" class="green-btn">Add Food</button>
+</a>
+    
     </div>
   </main>
 </body>
