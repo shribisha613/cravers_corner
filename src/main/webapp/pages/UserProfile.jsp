@@ -7,9 +7,7 @@
     <title>User Profile</title>
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-    
-    
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Header.css">
+
     
      <link rel="stylesheet" href="${pageContext.request.contextPath}/css/UserProfile.css">
 </head>
