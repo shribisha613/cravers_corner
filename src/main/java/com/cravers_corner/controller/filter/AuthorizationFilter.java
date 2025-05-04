@@ -13,8 +13,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebFilter(urlPatterns = {"/pages/admin/*", "/pages/customer/*"})
+@WebFilter("/pages/*")  // This will intercept all requests to pages inside the 'pages' folder
 public class AuthorizationFilter implements Filter {
+
+    private static final String[] ADMIN_PAGES = { "AdminDashboard.jsp", "ManageFood.jsp", "AdminUserProfile.jsp" };
+    private static final String[] CUSTOMER_PAGES = { "Home.jsp", "UserProfile.jsp", "Menu.jsp" };
+
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+        // Optional: Filter initialization logic here
+    }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -22,30 +30,65 @@ public class AuthorizationFilter implements Filter {
 
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
+        HttpSession session = req.getSession(false); // Get session, if it exists
 
-        HttpSession session = req.getSession(false);
-        String role = (session != null && session.getAttribute("role") != null)
-            ? session.getAttribute("role").toString().toLowerCase()
-            : null;
+        String role = (session != null) ? (String) session.getAttribute("role") : null;
+        String uri = req.getRequestURI();  // Get the URI of the requested page (e.g., /pages/manageFood.jsp)
 
-        String uri = req.getRequestURI();
+        // Skip the filter if the user is trying to access the login page
+        if (uri.contains("Login.jsp")) {
+            chain.doFilter(request, response);
+            return;
+        }
 
-        System.out.println("Request URI: " + uri);
-        System.out.println("Role: " + role);
+        // Check if the role is null (i.e., user not logged in)
+        if (role == null) {
+            res.sendRedirect(req.getContextPath() + "/pages/Login.jsp"); 
+            System.out.println("User is not logged in"); // Redirect to login page
+            return;
+        }
 
-        if (uri.contains("/admin/") && !"admin".equals(role)) {
+        // Check if the page is for admin or customer and validate the role
+        if (isAdminPage(uri) && !"admin".equals(role)) {
+            // If it's an admin page and the user is not an admin, redirect to unauthorized page
+            System.out.println("User is logged In but not authorized to access admin page");
             res.sendRedirect(req.getContextPath() + "/pages/AccessDenied.jsp");
             return;
         }
 
-        if (uri.contains("/customer/") && !"customer".equals(role)) {
-            res.sendRedirect(req.getContextPath() + "/pages/AccessDenied.jsp");
+        if (isCustomerPage(uri) && !"customer".equals(role)) {
+            // If it's a customer page and the user is not a customer, redirect to unauthorized page
+            System.out.println("User is logged In but not authorized to access customer page");
+            res.sendRedirect(req.getContextPath() + "/pages/AccessDenied.js");
             return;
         }
 
+        // If the page is accessible by the current role, allow access to the page
         chain.doFilter(request, response);
     }
 
-    public void init(FilterConfig filterConfig) throws ServletException {}
-    public void destroy() {}
+    @Override
+    public void destroy() {
+        // Optional: Filter destruction logic here
+    }
+
+    // Helper method to check if the page is an admin page
+    private boolean isAdminPage(String uri) {
+        for (String page : ADMIN_PAGES) {
+            if (uri.contains(page)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // Helper method to check if the page is a customer page
+    private boolean isCustomerPage(String uri) {
+        for (String page : CUSTOMER_PAGES) {
+            if (uri.contains(page)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -63,7 +63,14 @@ public class LoginServlet extends HttpServlet {
 				session.setMaxInactiveInterval(30 * 60); // 30 minutes
 
 				// Redirect to home/dashboard page
-				response.sendRedirect(request.getContextPath() + "/pages/Home.jsp");
+				if ("admin".equals(user.getRole())) {
+                    response.sendRedirect(request.getContextPath() + "/pages/AdminDashboard.jsp");
+                } else if ("customer".equals(user.getRole())) {
+                    response.sendRedirect(request.getContextPath() + "/pages/Home.jsp");
+                } else {
+                    // Handle case where the role doesn't match expected values
+                    response.sendRedirect(request.getContextPath() + "/pages/AccessDenied.jsp");
+                }
 			} else {
 				// Invalid credentials
 				request.setAttribute("loginError", "Invalid email, username or password. Please try again.");
@@ -73,7 +80,7 @@ public class LoginServlet extends HttpServlet {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace(); // Replace with logging in production
 			request.setAttribute("loginError", "A system error occurred. Please try again later.");
-			request.getRequestDispatcher("/pages/login.jsp").forward(request, response);
+			request.getRequestDispatcher("/pages/Login.jsp").forward(request, response);
 		} finally {
 			out.close();
 		}
