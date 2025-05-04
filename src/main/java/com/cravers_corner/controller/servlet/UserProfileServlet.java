@@ -42,30 +42,49 @@ public class UserProfileServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		
-		HttpSession session = request.getSession(false);
-		if (session == null || session.getAttribute("userWithSession") == null) {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Check if the user is logged in
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("userWithSession") == null) {
             response.sendRedirect(request.getContextPath() + "/pages/Login.jsp");
             return;
         }
-		 User sessionUser = (User) session.getAttribute("userWithSession");
-		 
-		 try {
-	            UserDAO userDAO = new UserDAO();
-	            User user = userDAO.getUserByUsername(sessionUser.getUsername());
-	            System.out.println(sessionUser.getUsername());
-	            request.setAttribute("userProfile", user);
-	            request.getRequestDispatcher("/pages/UserProfile.jsp").forward(request, response);
-	        } catch (ClassNotFoundException | SQLException e) {
-	            e.printStackTrace();
-	            request.setAttribute("errorMessage", "A system error occurred. Please try again later.");
-	            request.getRequestDispatcher("/pages/Home.jsp").forward(request, response);
-	            
-	        }
-	}
+
+        // Get the user from session
+        User sessionUser = (User) session.getAttribute("userWithSession");
+        
+        // Check if the user is admin or not
+        if ("admin".equals(sessionUser.getRole())) {
+            // If user is admin, redirect to AdminUserProfile.jsp
+            try {
+                UserDAO userDAO = new UserDAO();
+                User user = userDAO.getUserByUsername(sessionUser.getUsername());
+                System.out.println(sessionUser.getUsername());
+                request.setAttribute("userProfile", user);
+                request.setAttribute("userRole", sessionUser.getRole()); // Pass role to JSP
+                request.getRequestDispatcher("/pages/AdminUserProfile.jsp").forward(request, response);
+            } catch (ClassNotFoundException | SQLException e) {
+                e.printStackTrace();
+                request.setAttribute("errorMessage", "A system error occurred. Please try again later.");
+                request.getRequestDispatcher("/pages/Home.jsp").forward(request, response);
+            }
+        } else {
+            // If user is not admin, proceed with UserProfile.jsp for regular users
+            try {
+                UserDAO userDAO = new UserDAO();
+                User user = userDAO.getUserByUsername(sessionUser.getUsername());
+                System.out.println(sessionUser.getUsername());
+                request.setAttribute("userProfile", user);
+                request.setAttribute("userRole", sessionUser.getRole()); // Pass role to JSP
+                request.getRequestDispatcher("/pages/UserProfile.jsp").forward(request, response);
+            } catch (ClassNotFoundException | SQLException e) {
+                e.printStackTrace();
+                request.setAttribute("errorMessage", "A system error occurred. Please try again later.");
+                request.getRequestDispatcher("/pages/Home.jsp").forward(request, response);
+            }
+        }
+    }
+
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
