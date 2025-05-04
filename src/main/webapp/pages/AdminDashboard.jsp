@@ -10,27 +10,13 @@
 </head>
 <body>
 
-<!-- Header -->
-<header class="header">
-    <div class="header-left">
-        <i class="fas fa-user-circle"></i>
-        <a href="logout.jsp" class="logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
-    </div>
-    <div class="header-right">
-        <div class="logo">Foodie Admin</div>
-    </div>
-</header>
 
-<!-- Page Container -->
-<div class="page-container">
-    <!-- Sidebar -->
-    <aside class="sidebar">
-        <a href="dashboard.jsp" class="active">Dashboard</a>
-        <a href="orderlist.jsp">Order List</a>
-        <a href="managecategory.jsp">Manage Category</a>
-        <a href="managefood.jsp">Manage Food</a>
-        <a href="reports.jsp">Reports</a>
-    </aside>
+<c:set var="activePage" value="dashboard" scope="request" />
+ <jsp:include page="AdminHeader.jsp" />
+  <jsp:include page="SideNavAdmin.jsp" />
+
+
+
 
     <!-- Main Content -->
     <main class="main-content">
@@ -94,7 +80,7 @@
             </table>
         </div>
     </main>
-</div>
+
 
 <!-- Footer -->
 <footer class="footer">
