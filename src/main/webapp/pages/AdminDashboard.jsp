@@ -80,12 +80,5 @@
             </table>
         </div>
     </main>
-
-
-<!-- Footer -->
-<footer class="footer">
-    &copy; 2025 Online Food Ordering Admin Panel
-</footer>
-
 </body>
 </html>

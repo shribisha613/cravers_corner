@@ -19,8 +19,9 @@
     <div class="nav-item ${activePage == 'orders' ? 'active' : ''}">
         <a href="orders.jsp"><i class="fas fa-receipt"></i> Orders</a>
     </div>
+    
     <div class="nav-item ${activePage == 'category' ? 'active' : ''}">
-        <a href="${pageContext.request.contextPath}/pages/AddCategory.jsp"><i class="fas fa-list"></i> Manage Category</a>
+         <a href="${pageContext.request.contextPath}/GetCategoryServlet"><i class="fas fa-list"></i> Manage Category</a>
     </div>
     <div class="nav-item ${activePage == 'food' ? 'active' : ''}">
         <a href="${pageContext.request.contextPath}/GetFoodServlet">
