@@ -80,31 +80,35 @@ public class FoodDAO {
 	    return foodList;
 	}
 	
-	public List<Food> getAllFood() {
+	public List<Food> getAllFood() throws SQLException {
 	    List<Food> foodList = new ArrayList<>();
-	    String query = "SELECT * FROM foods";
+	    String query = "SELECT f.food_id, f.name, f.description, f.serving_size, f.price, f.image_url, f.category_id, c.name " +
+	                   "FROM foods f " +
+	                   "JOIN categories c ON f.category_id = c.category_id"; // Join the category table to get the name
 
-	    try (PreparedStatement ps = conn.prepareStatement(query);
-	         ResultSet rs = ps.executeQuery()) {
+	    try (
+	         PreparedStatement stmt = conn.prepareStatement(query);
+	         ResultSet rs = stmt.executeQuery()) {
 
 	        while (rs.next()) {
 	            Food food = new Food();
 	            food.setFood_id(rs.getInt("food_id"));
 	            food.setName(rs.getString("name"));
 	            food.setDescription(rs.getString("description"));
-	            food.setPrice(rs.getDouble("price"));
 	            food.setServing_size(rs.getString("serving_size"));
-	            food.setCategory_id(rs.getInt("category_id"));
+	            food.setPrice(rs.getDouble("price"));
 	            food.setImage_url(rs.getString("image_url"));
+	            food.setCategory_id(rs.getInt("category_id"));
+	            food.setCategory_name(rs.getString("name")); // Set category name
+
 	            foodList.add(food);
 	        }
-
-	    } catch (SQLException e) {
-	        e.printStackTrace();
 	    }
-
+	    System.out.println("Food list size: " + foodList.size()); 
 	    return foodList;
 	}
+
+
 	
 	public boolean updateFood(Food food) {
 	    boolean isUpdated = false;

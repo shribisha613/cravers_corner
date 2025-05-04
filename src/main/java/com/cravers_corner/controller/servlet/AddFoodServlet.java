@@ -82,15 +82,14 @@ public class AddFoodServlet extends HttpServlet {
         
       
         
-        
-        
+         
         String fileName = image.getSubmittedFileName();
         String image_url = ""; // Initialize image_url
 
         if (fileName != null && !fileName.isEmpty()) {
             try {
-                // ✅ Define a permanent storage path (actual project WebContent path, NOT temp)
-                String storePath = "C:\\Users\\DELL\\eclipse-workspace\\cravers_corner\\WebContent\\food_images";
+                
+            	String storePath = request.getServletContext().getRealPath("")+ "food_images" ;
 
                 System.out.println("Store Path: " + storePath);
 
@@ -100,22 +99,22 @@ public class AddFoodServlet extends HttpServlet {
                     folder.mkdirs();  // Create the folder if it doesn't exist
                 }
 
-                // ✅ Create the complete file path and write the file
+                
                 String filePath = storePath + File.separator + fileName;
                 System.out.println("File Path: " + filePath);
 
                 image.write(filePath);  // Save the image to real project path
 
-                // ✅ Store relative path for DB or frontend display
+                
                 image_url = "food_images/" + fileName;
 
                 System.out.println("Food image File uploaded successfully: " + filePath);
 
-                // ✅ This is useful when displaying image in JSP
+                
                 String displayPath = request.getContextPath() + "/food_images/" + fileName;
                 System.out.println("Display Path (for JSP): " + displayPath);
 
-                // Optional: pass to JSP if needed
+                
                 request.setAttribute("food_image_path", displayPath);
 
             } catch (Exception e) {

@@ -51,35 +51,27 @@
       <div>Action</div>
     </div>
 
-    <!-- Food item rows -->
-    <div class="food-row">
-      <div>Pizza</div>
-      <div><img src="../images/jodi combo.jpg" alt="Pizza" /></div>
-      <div>Cheesy and delicious</div>
-      <div>Italian</div>
-      <div>Medium</div>
-      <div>$8.99</div>
-      <div>
-        <i class="fas fa-edit" title="Edit"></i>
-        <i class="fas fa-trash" title="Delete"></i>
+    <c:forEach var="food" items="${foodList}">
+      <div class="food-row">
+        <div>${food.name}</div>
+        <div><img src="${pageContext.request.contextPath}/${food.image_url}" alt="${food.name}"/>
+</div>
+        <div>${food.description}</div>
+        <div>${food.category_name}</div> <!-- Display the category name -->
+        <div>${food.serving_size}</div>
+        <div>${food.price}</div>
+        <div>
+          <i class="fas fa-edit" title="Edit"></i>
+          <i class="fas fa-trash" title="Delete"></i>
+        </div>
       </div>
-    </div>
-
-    <div class="food-row">
-      <div>Burger</div>
-      <div><img src="../images/jodi combo.jpg" alt="Burger" /></div>
-      <div>Grilled beef patty</div>
-      <div>American</div>
-      <div>Medium</div>
-      <div>$6.49</div>
-      <div>
-        <i class="fas fa-edit" title="Edit"></i>
-        <i class="fas fa-trash" title="Delete"></i>
-      </div>
-    </div>
+    </c:forEach>
+    
+     
+    
 
     <div class="add-category">
-      <a href="${pageContext.request.contextPath}/pages/AddFood.jsp">
+      <a href="${pageContext.request.contextPath}/AddFoodServlet">
     <button type="button" class="green-btn">Add Food</button>
 </a>
     
