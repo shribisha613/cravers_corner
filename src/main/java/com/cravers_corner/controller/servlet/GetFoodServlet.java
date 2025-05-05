@@ -36,6 +36,18 @@ public class GetFoodServlet extends HttpServlet {
 		 try {
 	            FoodDAO foodDAO = new FoodDAO();
 	            List<Food> foodList = foodDAO.getAllFood();
+	            String searchQuery = request.getParameter("searchQuery");
+	            
+	            if (searchQuery != null && !searchQuery.trim().isEmpty()) {
+	                // Use search functionality
+	                foodList = foodDAO.searchFoodByName(searchQuery);
+	                request.setAttribute("isSearchResult", true);
+	                request.setAttribute("searchQuery", searchQuery); // Preserve search term
+	            } else {
+	                // Normal listing
+	                foodList = foodDAO.getAllFood();
+	                request.setAttribute("isSearchResult", false);
+	            }
 	            
 	            // Check if the list is not empty
 	            if (foodList != null && !foodList.isEmpty()) {
@@ -43,7 +55,9 @@ public class GetFoodServlet extends HttpServlet {
 	                request.setAttribute("foodList", foodList);
 	            } else {
 	                // Set a message indicating no data was found
-	                request.setAttribute("errorMessage", "No food items found.");
+	            	 request.setAttribute("errorMessage", 
+	                         searchQuery != null ? "No food items found matching your search." : "No food items found.");
+	                
 	                System.out.println("No food items are found");
 	            }
 	            

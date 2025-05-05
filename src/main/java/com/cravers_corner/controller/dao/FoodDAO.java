@@ -90,7 +90,7 @@ public class FoodDAO {
 	
 	public List<Food> searchFoodByName(String keyword) {
 	    List<Food> foodList = new ArrayList<>();
-	    String query = "SELECT * FROM foods WHERE name LIKE ?";
+	    String query = "SELECT f.*, c.name as category_name FROM foods f JOIN categories c ON f.category_id = c.category_id WHERE f.name LIKE ?";
 
 	    try (PreparedStatement ps = conn.prepareStatement(query)) {
 	        ps.setString(1, "%" + keyword + "%"); // partial match search
@@ -104,6 +104,11 @@ public class FoodDAO {
 	                food.setServing_size(rs.getString("serving_size"));
 	                food.setCategory_id(rs.getInt("category_id"));
 	                food.setImage_url(rs.getString("image_url"));
+	                food.setCreated_at(rs.getTimestamp("created_at"));
+	                food.setUpdated_at(rs.getTimestamp("updated_at"));
+	                
+	                // Set the category name from the joined table
+	                food.setCategory_name(rs.getString("category_name"));
 	                foodList.add(food);
 	            }
 	        }

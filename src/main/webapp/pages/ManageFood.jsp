@@ -21,11 +21,24 @@
     <div class="category-section">
       <h3>Cravers Corner’s Menu Board</h3>
        
-      <div class="category-controls">
-        <div class="search-container">
-          <input type="text" placeholder="Search..." class="search" />
-          <i class="fas fa-search"></i>
-        </div>
+    <div class="search-sort-container">  
+        <form action="${pageContext.request.contextPath}/GetFoodServlet" method="get" class="search-container">
+			  <input 
+			    type="text" 
+			    name="searchQuery" 
+			    placeholder="Search..." 
+			    class="search" 
+			    value="${param.searchQuery}" 
+			  />
+			  <div class="search-icon-circle">
+			    <button type="submit" class="search-button">
+			      <i class="fas fa-search"></i>
+			    </button>
+			  </div>
+				</form>
+          
+          
+ 
 
         <div class="sort-wrapper">
 			  <span class="sort-label">Sort By:</span>
@@ -36,9 +49,11 @@
 			    <option value="date">Date Added</option>
 			  </select>
 			</div>
+			
 
       </div>
-    </div>
+      </div>
+
 
     <!-- Table-like header row -->
     <div class="food-header">
