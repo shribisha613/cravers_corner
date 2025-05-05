@@ -42,8 +42,8 @@
     <div class="menu-content">
         <!-- ✅ Search Form -->
         <form method="get" action="MenuServlet" class="search-form">
-            <input type="text" name="search" placeholder="Search..." />
-        </form>
+    		<input type="text" name="search" placeholder="Search..." value="${searchKeyword}" />
+		</form>
 
         <h2>Cravers Corner Menu Board</h2>
 
@@ -55,7 +55,7 @@
                         <div class="food-item">
                             <img src="${food.image_url}" alt="${food.name}" />
                             <h3>${food.name}</h3>
-                            <p>Price: Rs. ${food.price}</p>
+                            <p>रु. ${food.price}</p>
                         </div>
                     </c:forEach>
                 </c:when>

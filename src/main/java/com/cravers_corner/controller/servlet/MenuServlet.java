@@ -35,8 +35,21 @@ public class MenuServlet extends HttpServlet {
             List<Category> categoryList = foodDAO.getAllCategories();
             System.out.println("Categories retrieved: " + categoryList.size());
 			request.setAttribute("categoryList", categoryList);
+			
             List<Food> foodList = foodDAO.getAllFood();
-            request.setAttribute("foodList", foodList);
+            // Get search keyword from input
+ 			String keyword = request.getParameter("search");
+
+ 			List<Food> foodList1;
+ 			if (keyword != null && !keyword.trim().isEmpty()) {
+ 				// Search by name
+ 				foodList1 = foodDAO.searchFoodByName(keyword);
+ 				request.setAttribute("searchKeyword", keyword);
+ 			} else {
+ 				// Show all food if no search
+ 				foodList1 = foodDAO.getAllFood();
+ 			}
+            request.setAttribute("foodList", foodList1);
             request.getRequestDispatcher("/pages/Menu.jsp").forward(request, response);
             
         } catch (Exception e) {
