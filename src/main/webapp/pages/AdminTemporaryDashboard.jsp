@@ -9,7 +9,7 @@
 <body>
 <a href="${pageContext.request.contextPath}/AddFoodServlet">
     <button style="padding: 10px 20px; background-color: darkorange; color: white; border: none; border-radius: 5px;">
-        ➕ Add New Food
+        ➕ Add New Food   h
     </button>
 </a>
 </body>
