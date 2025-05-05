@@ -141,6 +141,11 @@ hr {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   
 }
+
+.icon-link {
+  text-decoration: none;
+  color: inherit; /* or use a specific color if you want */
+}
   
 
 .food-row img {
@@ -153,6 +158,10 @@ hr {
 .food-row div {
   text-align: center;
   width: 16%; /* Equal distribution */
+}
+
+.food-row a{
+	text-decoration: none;
 }
 
 .food-row i {
@@ -182,6 +191,8 @@ hr {
   justify-content: flex-end;
   margin-top: 30px;
 }
+
+
 
 .green-btn {
   background-color: green;
