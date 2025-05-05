@@ -45,9 +45,32 @@ public class ManageUserServlet extends HttpServlet {
 	        
 	        try {
 	            UserDAO userDAO = new UserDAO();
-	            List<User> userList = userDAO.getAllUsersExceptAdmin(currentAdmin.getUser_id());
-	            System.out.println("Current admin user id " + currentAdmin.getUser_id());
+	            
 	            String searchQuery = request.getParameter("searchQuery");
+	            String sortBy = request.getParameter("sort");
+	            if (sortBy == null) {
+	                sortBy = "userId"; // Default to user_id sorting
+	            }
+	            String sortOrder;
+	            switch (sortBy) {
+	                case "userId":
+	                    sortOrder = "user_id";
+	                    break;
+	                case "name":
+	                    sortOrder = "first_name";
+	                    break;
+	                case "joined_date_desc":
+	                    sortOrder = "created_at DESC";
+	                    break;
+	                case "joined_date_asc":
+	                    sortOrder = "created_at ASC";
+	                    break;
+	                default:
+	                    sortOrder = "user_id ASC"; 
+	            }
+	            
+	            List<User> userList = userDAO.getAllUsersExceptAdmin(currentAdmin.getUser_id(), sortOrder);
+	            System.out.println("Current admin user id " + currentAdmin.getUser_id());
 	            
 	            if (searchQuery != null && !searchQuery.trim().isEmpty()) {
 	            	 userList = userDAO.searchUsers(searchQuery);
@@ -55,12 +78,13 @@ public class ManageUserServlet extends HttpServlet {
 	                request.setAttribute("searchQuery", searchQuery);
 	            } else {
 	                
-	                userList = userDAO.getAllUsersExceptAdmin(currentAdmin.getUser_id());
+	                userList = userDAO.getAllUsersExceptAdmin(currentAdmin.getUser_id(), sortOrder);
 	                request.setAttribute("isSearchResult", false);
 	            }
 	            
 	            if (userList != null && !userList.isEmpty()) {
 	                request.setAttribute("userList", userList);
+	                request.setAttribute("currentSort", sortBy);
 	            } else {
 	                request.setAttribute("errorMessage", 
 	                    searchQuery != null ? "No users found matching your search." : "No users found.");

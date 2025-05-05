@@ -172,9 +172,9 @@ public class UserDAO {
 	    return null; // Return null if no user is found
 	}
 	
-	 public List<User> getAllUsersExceptAdmin(int adminId) throws SQLException {
+	 public List<User> getAllUsersExceptAdmin(int adminId, String sortOrder) throws SQLException {
 	        List<User> userList = new ArrayList<>();
-	        String query = "SELECT user_id, first_name, last_name, username, email, phone, role, created_at, profile_image_url FROM users WHERE user_id != ? ORDER BY user_id;";
+	        String query = "SELECT user_id, first_name, last_name, username, email, phone, role, created_at, profile_image_url FROM users WHERE user_id != ? ORDER BY " + sortOrder;
 	        
 	        try (PreparedStatement ps = conn.prepareStatement(query)) {
 	            ps.setInt(1, adminId);

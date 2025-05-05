@@ -41,20 +41,17 @@
           
           
  
-<form id="sortForm" method="get" action="${pageContext.request.contextPath}/your-servlet-url">
-        <div class="sort-wrapper">
-			  <span class="sort-label">Sort By:</span>
-			  <select class="sort-dropdown">
-			  <option value="userId">User Id</option> 
-			  <option value="joined_date_desc">Newest Joined</option>
-			    <option value="name">First Names</option>
-			    
-    			<option value="joined_date_asc">Oldest Joined</option>
-			    
-			  </select>
-			</div>
-			</form>
-
+<form id="sortForm" method="get" action="${pageContext.request.contextPath}/ManageUserServlet">
+    <div class="sort-wrapper">
+        <span class="sort-label">Sort By:</span>
+        <select class="sort-dropdown" name="sort" onchange="document.getElementById('sortForm').submit()">
+            <option value="userId" ${param.sort == 'userId' ? 'selected' : ''}>User Id</option>
+            <option value="joined_date_desc" ${param.sort == 'joined_date_desc' ? 'selected' : ''}>Newest Joined</option>
+            <option value="name" ${param.sort == 'name' ? 'selected' : ''}>First Names</option>
+            <option value="joined_date_asc" ${param.sort == 'joined_date_asc' ? 'selected' : ''}>Oldest Joined</option>
+        </select>
+    </div>
+</form>
       </div>
       </div>
       
