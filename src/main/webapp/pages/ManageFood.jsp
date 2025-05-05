@@ -61,9 +61,11 @@
         <div>${food.serving_size}</div>
         <div>${food.price}</div>
         <div>
-          <i class="fas fa-edit" title="Edit"></i>
-          <i class="fas fa-trash" title="Delete"></i>
-        </div>
+  <a href="${pageContext.request.contextPath}/EditFoodServlet?id=${food.food_id}" title="Edit">
+    <i class="fas fa-edit"></i>
+  </a>
+  <i class="fas fa-trash" title="Delete"></i>
+</div>
       </div>
     </c:forEach>
     

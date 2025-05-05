@@ -54,6 +54,41 @@ public class FoodDAO {
 	    return isFoodAdded;
 	}
 	
+	
+	public Food getFoodById(int food_id) {
+	    Food food = null;
+	    String sql = "SELECT f.*, c.name as category_name FROM foods f JOIN categories c ON f.category_id = c.category_id WHERE f.food_id = ?";
+
+	    try (PreparedStatement ps = conn.prepareStatement(sql)) {
+	        ps.setInt(1, food_id);
+	        ResultSet rs = ps.executeQuery();
+
+	        if (rs.next()) {
+	            food = new Food();
+	            food.setFood_id(rs.getInt("food_id"));
+	            food.setName(rs.getString("name"));               // Food name
+	            food.setDescription(rs.getString("description"));
+	            food.setPrice(rs.getDouble("price"));
+	            food.setCategory_id(rs.getInt("category_id"));
+	            food.setImage_url(rs.getString("image_url"));
+	            food.setStatus(rs.getString("status"));
+	            food.setServing_size(rs.getString("serving_size"));
+	            food.setCreated_at(rs.getTimestamp("created_at"));
+	            food.setUpdated_at(rs.getTimestamp("updated_at"));
+	            food.setCategory_name(rs.getString("category_name"));  // Category name
+	        }
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        System.out.println("Food id not found");
+	    }
+
+	    return food;
+	}
+
+	
+	
+	
 	public List<Food> searchFoodByName(String keyword) {
 	    List<Food> foodList = new ArrayList<>();
 	    String query = "SELECT * FROM foods WHERE name LIKE ?";
