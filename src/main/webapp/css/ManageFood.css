@@ -234,21 +234,25 @@ hr {
 }
 
 .error-message {
-    padding: 10px 15px;
-    margin: 15px auto; /* Centers the box */
-    background: #FFF0F0;
-    color: #D8000C;
-    border: 1px solid #FFBABA;
-    border-radius: 4px;
+    padding: 12px 20px;
+    margin: 20px auto;
+    background: #F8F8F8;
+    color: #721C24;
+    border-left: 4px solid #DC3545;
+    border-radius: 5px;
     width: fit-content;
-    max-width: 80%;
-    text-align: center;
-    display: inline-flex;
+    max-width: 600px;
+    display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 12px;
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    font-size: 18 px;
+    line-height: 1.5;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
 .error-message i {
-    color: #D8000C;
-    font-size: 16px;
+    color: #DC3545;
+    font-size: 18px;
+    
 }
