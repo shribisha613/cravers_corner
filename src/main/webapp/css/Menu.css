@@ -6,15 +6,7 @@
     align-items: stretch;
 }
 
-.sidebar {
-  width: 260px;
-  background: white; /* Changed to white */
-  padding: 15px;
-  border-radius: 2px;
-  margin-top: 80px;
-  height: auto;
-  border: 2px solid #FF8C42; /* Orange border */
-}
+
 .sidebar {
   width: 260px;
   background: white;
