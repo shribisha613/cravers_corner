@@ -25,24 +25,22 @@
     <!-- Sidebar -->
 
 	<div class="sidebar">
-	  <h3>Categories</h3>
-	  <ul>
-	    <c:choose>
-	      <c:when test="${not empty categories}">
-	        <c:forEach items="${categories}" var="category">
-	          <li>
-	            <a href="GetCategoryServlet?categoryId=${category.category_id}">
-	              ${category.name}
-	            </a>
-	          </li>
-	        </c:forEach>
-	      </c:when>
-	      <c:otherwise>
-	        <li>No categories available.</li>
-	      </c:otherwise>
-	    </c:choose>
-	  </ul>
-	</div>
+  <h3>Categories</h3>
+  <ul>
+    
+    <c:choose>
+      <c:when test="${not empty categoryList}">
+        <c:forEach items="${categoryList}" var="category">
+          <li>${category.name}</li> <!-- Just display the name, no link -->
+        </c:forEach>
+      </c:when>
+      <c:otherwise>
+        <li>No categories available.</li>
+      </c:otherwise>
+    </c:choose>
+  </ul>
+</div>
+</div>
     
 
 
@@ -55,17 +53,7 @@
       
 
         <div class="food-grid">
-            <c:forEach var="food" items="${foodList}">
-                <c:if test="${food.category == type}">
-                    <div class="food-item">
-                        <img src="${pageContext.request.contextPath}/images/${food.image}" alt="${food.name}">
-                        <div class="food-info">
-                            <p class="food-name">${food.name}</p>
-                            <p class="food-price">Rs. ${food.price}</p>
-                        </div>
-                    </div>
-                </c:if>
-            </c:forEach>
+           
         </div>
     </div>
 </div>

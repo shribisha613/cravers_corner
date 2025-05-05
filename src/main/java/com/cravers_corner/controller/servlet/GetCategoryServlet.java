@@ -41,7 +41,7 @@ public class GetCategoryServlet extends HttpServlet {
             request.setAttribute("categories", categoryList);
             
             // Forward to food.jsp
-            request.getRequestDispatcher("pages/food.jsp").forward(request, response);
+            request.getRequestDispatcher("pages/Food.jsp").forward(request, response);
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error retrieving categories");
