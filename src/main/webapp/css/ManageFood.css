@@ -232,3 +232,23 @@ hr {
 .green-btn:hover {
   background-color: darkgreen;
 }
+
+.error-message {
+    padding: 10px 15px;
+    margin: 15px auto; /* Centers the box */
+    background: #FFF0F0;
+    color: #D8000C;
+    border: 1px solid #FFBABA;
+    border-radius: 4px;
+    width: fit-content;
+    max-width: 80%;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.error-message i {
+    color: #D8000C;
+    font-size: 16px;
+}
