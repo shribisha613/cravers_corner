@@ -88,7 +88,6 @@ public class FoodDAO {
 
 	
 	
-	
 	public List<Food> searchFoodByName(String keyword) {
 	    List<Food> foodList = new ArrayList<>();
 	    String query = "SELECT * FROM foods WHERE name LIKE ?";

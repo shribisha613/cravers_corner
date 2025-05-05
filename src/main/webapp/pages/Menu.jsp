@@ -48,7 +48,7 @@
             <input type="text" name="search" placeholder="Search..." />
         </form>
 
-      
+        <h2><%= type %> Food</h2>
 
         <div class="food-grid">
            
