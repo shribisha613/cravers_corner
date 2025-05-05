@@ -36,7 +36,7 @@ public class AuthorizationFilter implements Filter {
         String uri = req.getRequestURI();  // Get the URI of the requested page (e.g., /pages/manageFood.jsp)
 
         // Skip the filter if the user is trying to access the login page
-        if (uri.contains("Login.jsp")) {
+        if (uri.contains("Login.jsp") || uri.contains("Register.jsp")) {
             chain.doFilter(request, response);
             return;
         }
