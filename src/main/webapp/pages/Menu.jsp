@@ -23,35 +23,46 @@
 
 <div class="menu-container">
     <!-- Sidebar -->
-<div class="sidebar">
-  <h3>Categories</h3>
-  <ul>
-    <c:choose>
-      <c:when test="${not empty categoryList}">
-        <c:forEach items="${categoryList}" var="category">
-          <li><a href="#" class="category-link">${category.name}</a></li>
-        </c:forEach>
-      </c:when>
-      <c:otherwise>
-        <li><span class="no-categories">No categories available</span></li>
-      </c:otherwise>
-    </c:choose>
-  </ul>
-</div>
-
-    
-
-
+	<div class="sidebar">
+	  <h3>Categories</h3>
+	  <ul>
+	    <c:choose>
+	      <c:when test="${not empty categoryList}">
+	        <c:forEach items="${categoryList}" var="category">
+	          <li><a href="#" class="category-link">${category.name}</a></li>
+	        </c:forEach>
+	      </c:when>
+	      <c:otherwise>
+	        <li><span class="no-categories">No categories available</span></li>
+	      </c:otherwise>
+	    </c:choose>
+	  </ul>
+	</div>
   
     <div class="menu-content">
-        <form method="get" action="Menu.jsp" class="search-form">
+        <!-- ✅ Search Form -->
+        <form method="get" action="MenuServlet" class="search-form">
             <input type="text" name="search" placeholder="Search..." />
         </form>
 
-        <h2><%= type %> Food</h2>
+        <h2>Cravers Corner Menu Board</h2>
 
+        <!-- ✅ Food Items Display -->
         <div class="food-grid">
-           
+            <c:choose>
+                <c:when test="${not empty foodList}">
+                    <c:forEach var="food" items="${foodList}">
+                        <div class="food-item">
+                            <img src="${food.image_url}" alt="${food.name}" />
+                            <h3>${food.name}</h3>
+                            <p>Price: Rs. ${food.price}</p>
+                        </div>
+                    </c:forEach>
+                </c:when>
+                <c:otherwise>
+                    <p>No food items found.</p>
+                </c:otherwise>
+            </c:choose>
         </div>
     </div>
 </div>
