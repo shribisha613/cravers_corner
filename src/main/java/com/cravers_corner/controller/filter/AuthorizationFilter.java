@@ -16,8 +16,8 @@ import javax.servlet.http.HttpSession;
 @WebFilter("/pages/*")  // This will intercept all requests to pages inside the 'pages' folder
 public class AuthorizationFilter implements Filter {
 
-    private static final String[] ADMIN_PAGES = { "AdminDashboard.jsp", "ManageFood.jsp", "AdminUserProfile.jsp" };
-    private static final String[] CUSTOMER_PAGES = { "Home.jsp", "UserProfile.jsp", "Menu.jsp" };
+    private static final String[] ADMIN_PAGES = { "AdminDashboard.jsp", "ManageFood.jsp", "AdminUserProfile.jsp", "AddCategory.jsp", "AddFood.jsp", "ManageCategory.jsp", "SideNavAdmin.jsp", "AdminHeader.jsp"};
+    private static final String[] CUSTOMER_PAGES = { "Home.jsp", "UserProfile.jsp", "Menu.jsp", "FoodDetail.jsp", "MyOrders.jsp", "CheckOut.jsp", "Header.jsp" };
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -59,7 +59,7 @@ public class AuthorizationFilter implements Filter {
         if (isCustomerPage(uri) && !"customer".equals(role)) {
             // If it's a customer page and the user is not a customer, redirect to unauthorized page
             System.out.println("User is logged In but not authorized to access customer page");
-            res.sendRedirect(req.getContextPath() + "/pages/AccessDenied.js");
+            res.sendRedirect(req.getContextPath() + "/pages/AccessDenied.jsp");
             return;
         }
 
