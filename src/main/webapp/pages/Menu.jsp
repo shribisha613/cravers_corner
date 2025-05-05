@@ -20,27 +20,25 @@
 <body>
 
 <jsp:include page="Header.jsp" />
-<a href="${pageContext.request.contextPath}/GetCategoryServlet">Menu</a>
+
 <div class="menu-container">
     <!-- Sidebar -->
-
-	<div class="sidebar">
+<div class="sidebar">
   <h3>Categories</h3>
   <ul>
-    
     <c:choose>
       <c:when test="${not empty categoryList}">
         <c:forEach items="${categoryList}" var="category">
-          <li>${category.name}</li> <!-- Just display the name, no link -->
+          <li><a href="#" class="category-link">${category.name}</a></li>
         </c:forEach>
       </c:when>
       <c:otherwise>
-        <li>No categories available.</li>
+        <li><span class="no-categories">No categories available</span></li>
       </c:otherwise>
     </c:choose>
   </ul>
 </div>
-</div>
+
     
 
 

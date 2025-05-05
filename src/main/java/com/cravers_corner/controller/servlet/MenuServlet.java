@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.cravers_corner.controller.dao.CategoryDAO;
 import com.cravers_corner.controller.dao.FoodDAO;
 import com.cravers_corner.model.Category;
 import com.cravers_corner.model.Food;
@@ -26,6 +27,11 @@ public class MenuServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
             FoodDAO foodDAO = new FoodDAO();
+            CategoryDAO categoryDAO =new CategoryDAO();
+//            List<Category> categoryList = foodDAO.getAllCategories();
+//            System.out.println("Categories retrieved: " + categoryList.size());
+            
+            
             List<Category> categoryList = foodDAO.getAllCategories();
             System.out.println("Categories retrieved: " + categoryList.size());
 			request.setAttribute("categoryList", categoryList);
