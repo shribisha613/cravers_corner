@@ -8,15 +8,6 @@
 
 .sidebar {
   width: 260px;
-  background: white; /* Changed to white */
-  padding: 15px;
-  border-radius: 2px;
-  margin-top: 80px;
-  height: auto;
-  border: 2px solid #FF8C42; /* Orange border */
-}
-.sidebar {
-  width: 260px;
   background: white;
   padding: 0; /* Changed from 15px to 0 for edge-to-edge links */
   border-radius: 2px;

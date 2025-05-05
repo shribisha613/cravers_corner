@@ -27,21 +27,22 @@ public class MenuServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
             FoodDAO foodDAO = new FoodDAO();
-
-            List<Food> foodList = foodDAO.getAllFood();
-            request.setAttribute("foodList", foodList);
-            request.getRequestDispatcher("/pages/Menu.jsp").forward(request, response);
-            
             CategoryDAO categoryDAO =new CategoryDAO();
+//            List<Category> categoryList = foodDAO.getAllCategories();
+//            System.out.println("Categories retrieved: " + categoryList.size());
+            
             
             List<Category> categoryList = foodDAO.getAllCategories();
             System.out.println("Categories retrieved: " + categoryList.size());
 			request.setAttribute("categoryList", categoryList);
+            List<Food> foodList = foodDAO.getAllFood();
+            request.setAttribute("foodList", foodList);
+            request.getRequestDispatcher("/pages/Menu.jsp").forward(request, response);
             
         } catch (Exception e) {
         	e.printStackTrace();
             response.setContentType("text/html");
             response.getWriter().println("<h3>Something went wrong while loading the menu. Please try again later.</h3>");
         }
-	}
+}
 }

@@ -43,10 +43,9 @@
         <!-- ✅ Search Form -->
         <form method="get" action="MenuServlet" class="search-form">
             <input type="text" name="search" placeholder="Search..." />
-            <button type="submit">Search</button>
         </form>
 
-        <h2>Our Menu</h2>
+        <h2>Cravers Corner Menu Board</h2>
 
         <!-- ✅ Food Items Display -->
         <div class="food-grid">

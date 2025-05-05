@@ -15,59 +15,37 @@
   <c:set var="activePage" value="category" scope="request" />
   <jsp:include page="AdminHeader.jsp" />
   <jsp:include page="SideNavAdmin.jsp" />
-  <div class="container">
-    <aside>
-      <ul>
-        <li><a href="#">Dashboard</a></li>
-        <li><a href="orders.html">Orders</a></li>
-        <li><a href="manage-category.html">Manage Category</a></li>
-        <li><a href="manage-food.html">Manage Food</a></li>
-        <li><a href="reports.html">Reports</a></li>
-      </ul>
-    </aside>
-
-    <main>
-      <h2>Welcome, Username</h2>
-
+  <main>
+   
       <div class="category-section">
-        <h3>Category</h3>
+        <h3>Cravers Corner Admin's Manage Category Section</h3>
+        
+        <div class = "manage-category">
+        <div class="search-container">
         <input type="text" placeholder="Search..." class="search" />
+        <i class="fas fa-search"></i>
       </div>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Image</th>
-            <th>Description</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Pizza</td>
-            <td><img src="images/pizza.jpeg"></td>
-            <td>Cheesy and delicious</td>
-            <td>
-              <i class="fas fa-edit" title="Edit"></i>
-              <i class="fas fa-trash" title="Delete"></i>
-            </td>
-          </tr>
-          <tr>
-            <td>Burger</td>
-            <td><img src="images/burger.jpeg"></td>
-            <td>Grilled beef patty</td>
-            <td>
-              <i class="fas fa-edit" title="Edit"></i>
-              <i class="fas fa-trash" title="Delete"></i>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-      <div class="add-category">
-        <button>Add Category</button>
+      <!-- Table-like header row -->
+    <div class="food-header">
+      <div>Name</div>
+      <div>Description</div>
+      <div>Action</div>
+    </div>
+     
+</div>
+        <div>${food.description}</div>
+        
+          <i class="fas fa-edit" title="Edit"></i>
+          <i class="fas fa-trash" title="Delete"></i>
+        </div>
       </div>
+
+    
+    <div class="add-category">
+      <a href="${pageContext.request.contextPath}/AddCategoryServlet">
+    <button type="button" class="green-btn">Add Category</button>
+</a>  
     </main>
   </div>
 </body>
