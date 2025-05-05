@@ -28,8 +28,8 @@
   <i class="fas fa-hamburger"></i> Manage Food
 </a>
     </div>
-    <div class="nav-item ${activePage == 'reports' ? 'active' : ''}">
-        <a href="reports.jsp"><i class="fas fa-chart-bar"></i> Reports</a>
+    <div class="nav-item ${activePage == 'users' ? 'active' : ''}">
+        <a href="${pageContext.request.contextPath}/ManageUserServlet"><i class="fas fa-chart-bar"></i> Manage Users</a>
     </div>
 </div>
 
