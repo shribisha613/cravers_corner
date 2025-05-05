@@ -2,8 +2,11 @@ package com.cravers_corner.controller.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.cravers_corner.controller.database.DatabaseConnection;
 import com.cravers_corner.model.Category;
@@ -44,5 +47,26 @@ public class CategoryDAO {
 	    }
 
 	    return isCategoryAdded;
-}
+	}
+	public List<Category> getAllCategories() {
+        List<Category> categories = new ArrayList<>();
+        String sql = "SELECT category_id, name, description FROM categories";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                Category category = new Category();
+                category.setCategory_id(rs.getInt("category_id"));
+                category.setName(rs.getString("name"));
+                category.setDescription(rs.getString("description"));
+                categories.add(category);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return categories;
+    }
 }

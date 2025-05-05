@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.cravers_corner.model.Category" %>
 <%
     String type = request.getParameter("type");
     if (type == null || type.isEmpty()) {
@@ -13,22 +15,33 @@
 	<title>Cravers Corner Menu Page</title>
 	
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/Menu.css">
+
 </head>
 
 <body>
 <jsp:include page="Header.jsp" />
-
+<a href="${pageContext.request.contextPath}/GetCategoryServlet">Menu</a>
 <div class="menu-container">
     <!-- Sidebar -->
-    <div class="sidebar">
-        <h3>Category</h3>
-        <ul>
-            <li><a href="Menu.jsp?type=Nepali">Nepali</a></li>
-            <li><a href="Menu.jsp?type=Korean">Korean</a></li>
-            <li><a href="Menu.jsp?type=Western">Western</a></li>
-            <li><a href="Menu.jsp?type=Combo">Combo</a></li>
-        </ul>
-    </div>
+	<div class="sidebar">
+	  <h3>Categories</h3>
+	  <ul>
+	    <c:choose>
+	      <c:when test="${not empty categories}">
+	        <c:forEach items="${categories}" var="category">
+	          <li>
+	            <a href="FoodListServlet?categoryId=${category.category_id}">
+	              ${category.name}
+	            </a>
+	          </li>
+	        </c:forEach>
+	      </c:when>
+	      <c:otherwise>
+	        <li>No categories available.</li>
+	      </c:otherwise>
+	    </c:choose>
+	  </ul>
+	</div>
     
     <!-- Main Menu Content -->
     <div class="menu-content">
