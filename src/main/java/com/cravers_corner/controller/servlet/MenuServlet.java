@@ -27,7 +27,7 @@ public class MenuServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
             FoodDAO foodDAO = new FoodDAO();
-            
+
             List<Food> foodList = foodDAO.getAllFood();
             request.setAttribute("foodList", foodList);
             request.getRequestDispatcher("/pages/Menu.jsp").forward(request, response);

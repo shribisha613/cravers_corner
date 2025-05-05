@@ -52,29 +52,30 @@
      
       
 
-      <form action="${pageContext.request.contextPath}/AddFoodServlet" method="post" enctype="multipart/form-data">
+      <form action="${pageContext.request.contextPath}/EditFoodServlet" method="post" enctype="multipart/form-data">
 
         <div class="form-group">
           <label for="food_name">Food Name</label>
-          <input type="text" id="food_name" name="name" value="${sessionScope.name}" placeholder="Enter Food Name" required>
+          <input type="text" id="food_name" name="name" value="${food.name}" placeholder="Enter Food Name" required>
         </div>
 
         
 
         <div class="form-group">
           <label for="description">Description</label>
-          <textarea id="description" name="description" placeholder="Enter Description" rows="3" required>${sessionScope.description}</textarea>
+          <textarea id="description" name="description" placeholder="Enter Description" rows="3" required>${food.description}</textarea>
         </div>
         
         <div class="form-group">
           <label for="price">Price (NPR)</label>
-          <input type="text" id="price" name="price" value="${sessionScope.price}" placeholder="Enter Price" required>
+          <input type="text" id="price" name="price" value="${food.price}" placeholder="Enter Price" required>
         </div>
 
         <div class="form-group">
           <label for="serving_size">Serving Size</label>
         <select id="serving_size" name="serving_size" required>
-  <option value="" disabled <c:if test="${empty sessionScope.serving_size}">selected</c:if>>Choose a serving size</option>
+  <option value="${food.serving_size}"></option>
+ 
   <option value="Small" <c:if test="${sessionScope.serving_size == 'Small'}">selected</c:if>>Small (For 1 person)</option>
   <option value="Medium" <c:if test="${sessionScope.serving_size == 'Medium'}">selected</c:if>>Medium (For 2-3 people)</option>
   <option value="Large" <c:if test="${sessionScope.serving_size == 'Large'}">selected</c:if>>Large (For 4-5 people)</option>
