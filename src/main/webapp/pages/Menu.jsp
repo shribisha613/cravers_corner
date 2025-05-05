@@ -30,7 +30,7 @@
 	      <c:when test="${not empty categories}">
 	        <c:forEach items="${categories}" var="category">
 	          <li>
-	            <a href="FoodListServlet?categoryId=${category.category_id}">
+	            <a href="GetCategoryServlet?categoryId=${category.category_id}">
 	              ${category.name}
 	            </a>
 	          </li>
