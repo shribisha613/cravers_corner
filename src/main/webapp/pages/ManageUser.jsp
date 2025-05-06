@@ -21,7 +21,7 @@
    
 
     <div class="category-section">
-      <h3>Cravers Corner User Directory</h3>
+      <h3>Cravers Corner Customers Directory</h3>
        
     <div class="search-sort-container">  
         <form action="${pageContext.request.contextPath}/ManageUserServlet" method="get" class="search-container">
@@ -87,7 +87,7 @@
         <div>${user.last_name}</div>
         <div>${user.email}</div> <!-- Display the category name -->
         <div>${user.phone}</div>
-        <div>${user.first_name}</div>
+        <div>${user.total_orders}</div>
          <div><fmt:formatDate value="${user.created_at}" 
                           pattern="yyyy-MM-dd" /></div>
        
