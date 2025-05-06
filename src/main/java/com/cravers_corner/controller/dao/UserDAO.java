@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.cravers_corner.controller.database.DatabaseConnection;
 import com.cravers_corner.controller.util.PasswordUtil;
@@ -116,6 +118,7 @@ public class UserDAO {
 	    return false;
 	}
 	
+
 	
 	public User getUserByID(int user_id) throws SQLException, ClassNotFoundException {
 		
@@ -169,6 +172,58 @@ public class UserDAO {
 	    return null; // Return null if no user is found
 	}
 	
+	 public List<User> getAllUsersExceptAdmin(int adminId, String sortOrder) throws SQLException {
+	        List<User> userList = new ArrayList<>();
+	        String query = "SELECT user_id, first_name, last_name, username, email, phone, role, created_at, profile_image_url FROM users WHERE user_id != ? ORDER BY " + sortOrder;
+	        
+	        try (PreparedStatement ps = conn.prepareStatement(query)) {
+	            ps.setInt(1, adminId);
+	            ResultSet rs = ps.executeQuery();
+	            
+	            while (rs.next()) {
+	                User user = new User();
+	                user.setUser_id(rs.getInt("user_id"));
+	                user.setFirst_name(rs.getString("first_name"));
+	                user.setLast_name(rs.getString("last_name"));
+	                user.setUsername(rs.getString("username"));
+	                user.setEmail(rs.getString("email"));
+	                user.setPhone(rs.getString("phone"));
+	                user.setRole(rs.getString("role"));
+	                user.setCreated_at(rs.getTimestamp("created_at"));
+	                user.setProfile_image_url(rs.getString("profile_image_url"));
+	                userList.add(user);
+	            }
+	        }
+	        return userList;
+	    }
+	 
+	 
+	 public List<User> getAllUsers(String sortOrder) throws SQLException {
+		    List<User> userList = new ArrayList<>();
+		    String query = "SELECT u.user_id, u.first_name, u.last_name, u.username, u.email, u.phone,u.role, u.created_at, u.profile_image_url, COUNT(o.order_id) as total_orders FROM users u LEFT JOIN orders o ON u.user_id = o.customer_id WHERE u.role != \"admin\" GROUP BY u.user_id ORDER BY " + sortOrder;
+		    
+		    try (PreparedStatement ps = conn.prepareStatement(query)) {
+		        // No need to set admin ID parameter anymore
+		        ResultSet rs = ps.executeQuery();
+		        
+		        while (rs.next()) {
+		            User user = new User();
+		            user.setUser_id(rs.getInt("user_id"));
+		            user.setFirst_name(rs.getString("first_name"));
+		            user.setLast_name(rs.getString("last_name"));
+		            user.setUsername(rs.getString("username"));
+		            user.setEmail(rs.getString("email"));
+		            user.setPhone(rs.getString("phone"));
+		            user.setRole(rs.getString("role"));
+		            user.setCreated_at(rs.getTimestamp("created_at"));
+		            user.setProfile_image_url(rs.getString("profile_image_url"));
+		            user.setTotal_orders(rs.getInt("total_orders"));
+		            userList.add(user);
+		        }
+		    }
+		    return userList;
+		}
+	
 	
 	public boolean updateUser(User user) throws SQLException, ClassNotFoundException {
 	    String sql;
@@ -206,6 +261,38 @@ public class UserDAO {
 	        throw e;
 	    }
 	}
+	
+	public List<User> searchUsers(String keyword) throws SQLException {
+	    List<User> userList = new ArrayList<>();
+	    String query = "SELECT u.* FROM users u WHERE u.username LIKE ? OR u.first_name LIKE ? OR u.last_name LIKE ? ORDER BY u.user_id;";  // Changed to sort by user_id
+	    
+	    try (PreparedStatement ps = conn.prepareStatement(query)) {
+	        String searchPattern = "%" + keyword + "%";
+	        ps.setString(1, searchPattern);
+	        ps.setString(2, searchPattern);
+	        ps.setString(3, searchPattern);
+	        
+	        try (ResultSet rs = ps.executeQuery()) {
+	            while (rs.next()) {
+	                User user = new User();
+	                user.setUser_id(rs.getInt("user_id"));
+	                user.setFirst_name(rs.getString("first_name"));
+	                user.setLast_name(rs.getString("last_name"));
+	                user.setUsername(rs.getString("username"));
+	                user.setEmail(rs.getString("email"));
+	                user.setPhone(rs.getString("phone"));
+	                user.setRole(rs.getString("role"));
+	                user.setProfile_image_url(rs.getString("profile_image_url"));
+	                user.setCreated_at(rs.getTimestamp("created_at"));
+	                user.setUpdated_at(rs.getTimestamp("updated_at"));
+	                
+	                userList.add(user);
+	            }
+	        }
+	    }
+	    return userList;
+	}
+
 
 }
 

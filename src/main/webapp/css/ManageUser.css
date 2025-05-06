@@ -1,5 +1,7 @@
 @charset "UTF-8";
 
+@charset "UTF-8";
+
 body {
   font-family: 'Poppins', sans-serif;
   margin: 0;
@@ -9,7 +11,8 @@ body {
 
 main {
   margin-top: 70px;
-  margin-left: 260px;
+  margin-left: 280px;
+   margin-right: 20px;
   padding: 20px;
 }
 
@@ -30,15 +33,15 @@ hr {
 
 
 
+
 .category-section h3 {
-  font-size: 22px;
+  font-size: 30px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #333;
   margin-bottom: 10px; 
   font-weight: 800; 
   text-align: center;
 }
-
 
 
 .search-container {
@@ -131,8 +134,8 @@ hr {
   
 }
 
-/* Food header styles */
-.food-header {
+/* user header styles */
+.user-header {
   
   display: flex;
   justify-content: space-between;
@@ -146,13 +149,13 @@ hr {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;/* Subtle box shadow */
 }
 
-.food-header div {
+.user-header div {
   width: 16%; /* Equal distribution */
   text-align: center;
 }
 
-/* Food item row styles */
-.food-row {
+/* user item row styles */
+.user-row {
   display: flex;
   justify-content: space-between;
   background-color: #fff;
@@ -170,68 +173,47 @@ hr {
 }
   
 
-.food-row img {
-  width: 60px;
-  height: 60px;
+.user-row img {
+  width: 45px;
+  height: 45px;
   object-fit: cover;
-  border-radius: 5px;
+  border-radius: 50%;
 }
 
-.food-row div {
+.user-row div {
   text-align: center;
   width: 16%; /* Equal distribution */
 }
 
-.food-row a{
+.user-row a{
 	text-decoration: none;
 }
 
-.food-row i {
+.user-row i {
   cursor: pointer;
   margin: 0 5px;
 }
 
-.food-row i.fas.fa-edit {
+.user-row i.fas.fa-edit {
   color: darkorange;
 }
 
-.food-row i.fas.fa-edit:hover {
+.user-row i.fas.fa-edit:hover {
   color: darkgreen;
 }
 
-.food-row i.fas.fa-trash {
+.user-row i.fas.fa-trash {
   color: darkorange;
 }
 
-.food-row i.fas.fa-trash:hover {
+.user-row i.fas.fa-trash:hover {
   color: darkgreen;
 }
 
-/* Add food button */
-.add-category {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 30px;
-}
 
 
 
-.green-btn {
-  background-color: green;
-  color: white;
-  padding: 10px 20px;
-  font-size: 20px;
-  font-weight: semi-bold;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  height: 50px;
-  width: 160px;
-}
 
-.green-btn:hover {
-  background-color: darkgreen;
-}
 
 .error-message {
     padding: 12px 20px;

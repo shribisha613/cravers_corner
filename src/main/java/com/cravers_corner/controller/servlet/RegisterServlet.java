@@ -115,7 +115,7 @@ public class RegisterServlet extends HttpServlet {
 	            user.setEmail(email);
 	            user.setPassword(encrypted_password); // Note: Add hashing in production
 	            user.setRole("customer"); // default role
-	            user.setProfile_image_url(""); // default profile image
+	            user.setProfile_image_url("profile_photos/default_profile.png"); // default profile image
 	            user.setCreated_at(new Timestamp(System.currentTimeMillis()));
 	            user.setUpdated_at(new Timestamp(System.currentTimeMillis()));
 

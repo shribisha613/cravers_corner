@@ -65,6 +65,12 @@
       <div>Price</div>
       <div>Action</div>
     </div>
+    
+    <c:if test="${not empty errorMessage}">
+    <div class="error-message">
+        <i class="fas fa-exclamation-circle"></i> ${errorMessage}
+    </div>
+</c:if>
 
     <c:forEach var="food" items="${foodList}">
       <div class="food-row">

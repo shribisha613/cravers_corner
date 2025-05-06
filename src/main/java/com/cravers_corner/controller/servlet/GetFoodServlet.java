@@ -39,29 +39,29 @@ public class GetFoodServlet extends HttpServlet {
 	            String searchQuery = request.getParameter("searchQuery");
 	            
 	            if (searchQuery != null && !searchQuery.trim().isEmpty()) {
-	                // Use search functionality
+	                
 	                foodList = foodDAO.searchFoodByName(searchQuery);
 	                request.setAttribute("isSearchResult", true);
-	                request.setAttribute("searchQuery", searchQuery); // Preserve search term
+	                request.setAttribute("searchQuery", searchQuery); 
 	            } else {
-	                // Normal listing
+	                
 	                foodList = foodDAO.getAllFood();
 	                request.setAttribute("isSearchResult", false);
 	            }
 	            
-	            // Check if the list is not empty
+	           
 	            if (foodList != null && !foodList.isEmpty()) {
-	                // Set the food list as a request attribute to be accessed in the JSP
+	                
 	                request.setAttribute("foodList", foodList);
 	            } else {
-	                // Set a message indicating no data was found
+	                
 	            	 request.setAttribute("errorMessage", 
 	                         searchQuery != null ? "No food items found matching your search." : "No food items found.");
 	                
 	                System.out.println("No food items are found");
 	            }
 	            
-	            // Forward the request to the ManageFood.jsp page to display the food items
+	            
 	            request.getRequestDispatcher("pages/ManageFood.jsp").forward(request, response);
 	        } catch (SQLException e) {
 	            e.printStackTrace();

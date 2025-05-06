@@ -16,7 +16,9 @@ import javax.servlet.http.HttpSession;
 @WebFilter("/pages/*")  // This will intercept all requests to pages inside the 'pages' folder
 public class AuthorizationFilter implements Filter {
 
-    private static final String[] ADMIN_PAGES = { "AdminDashboard.jsp", "ManageFood.jsp", "AdminUserProfile.jsp", "AddCategory.jsp", "AddFood.jsp", "ManageCategory.jsp", "SideNavAdmin.jsp", "AdminHeader.jsp"};
+    private static final String[] ADMIN_PAGES = { "AdminDashboard.jsp", "ManageFood.jsp", 
+    		"AdminUserProfile.jsp", "AddCategory.jsp", "AddFood.jsp", "ManageCategory.jsp", 
+    		"SideNavAdmin.jsp", "AdminHeader.jsp", "ManageUser"};
     private static final String[] CUSTOMER_PAGES = { "Home.jsp", "UserProfile.jsp", "Menu.jsp", "FoodDetail.jsp", "MyOrders.jsp", "CheckOut.jsp", "Header.jsp" };
 
     @Override

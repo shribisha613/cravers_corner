@@ -16,6 +16,7 @@ public class User {
     private String shipping_address;
     private Timestamp created_at;
     private Timestamp updated_at;
+    private int total_orders;
 
     // Default constructor
     public User() {}
@@ -129,5 +130,13 @@ public class User {
     }
     public void setUpdated_at(Timestamp updated_at) {
         this.updated_at = updated_at;
+    }
+    
+    public int getTotal_orders() {
+        return total_orders;
+    }
+    
+    public void setTotal_orders(int totalOrders) {
+        this.total_orders = totalOrders;
     }
 }
