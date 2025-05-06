@@ -69,7 +69,9 @@ public class ManageUserServlet extends HttpServlet {
 	                    sortOrder = "user_id ASC"; 
 	            }
 	            
-	            List<User> userList = userDAO.getAllUsersExceptAdmin(currentAdmin.getUser_id(), sortOrder);
+//	            List<User> userList = userDAO.getAllUsersExceptAdmin(currentAdmin.getUser_id(), sortOrder);
+	            List<User> userList = userDAO.getAllUsers(sortOrder);
+	            
 	            System.out.println("Current admin user id " + currentAdmin.getUser_id());
 	            
 	            if (searchQuery != null && !searchQuery.trim().isEmpty()) {
@@ -78,7 +80,7 @@ public class ManageUserServlet extends HttpServlet {
 	                request.setAttribute("searchQuery", searchQuery);
 	            } else {
 	                
-	                userList = userDAO.getAllUsersExceptAdmin(currentAdmin.getUser_id(), sortOrder);
+	                userList = userDAO.getAllUsers(sortOrder);
 	                request.setAttribute("isSearchResult", false);
 	            }
 	            

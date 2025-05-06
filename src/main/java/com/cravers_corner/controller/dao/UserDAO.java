@@ -196,6 +196,33 @@ public class UserDAO {
 	        }
 	        return userList;
 	    }
+	 
+	 
+	 public List<User> getAllUsers(String sortOrder) throws SQLException {
+		    List<User> userList = new ArrayList<>();
+		    String query = "SELECT u.user_id, u.first_name, u.last_name, u.username, u.email, u.phone,u.role, u.created_at, u.profile_image_url, COUNT(o.order_id) as total_orders FROM users u LEFT JOIN orders o ON u.user_id = o.customer_id WHERE u.role != \"admin\" GROUP BY u.user_id ORDER BY " + sortOrder;
+		    
+		    try (PreparedStatement ps = conn.prepareStatement(query)) {
+		        // No need to set admin ID parameter anymore
+		        ResultSet rs = ps.executeQuery();
+		        
+		        while (rs.next()) {
+		            User user = new User();
+		            user.setUser_id(rs.getInt("user_id"));
+		            user.setFirst_name(rs.getString("first_name"));
+		            user.setLast_name(rs.getString("last_name"));
+		            user.setUsername(rs.getString("username"));
+		            user.setEmail(rs.getString("email"));
+		            user.setPhone(rs.getString("phone"));
+		            user.setRole(rs.getString("role"));
+		            user.setCreated_at(rs.getTimestamp("created_at"));
+		            user.setProfile_image_url(rs.getString("profile_image_url"));
+		            user.setTotal_orders(rs.getInt("total_orders"));
+		            userList.add(user);
+		        }
+		    }
+		    return userList;
+		}
 	
 	
 	public boolean updateUser(User user) throws SQLException, ClassNotFoundException {
