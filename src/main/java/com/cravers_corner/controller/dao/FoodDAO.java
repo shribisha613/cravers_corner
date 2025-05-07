@@ -119,11 +119,11 @@ public class FoodDAO {
 	    return foodList;
 	}
 	
-	public List<Food> getAllFood() throws SQLException {
+	public List<Food> getAllFood(String sortOrder) throws SQLException {
 	    List<Food> foodList = new ArrayList<>();
 	    String query = "SELECT f.food_id, f.name, f.description, f.serving_size, f.price, f.image_url, f.category_id, c.name " +
 	                   "FROM foods f " +
-	                   "JOIN categories c ON f.category_id = c.category_id"; // Join the category table to get the name
+	                   "JOIN categories c ON f.category_id = c.category_id ORDER BY "  + sortOrder; // Join the category table to get the name
 
 	    try (
 	         PreparedStatement stmt = conn.prepareStatement(query);
