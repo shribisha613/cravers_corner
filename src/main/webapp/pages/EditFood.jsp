@@ -72,7 +72,11 @@
           <input type="text" id="price" name="price" value="${food.price}" placeholder="Enter Price" required>
         </div>
 
+<<<<<<< HEAD
+            <div class="form-group">
+=======
          <div class="form-group">
+>>>>>>> origin/main
           <label for="serving_size">Serving Size</label>
           <select id="serving_size" name="serving_size" required>
             <!-- Option for Serving Size based on the current data -->
@@ -85,8 +89,12 @@
           </select>
         </div>
 
+<<<<<<< HEAD
+           <div class="form-group">
+=======
 
           <div class="form-group">
+>>>>>>> origin/main
           <label for="category_id">Category</label>
           <select name="category_id" required>
             <option value="0" <c:if test="${food.category_id == '0'}">selected</c:if>>-- Select Category --</option>
@@ -101,6 +109,16 @@
         
           <div class="form-group">
           <label for="image">Food Image</label>
+<<<<<<< HEAD
+          
+          <input type="file" id="image" name="image" accept="image/*" required>
+          <c:if test="${not empty food.image_url}">
+  <div class="form-group">
+    <label>Current Image:</label><br>
+    <img src="${pageContext.request.contextPath}/${food.image_url}" alt="Food Image" width="150px" height="auto" />
+  </div>
+</c:if>
+=======
           <!-- Optional file input field -->
           <input type="file" id="image" name="image" accept="image/*">
           
@@ -113,6 +131,7 @@
               <input type="hidden" name="existing_image" value="${food.image_url}" />
             </div>
           </c:if>
+>>>>>>> origin/main
         </div>
         
         <div class="add-button-container">
