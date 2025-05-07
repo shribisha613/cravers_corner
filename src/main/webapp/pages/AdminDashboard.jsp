@@ -34,8 +34,8 @@
             <div class="stat-card">
                 <div class="stat-icon"><i class="fas fa-users"></i></div>
                 <div>
-                    <div class="stat-title">Total Active Users</div>
-                    <div class="stat-count-box">${totalActiveUsers}</div>
+                    <div class="stat-title">Total Customers</div>
+                    <div class="stat-count-box">${totalCustomers}</div>
                 </div>
             </div>
 
