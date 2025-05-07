@@ -53,6 +53,7 @@
       
 
       <form action="${pageContext.request.contextPath}/EditFoodServlet" method="post" enctype="multipart/form-data">
+      <input type="hidden" name="food_id" value="${food.food_id}" />
 
         <div class="form-group">
           <label for="food_name">Food Name</label>
@@ -98,17 +99,28 @@
         </div>
         
         
-         <div class="form-group">
+          <div class="form-group">
           <label for="image">Food Image</label>
+          <!-- Optional file input field -->
+          <input type="file" id="image" name="image" accept="image/*">
           
-          <input type="file" id="image" name="image" accept="image/*" required>
+          <!-- Display current image if one exists -->
           <c:if test="${not empty food.image_url}">
-  <div class="form-group">
-    <label>Current Image:</label><br>
-    <img src="${pageContext.request.contextPath}/${food.image_url}" alt="Food Image" width="150px" height="auto" />
-  </div>
-</c:if>
+            <div class="form-group">
+              <label>Current Image:</label><br>
+              <img src="${pageContext.request.contextPath}/${food.image_url}" alt="Food Image" width="150px" height="auto" />
+              <!-- Hidden input to retain current image if no new image is uploaded -->
+              <input type="hidden" name="existing_image" value="${food.image_url}" />
+            </div>
+          </c:if>
         </div>
+        
+        <div class="add-button-container">
+          <button type="submit">Edit Food</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
   <div id="foodList"></div>
 
