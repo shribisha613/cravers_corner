@@ -12,7 +12,7 @@
 
 <div class="side-nav">
     <div class="nav-item ${activePage == 'dashboard' ? 'active' : ''}">
-        <a href="${pageContext.request.contextPath}/pages/AdminDashboard.jsp"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="${pageContext.request.contextPath}/AdminDashboardServlet"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
     </div>
   
    
