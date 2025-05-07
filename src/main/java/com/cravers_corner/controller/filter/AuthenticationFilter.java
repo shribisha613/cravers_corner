@@ -37,25 +37,43 @@ public class AuthenticationFilter implements Filter{
 	        boolean isLoggedIn = session != null && session.getAttribute("userWithSession") != null;
 	        boolean isLoginPage = uri.endsWith("Login.jsp") || uri.endsWith("LoginServlet");
 	        boolean isRegisterPage = uri.endsWith("Register.jsp") || uri.endsWith("RegisterServlet");
-	        if (isLoggedIn) {
-	        	
-	        	
-	        	if (isLoginPage || isRegisterPage) {// if logged in and login page or register page mai cha bhane, home ma pathaune feri login ma napathaune
-	        		res.sendRedirect(req.getContextPath()+ "/pages/Home.jsp");
-	        	}else {//logged in cha ani aru page jana khojecha bhane pathaune as required
-	        		
-	        		chain.doFilter(request, response); //gives acceess to requested page based if not login page
-	        		return;
-	        	}
-	        }else {
-	        	//if not logged in 
-	        	if (isLoginPage || isRegisterPage) {//if not logged in  and is in the login page then give them access to loginpage
-	        		chain.doFilter(request, response);
-	        	
-	        	}else {
-	        		//if logged in chaina ani login page ma ni chaina bhane jaslai ni login page ma pathaune 
-	        		res.sendRedirect(req.getContextPath() + "/pages/Login.jsp");
-	        	}
+	        boolean isAdminDashboardPage = uri.endsWith("AdminDashboard.jsp");
+	        
+	        if (isLoggedIn) { // If the user is logged in
+	            String role = (String) session.getAttribute("role");
+	            System.out.println(role);
+
+	            // If the user is already logged in and trying to access login or register page
+	            if (isLoginPage || isRegisterPage) {
+	                if (role != null) {
+	                    // Redirect to Admin Dashboard for admin users
+	                    if ("admin".equals(role)) {
+	                        res.sendRedirect(req.getContextPath() + "/pages/AdminDashboard.jsp");
+	                        return;
+	                    }
+	                    // Redirect to Home page for customer users
+	                    else if ("customer".equals(role)) {
+	                        res.sendRedirect(req.getContextPath() + "/pages/Home.jsp");
+	                        return;
+	                    }
+	                }
+	            } else if (isAdminDashboardPage) {
+	                // If the user is an admin but trying to access the AdminDashboard.jsp directly, redirect to the servlet
+	                res.sendRedirect(req.getContextPath() + "/AdminDashboardServlet");
+	                return;
+	            } else {
+	                // If the user is logged in and tries to access other pages, allow access
+	                chain.doFilter(request, response);
+	                return;
+	            }
+	        } else { // If the user is NOT logged in
+	            if (isLoginPage || isRegisterPage) {
+	                // If user is not logged in and tries to access the login or register page, allow access
+	                chain.doFilter(request, response);
+	            } else {
+	                // If user is not logged in and tries to access other pages, redirect to login page
+	                res.sendRedirect(req.getContextPath() + "/pages/Login.jsp");
+	            }
 	        }
 		
 	}
