@@ -17,36 +17,52 @@
   <jsp:include page="SideNavAdmin.jsp" />
   <main>
    
-      <div class="category-section">
-        <h3>Cravers Corner Admin's Manage Category Section</h3>
-        
-        <div class = "manage-category">
-        <div class="search-container">
-        <input type="text" placeholder="Search..." class="search" />
-        <i class="fas fa-search"></i>
-      </div>
 
-      <!-- Table-like header row -->
+    <div class="manage_category-section">
+      <h3>Cravers Corner’s Manage Category Interface</h3>
+       
+      <div class="manage_category-controls">
+        <div class="search-container">
+          <input type="text" placeholder="Search..." class="search" />
+          <i class="fas fa-search"></i>
+        </div>
+    </div>
+    </div>
+
+    <!-- Table-like header row -->
     <div class="food-header">
-      <div>Name</div>
+      <div>Category Name</div>
       <div>Description</div>
       <div>Action</div>
     </div>
-     
-</div>
-        <div>${food.description}</div>
-        
-          <i class="fas fa-edit" title="Edit"></i>
-          <i class="fas fa-trash" title="Delete"></i>
-        </div>
-      </div>
 
+    <c:forEach var="category" items="${categoryList}">
+		      <div class="food-row">
+		        <div>${category.name}</div>
+		     </div>
+		        <div>${category.description}</div>
+		        
+		         <div>
+  <a href="${pageContext.request.contextPath}/EditCategoryServlet?id=${food.food_id}" title="Edit">
+    <i class="fas fa-edit"></i>
+  </a>
+  <i class="fas fa-trash" title="Delete"></i>
+</div>
+		   
+		        
+		
+    </c:forEach>
     
+     
+    
+
     <div class="add-category">
       <a href="${pageContext.request.contextPath}/AddCategoryServlet">
     <button type="button" class="green-btn">Add Category</button>
-</a>  
-    </main>
-  </div>
+</a>
+    
+    </div>
+  </main>
 </body>
 </html>
+     

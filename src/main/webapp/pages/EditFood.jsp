@@ -53,6 +53,7 @@
       
 
       <form action="${pageContext.request.contextPath}/EditFoodServlet" method="post" enctype="multipart/form-data">
+      <input type="hidden" name="food_id" value="${food.food_id}" />
 
         <div class="form-group">
           <label for="food_name">Food Name</label>
@@ -71,7 +72,11 @@
           <input type="text" id="price" name="price" value="${food.price}" placeholder="Enter Price" required>
         </div>
 
+<<<<<<< HEAD
             <div class="form-group">
+=======
+         <div class="form-group">
+>>>>>>> origin/main
           <label for="serving_size">Serving Size</label>
           <select id="serving_size" name="serving_size" required>
             <!-- Option for Serving Size based on the current data -->
@@ -84,7 +89,12 @@
           </select>
         </div>
 
+<<<<<<< HEAD
            <div class="form-group">
+=======
+
+          <div class="form-group">
+>>>>>>> origin/main
           <label for="category_id">Category</label>
           <select name="category_id" required>
             <option value="0" <c:if test="${food.category_id == '0'}">selected</c:if>>-- Select Category --</option>
@@ -97,8 +107,9 @@
         </div>
         
         
-        <div class="form-group">
+          <div class="form-group">
           <label for="image">Food Image</label>
+<<<<<<< HEAD
           
           <input type="file" id="image" name="image" accept="image/*" required>
           <c:if test="${not empty food.image_url}">
@@ -107,8 +118,22 @@
     <img src="${pageContext.request.contextPath}/${food.image_url}" alt="Food Image" width="150px" height="auto" />
   </div>
 </c:if>
+=======
+          <!-- Optional file input field -->
+          <input type="file" id="image" name="image" accept="image/*">
+          
+          <!-- Display current image if one exists -->
+          <c:if test="${not empty food.image_url}">
+            <div class="form-group">
+              <label>Current Image:</label><br>
+              <img src="${pageContext.request.contextPath}/${food.image_url}" alt="Food Image" width="150px" height="auto" />
+              <!-- Hidden input to retain current image if no new image is uploaded -->
+              <input type="hidden" name="existing_image" value="${food.image_url}" />
+            </div>
+          </c:if>
+>>>>>>> origin/main
         </div>
-
+        
         <div class="add-button-container">
           <button type="submit">Edit Food</button>
         </div>
