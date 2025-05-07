@@ -35,8 +35,33 @@ public class GetFoodServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		 try {
 	            FoodDAO foodDAO = new FoodDAO();
-	            List<Food> foodList = foodDAO.getAllFood();
+	           
 	            String searchQuery = request.getParameter("searchQuery");
+	            String sortBy = request.getParameter("sort");
+	            if (sortBy == null) {
+	                sortBy = "joined_date_desc"; // default latest added at first huncha
+	            }
+
+	            String sortOrder;
+	            switch (sortBy) {
+	                case "name":
+	                    sortOrder = "f.name ASC";
+	                    break;
+	                case "price_asc":
+	                    sortOrder = "f.price ASC";
+	                    break;
+	                case "price_desc":
+	                    sortOrder = "f.price DESC";
+	                    break;
+	                case "joined_date_desc":
+	                    sortOrder = "f.created_at DESC";
+	                    break;
+	                default:
+	                    sortOrder = "f.created_at DESC";
+	                    break;
+	            }
+	            List<Food> foodList = foodDAO.getAllFood(sortOrder);
+	            
 	            
 	            if (searchQuery != null && !searchQuery.trim().isEmpty()) {
 	                
@@ -45,7 +70,7 @@ public class GetFoodServlet extends HttpServlet {
 	                request.setAttribute("searchQuery", searchQuery); 
 	            } else {
 	                
-	                foodList = foodDAO.getAllFood();
+	                foodList = foodDAO.getAllFood(sortOrder);
 	                request.setAttribute("isSearchResult", false);
 	            }
 	            
