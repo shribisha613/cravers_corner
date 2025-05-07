@@ -71,44 +71,44 @@
           <input type="text" id="price" name="price" value="${food.price}" placeholder="Enter Price" required>
         </div>
 
-        <div class="form-group">
+         <div class="form-group">
           <label for="serving_size">Serving Size</label>
-        <select id="serving_size" name="serving_size" required>
-  <option value="${food.serving_size}"></option>
- 
-  <option value="Small" <c:if test="${sessionScope.serving_size == 'Small'}">selected</c:if>>Small (For 1 person)</option>
-  <option value="Medium" <c:if test="${sessionScope.serving_size == 'Medium'}">selected</c:if>>Medium (For 2-3 people)</option>
-  <option value="Large" <c:if test="${sessionScope.serving_size == 'Large'}">selected</c:if>>Large (For 4-5 people)</option>
-  <option value="Family" <c:if test="${sessionScope.serving_size == 'Family'}">selected</c:if>>Family Size (For 6+ people)</option>
-  <option value="Mini" <c:if test="${sessionScope.serving_size == 'Mini'}">selected</c:if>>Mini (Snack portion)</option>
-  <option value="Party" <c:if test="${sessionScope.serving_size == 'Party'}">selected</c:if>>Party Size (For gatherings)</option>
-</select>
+          <select id="serving_size" name="serving_size" required>
+            <!-- Option for Serving Size based on the current data -->
+            <option value="Small" <c:if test="${food.serving_size == 'Small'}">selected</c:if>>Small (For 1 person)</option>
+            <option value="Medium" <c:if test="${food.serving_size == 'Medium'}">selected</c:if>>Medium (For 2-3 people)</option>
+            <option value="Large" <c:if test="${food.serving_size == 'Large'}">selected</c:if>>Large (For 4-5 people)</option>
+            <option value="Family" <c:if test="${food.serving_size == 'Family'}">selected</c:if>>Family Size (For 6+ people)</option>
+            <option value="Mini" <c:if test="${food.serving_size == 'Mini'}">selected</c:if>>Mini (Snack portion)</option>
+            <option value="Party" <c:if test="${food.serving_size == 'Party'}">selected</c:if>>Party Size (For gatherings)</option>
+          </select>
         </div>
 
-        <div class="form-group">
+
+          <div class="form-group">
           <label for="category_id">Category</label>
-         <select name="category_id" required>
-  <option value="0" <c:if test="${sessionScope.category_id == '0'}">selected</c:if>>-- Select Category --</option>
-  <c:forEach var="category" items="${categoryList}">
-    <option value="${category.category_id}" <c:if test="${sessionScope.category_id == category.category_id}">selected</c:if>>
-      ${category.name}
-    </option>
-  </c:forEach>
-</select>
+          <select name="category_id" required>
+            <option value="0" <c:if test="${food.category_id == '0'}">selected</c:if>>-- Select Category --</option>
+            <c:forEach var="category" items="${categoryList}">
+              <option value="${category.category_id}" <c:if test="${food.category_id == category.category_id}">selected</c:if>>
+                ${category.name}
+              </option>
+            </c:forEach>
+          </select>
         </div>
         
         
-        <div class="form-group">
+         <div class="form-group">
           <label for="image">Food Image</label>
+          
           <input type="file" id="image" name="image" accept="image/*" required>
-        </div>
-
-        <div class="add-button-container">
-          <button type="submit">Edit Food</button>
-        </div>
-      </form>
-    </div>
+          <c:if test="${not empty food.image_url}">
+  <div class="form-group">
+    <label>Current Image:</label><br>
+    <img src="${pageContext.request.contextPath}/${food.image_url}" alt="Food Image" width="150px" height="auto" />
   </div>
+</c:if>
+        </div>
 
   <div id="foodList"></div>
 
