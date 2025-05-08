@@ -20,12 +20,15 @@
  
 
 		    <section class="icon">
-		        <a href="Cart.jsp">
+		     <form action="<%=request.getContextPath()%>/AddToCartServlet" method="post">
+		        
 		            <button type="button" class="icon-btn cart-btn">
 		                <i class="fas fa-shopping-cart"></i>
 		            </button>
-		        </a>
+		       </form>
 		    </section>
+		    
+		      
 
 
  <a href="<%=request.getContextPath()%>/UserProfileServlet" class="icon">

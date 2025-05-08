@@ -22,19 +22,19 @@ import com.cravers_corner.model.User;
 /**
  * Servlet implementation class UserProfileServlet
  */
-@WebServlet("/UserProfileServlet")
+@WebServlet("/AdminUserProfileServlet")
 @MultipartConfig(
 	    fileSizeThreshold = 1024 * 1024 * 2,  // 2MB
 	    maxFileSize = 1024 * 1024 * 10,       // 10MB
 	    maxRequestSize = 1024 * 1024 * 50     // 50MB
 	)
-public class UserProfileServlet extends HttpServlet {
+public class AdminUserProfileServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserProfileServlet() {
+    public AdminUserProfileServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -52,23 +52,21 @@ public class UserProfileServlet extends HttpServlet {
 
         // Get the user from session
         User sessionUser = (User) session.getAttribute("userWithSession");
+        
        
-       
-            try {
-                UserDAO userDAO = new UserDAO();
-                User user = userDAO.getUserByUsername(sessionUser.getUsername());
-                System.out.println(sessionUser.getUsername());
-                request.setAttribute("userProfile", user);
-                request.setAttribute("userRole", sessionUser.getRole()); // Pass role to JSP
-                request.getRequestDispatcher("/pages/UserProfile.jsp").forward(request, response);
-            } catch (ClassNotFoundException | SQLException e) {
-                e.printStackTrace();
-                request.setAttribute("errorMessage", "A system error occurred. Please try again later.");
-                request.getRequestDispatcher("/pages/Home.jsp").forward(request, response);
-            }
+        try {
+            UserDAO userDAO = new UserDAO();
+            User user = userDAO.getUserByUsername(sessionUser.getUsername());
+            System.out.println(sessionUser.getUsername());
+            request.setAttribute("userProfile", user);
+            request.setAttribute("userRole", sessionUser.getRole());
+            request.getRequestDispatcher("/pages/AdminUserProfile.jsp").forward(request, response);
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+            request.setAttribute("errorMessage", "A system error occurred. Please try again later.");
+            request.getRequestDispatcher("/pages/AdminDashboard.jsp").forward(request, response);
         }
-    
-
+    }
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -104,7 +102,7 @@ public class UserProfileServlet extends HttpServlet {
         	
             if (!ValidationUtil.isValidImageExtension(image)) {
                 request.setAttribute("errorMessage", "Invalid image format. Only JPG, PNG, and GIF are allowed.");
-                request.getRequestDispatcher("/pages/UserProfile.jsp").forward(request, response);
+                request.getRequestDispatcher("/pages/AdminUserProfile.jsp").forward(request, response);
                 return;
             }
         
@@ -145,37 +143,37 @@ public class UserProfileServlet extends HttpServlet {
         
         if (ValidationUtil.isNullOrEmpty(firstName) || !ValidationUtil.isValidName(firstName)) {
             request.setAttribute("errorMessage", "First name is invalid. Please enter a valid first name.");
-            request.getRequestDispatcher("/pages/UserProfile.jsp").forward(request, response);
+            request.getRequestDispatcher("/pages/AdminUserProfile.jsp").forward(request, response);
             return;
         }
         
         if (ValidationUtil.isNullOrEmpty(lastName) || !ValidationUtil.isValidName(lastName)) {
             request.setAttribute("errorMessage", "Last name is invalid. Please enter a valid last name.");
-            request.getRequestDispatcher("/pages/UserProfile.jsp").forward(request, response);
+            request.getRequestDispatcher("/pages/AdminUserProfile.jsp").forward(request, response);
             return;
         }
 
         if (ValidationUtil.isNullOrEmpty(email) || !ValidationUtil.isValidEmail(email)) {
             request.setAttribute("errorMessage", "Email is invalid. Please enter a valid email address.");
-            request.getRequestDispatcher("/pages/UserProfile.jsp").forward(request, response);
+            request.getRequestDispatcher("/pages/AdminUserProfile.jsp").forward(request, response);
             return;
         }
 
         if (ValidationUtil.isNullOrEmpty(username) || !ValidationUtil.isValidUsername(username)) {
             request.setAttribute("errorMessage", "Username must be atleast 7 character long. Please enter a valid username.");
-            request.getRequestDispatcher("/pages/UserProfile.jsp").forward(request, response);
+            request.getRequestDispatcher("/pages/AdminUserProfile.jsp").forward(request, response);
             return;
         }
 
         if (ValidationUtil.isNullOrEmpty(phone) || !ValidationUtil.isValidPhoneNumber(phone)) {
             request.setAttribute("errorMessage", "Phone number is invalid. Please enter a valid phone number.");
-            request.getRequestDispatcher("/pages/UserProfile.jsp").forward(request, response);
+            request.getRequestDispatcher("/pages/AdminUserProfile.jsp").forward(request, response);
             return;
         }
 
         if (ValidationUtil.isNullOrEmpty(address) || !ValidationUtil.isValidAddress(address)) {
             request.setAttribute("errorMessage", "Address is invalid. Please enter a valid address.");
-            request.getRequestDispatcher("/pages/UserProfile.jsp").forward(request, response);
+            request.getRequestDispatcher("/pages/AdminUserProfile.jsp").forward(request, response);
             return;
         }
 
@@ -183,13 +181,13 @@ public class UserProfileServlet extends HttpServlet {
         if (newPassword != null && !newPassword.trim().isEmpty()) {
             if (!ValidationUtil.doPasswordsMatch(newPassword, confirmPassword)) {
                 request.setAttribute("errorMessage", "Passwords do not match.");
-                request.getRequestDispatcher("/pages/UserProfile.jsp").forward(request, response);
+                request.getRequestDispatcher("/pages/AdminUserProfile.jsp").forward(request, response);
                 return;
             }
             
             if (!ValidationUtil.isValidPassword(newPassword)) {
                 request.setAttribute("errorMessage", "Password must be at least 8 characters long, contain an uppercase letter, a number, and a special character.");
-                request.getRequestDispatcher("/pages/UserProfile.jsp").forward(request, response);
+                request.getRequestDispatcher("/pages/AdminUserProfile.jsp").forward(request, response);
                 return;
             }
         }
@@ -245,7 +243,7 @@ public class UserProfileServlet extends HttpServlet {
                 } else {
                     request.setAttribute("errorMessage", "Please retype your Password to make changes.");
                     request.setAttribute("userProfile", currentUser);
-                    request.getRequestDispatcher("/pages/UserProfile.jsp").forward(request, response);
+                    request.getRequestDispatcher("/pages/AdminUserProfile.jsp").forward(request, response);
                     return;
                 }
             }
@@ -270,14 +268,12 @@ public class UserProfileServlet extends HttpServlet {
             }
 
             request.setAttribute("userProfile", currentUser);
-            request.getRequestDispatcher("/pages/UserProfile.jsp").forward(request, response);
-
-         
+            request.getRequestDispatcher("/pages/AdminUserProfile.jsp").forward(request, response);
 
 
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
-            response.sendRedirect(request.getContextPath() + "/pages/UserProfile.jsp");
+            response.sendRedirect(request.getContextPath() + "/pages/AdminUserProfile.jsp");
         }
     }
 
