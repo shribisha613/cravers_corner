@@ -14,7 +14,7 @@
 
 
 
- <a href="<%=request.getContextPath()%>/UserProfileServlet" class="icon">
+ <a href="<%=request.getContextPath()%>/AdminUserProfileServlet" class="icon">
                      
                          
      <c:choose>
