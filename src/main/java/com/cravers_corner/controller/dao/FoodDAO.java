@@ -121,7 +121,7 @@ public class FoodDAO {
 	
 	public List<Food> getAllFood() throws SQLException {
 	    List<Food> foodList = new ArrayList<>();
-	    String query = "SELECT f.food_id, f.name, f.description, f.serving_size, f.price, f.image_url, f.category_id, c.name " +
+	    String query = "SELECT f.food_id, f.name, f.description, f.serving_size, f.price, f.image_url, f.category_id, c.name as category_name" +
 	                   "FROM foods f " +
 	                   "JOIN categories c ON f.category_id = c.category_id";   // Join the category table to get the name
 
@@ -138,7 +138,8 @@ public class FoodDAO {
 	            food.setPrice(rs.getDouble("price"));
 	            food.setImage_url(rs.getString("image_url"));
 	            food.setCategory_id(rs.getInt("category_id"));
-	            food.setCategory_name(rs.getString("name")); // Set category name
+	            
+	            food.setCategory_name(rs.getString("category_name")); // Set category name
 
 	            foodList.add(food);
 	        }
@@ -149,7 +150,7 @@ public class FoodDAO {
 	
 	public List<Food> getAllFood(String sortOrder) throws SQLException {
 	    List<Food> foodList = new ArrayList<>();
-	    String query = "SELECT f.food_id, f.name, f.description, f.serving_size, f.price, f.image_url, f.category_id, c.name " +
+	    String query = "SELECT f.food_id, f.name, f.description, f.serving_size, f.price, f.image_url, f.category_id, c.name  as category_name " +
 	                   "FROM foods f " +
 	                   "JOIN categories c ON f.category_id = c.category_id ORDER BY "  + sortOrder; // Join the category table to get the name
 
@@ -166,7 +167,7 @@ public class FoodDAO {
 	            food.setPrice(rs.getDouble("price"));
 	            food.setImage_url(rs.getString("image_url"));
 	            food.setCategory_id(rs.getInt("category_id"));
-	            food.setCategory_name(rs.getString("name")); // Set category name
+	            food.setCategory_name(rs.getString("category_name")); // Set category name
 
 	            foodList.add(food);
 	        }
@@ -224,6 +225,52 @@ public class FoodDAO {
         }
 
         return categories;
+    }
+	
+	public int getCategoryIdByName(String name) throws SQLException {
+        String query = "SELECT category_id FROM categories WHERE name = ?";
+        try (PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setString(1, name);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("category_id");
+                }
+            }
+        }
+        return -1; // or throw exception if not found
+    }
+
+
+
+    public List<Food> getFoodByCategory(String categoryName) throws SQLException {
+        List<Food> foodList = new ArrayList<>();
+
+        int categoryId = getCategoryIdByName(categoryName);
+        if (categoryId == -1) return foodList; // no matching category
+
+        String query = "SELECT f.*, c.name AS category_name " +
+                       "FROM foods f JOIN categories c ON f.category_id = c.category_id " +
+                       "WHERE f.category_id = ?";
+
+        try (PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setInt(1, categoryId); // now using proper ID
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Food food = new Food();
+                    food.setFood_id(rs.getInt("food_id"));
+                    food.setName(rs.getString("name"));
+                    food.setDescription(rs.getString("description"));
+                    food.setServing_size(rs.getString("serving_size"));
+                    food.setPrice(rs.getDouble("price"));
+                    food.setImage_url(rs.getString("image_url"));
+                    food.setCategory_id(rs.getInt("category_id"));
+                    food.setCategory_name(rs.getString("category_name"));
+                    foodList.add(food);
+                }
+            }
+        }
+
+        return foodList;
     }
 
 	
