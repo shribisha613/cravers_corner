@@ -121,7 +121,7 @@ public class Food {
         return category_name;
     }
 
-    public void setCategory_name(String categoryName) {
-        this.category_name = categoryName;
+    public void setCategory_name(String category_name) {
+        this.category_name = category_name;
     }
 }

@@ -112,7 +112,7 @@ public class EditFoodServlet extends HttpServlet {
 		                return;
 		            }
 
-		            try {
+		            try { 
 		                String storePath = request.getServletContext().getRealPath("") + "food_images";
 		                File folder = new File(storePath);
 		                if (!folder.exists()) {
