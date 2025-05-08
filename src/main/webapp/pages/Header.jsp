@@ -11,7 +11,7 @@
     <nav>
         <ul>
             <li><a href="<%=request.getContextPath()%>/pages/Home.jsp">Home</a></li>
-            <li><a href="<%=request.getContextPath()%>/MenuServlet">Menu</a></li>
+            <li><a href="<%=request.getContextPath()%>/menu">Menu</a></li>
             <li><a href="<%=request.getContextPath()%>/AboutUs.jsp">About Us</a></li>
         </ul>
     </nav>
