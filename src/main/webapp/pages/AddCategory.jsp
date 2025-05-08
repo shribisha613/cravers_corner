@@ -10,9 +10,6 @@
 <c:set var="activePage" value="category" scope="request" />
  <jsp:include page="AdminHeader.jsp" />
   <jsp:include page="SideNavAdmin.jsp" />
-  
-  
-    
 
       <div class="form-wrapper">
       <a href="${pageContext.request.contextPath}/pages/ManageCategory.jsp" class="back-button">

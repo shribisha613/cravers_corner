@@ -29,7 +29,7 @@
 	    <c:choose>
 	      <c:when test="${not empty categoryList}">
 	        <c:forEach items="${categoryList}" var="category">
-	          <li><a href="#" class="category-link">${category.name}</a></li>
+	          <li> <a href="${pageContext.request.contextPath}/menu?type=${category.name}" class="category-link">${category.name} </a></li>
 	        </c:forEach>
 	      </c:when>
 	      <c:otherwise>
@@ -41,7 +41,7 @@
   
     <div class="menu-content">
         <!-- ✅ Search Form -->
-        <form method="get" action="MenuServlet" class="search-form">
+        <form method="get" action="menu" class="search-form">
     		<input type="text" name="search" placeholder="Search..." value="${searchKeyword}" />
 		</form>
 
