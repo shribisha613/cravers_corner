@@ -38,6 +38,17 @@
   margin: 0; /* Removed bottom margin */
 }
 
+
+.sidebar li.active {
+  background-color: #FF8C42;
+  border-radius: 5px;
+}
+
+.sidebar li.active a {
+  color: white;
+  font-weight: bold;
+}
+
 .category-link {
   display: block;
   padding: 12px 15px;
@@ -52,11 +63,19 @@
   box-sizing: border-box; /* Includes padding in width */
 }
 
+
 .category-link:hover {
   background: #FF8C42;
   color: white;
 }
 
+
+
+.category-link.active{
+ background: #FF8C42;
+  color: white;
+  font-weight: bold;
+}
 /* Remove border from last item */
 .sidebar li:last-child .category-link {
   border-bottom: none;
@@ -136,4 +155,6 @@
 	color: #0B9B15;
 	margin: 5px 0 0 0;
   }
+  
+
 	  
