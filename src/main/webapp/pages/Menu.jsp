@@ -2,11 +2,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.cravers_corner.model.Category" %>
+
+
+
 <%
     String type = request.getParameter("type");
     if (type == null || type.isEmpty()) {
         type = "Nepali";
     }
+    request.setAttribute("type", type); // ✅ Add this line
 %>
 <!DOCTYPE html>
 <html>
@@ -25,18 +29,27 @@
     <!-- Sidebar -->
 	<div class="sidebar">
 	  <h3>Categories</h3>
-	  <ul>
-	    <c:choose>
-	      <c:when test="${not empty categoryList}">
-	        <c:forEach items="${categoryList}" var="category">
-	          <li> <a href="${pageContext.request.contextPath}/menu?type=${category.name}" class="category-link">${category.name} </a></li>
-	        </c:forEach>
-	      </c:when>
-	      <c:otherwise>
-	        <li><span class="no-categories">No categories available</span></li>
-	      </c:otherwise>
-	    </c:choose>
-	  </ul>
+
+<ul>
+  <c:choose>
+    <c:when test="${not empty categoryList}">
+      <c:forEach items="${categoryList}" var="category">
+		      <li>
+		  <a href="${pageContext.request.contextPath}/menu?type=${category.name}"
+		   class="category-link <c:if test='${category.name eq type}'>active</c:if>">
+		    ${category.name}
+		  </a>
+		</li>
+      </c:forEach>
+    </c:when>
+    <c:otherwise>
+      <li><span class="no-categories">No categories available</span></li>
+    </c:otherwise>
+  </c:choose>
+</ul>
+
+
+
 	</div>
   
     <div class="menu-content">
