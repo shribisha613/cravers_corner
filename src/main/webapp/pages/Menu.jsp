@@ -65,11 +65,15 @@
             <c:choose>
                 <c:when test="${not empty foodList}">
                     <c:forEach var="food" items="${foodList}">
+                    
+                   <a href="${pageContext.request.contextPath}/FoodDetailServlet?id=${food.food_id}" style="text-decoration: none; color: inherit;">
+                    
                         <div class="food-item">
                             <img src="${food.image_url}" alt="${food.name}" />
                             <h3>${food.name}</h3>
                             <p>रु. ${food.price}</p>
                         </div>
+                         </a>
                     </c:forEach>
                 </c:when>
                 <c:otherwise>
