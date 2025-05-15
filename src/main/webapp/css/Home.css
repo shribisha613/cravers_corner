@@ -15,16 +15,17 @@ body {
 
 /* Hero Section */
 .hero {
-    background: url('../images/home bg.jpg') center/cover;
-    height: 690px;
+    background: url('../images/home bg.jpg') center/cover no-repeat;
+    height: 590px; /* Reduced from 600px to make it less tall */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-end;
     padding-right: 40px;
-   
-    
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Simple shadow */
 }
+
 
 .hero h1 {
     font-size: 2.8rem;
@@ -33,6 +34,7 @@ body {
     max-width: 600px;
     line-height: 1.2;
     text-align: right;
+   
 }
 
 .order-btn {
