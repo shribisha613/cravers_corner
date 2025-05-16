@@ -59,5 +59,8 @@
     
     
 </header>
+<jsp:include page="/pages/AddToCart.jsp" />
+
+
 
 

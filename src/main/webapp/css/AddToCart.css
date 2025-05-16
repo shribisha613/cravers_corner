@@ -5,11 +5,7 @@ body {
     background: #f9f9f9;
 }
 
-.main {
-  padding-top: 70px; /* Pushes content down below header */
-  padding-left: 20px;
-  padding-right: 20px;
-}
+
 .cart-popup {
     position: fixed;
     top: 80px;
@@ -99,5 +95,5 @@ body {
 }
 
 .hidden {
-    display: none !important;
+    display: none;
 }

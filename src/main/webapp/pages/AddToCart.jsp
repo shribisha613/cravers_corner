@@ -12,7 +12,7 @@
 <main>
    <div id="cartPopup" class="cart-popup hidden">
     <div class="cart-header">
-        <h2>Your Cart</h2>
+        <h3>Your Cart</h3>
         <span class="close-btn" onclick="closeCart()">&times;</span>
     </div>
 

@@ -30,9 +30,6 @@ if (qtyParam != null) {
 <body>
 
 <jsp:include page="Header.jsp" />
-
-
-
 <!-- Food Detail Section -->
 <div class="menu-content">
   <div class="food-detail">
