@@ -31,6 +31,8 @@ if (qtyParam != null) {
 
 <jsp:include page="Header.jsp" />
 
+
+
 <!-- Food Detail Section -->
 <div class="menu-content">
   <div class="food-detail">
@@ -46,19 +48,24 @@ if (qtyParam != null) {
       <p class="price">रु. ${food.price}</p>
       <p class="shipping-note">Shipping is calculated at checkout</p>
 
-      <!-- Quantity Control (No page reload) -->
+      
+      
       <div class="quantity-wrapper">
-        <button type="button" onclick="updateQuantity(-1)">–</button>
-        <span id="quantity-display"><%= quantity %></span>
-        <button type="button" onclick="updateQuantity(1)">+</button>
-      </div>
+    <button type="button" onclick="updateQuantity(-1)">–</button>
+    <span id="quantity-display"><%= quantity %></span>
+    <input type="hidden" id="quantity-input" value="<%= quantity %>" />
+    <button type="button" onclick="updateQuantity(1)">+</button>
+</div>
 
       <!-- Add to Cart -->
-      <form action="AddToCart.jsp" method="post">
-        <input type="hidden" name="food_id" value="${food.food_id}" />
-        <input type="hidden" id="quantity-input" name="quantity" value="<%= quantity %>" />
-        <button type="submit" class="add-to-cart">Add to Cart</button>
-      </form>
+      
+       <button type="submit" class="add-to-cart"
+  onclick="addToCart('${food.food_id}', '${food.name}', ${food.price}, quantity)">
+  Add to Cart
+</button>
+      
+      
+      
 
       <!-- Description -->
       <div class="description-section">
@@ -73,6 +80,8 @@ if (qtyParam != null) {
   </div>
 </div>
 
+
+<jsp:include page="AddToCart.jsp" />
 <jsp:include page="Footer.jsp" />
 
 <!-- JavaScript for quantity -->

@@ -20,12 +20,12 @@
  
 
 		    <section class="icon">
-		     <form action="<%=request.getContextPath()%>/AddToCartServlet" method="post">
+		     
 		        
-		            <button type="button" class="icon-btn cart-btn">
+		            <button type="submit" class="icon-btn cart-btn" onclick="showCartPopup()">
 		                <i class="fas fa-shopping-cart"></i>
 		            </button>
-		       </form>
+		       
 		    </section>
 		    
 		      
@@ -50,7 +50,7 @@
    <section class="icon">
 
 		        <form action="<%=request.getContextPath()%>/LogoutServlet" method="post">
-		            <button type="submit" class="icon-btn logout-btn">
+		            <button type="submit" class="icon-btn logout-btn" >
 		                <i class="fas fa-sign-out-alt"></i>
 		            </button>
 		        </form>
