@@ -17,13 +17,16 @@ public class RemoveFromCartServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession(false);
+    	HttpSession session = request.getSession(false);
 
-        if (session == null || session.getAttribute("user_id") == null) {
+        if (session == null || session.getAttribute("userWithSession") == null) {
             response.sendRedirect(request.getContextPath() + "/pages/Login.jsp");
+            System.out.println("user is not logged in ");
+            
             return;
         }
-
+        String returnPage = request.getParameter("returnPage");
+        System.out.println("return page: " + returnPage);
         try {
             int cart_item_id = Integer.parseInt(request.getParameter("cart_item_id"));
 
@@ -53,12 +56,27 @@ public class RemoveFromCartServlet extends HttpServlet {
                 session.setAttribute("message", "Item removed from cart");
             }
 
-            response.sendRedirect("AddToCart.jsp?openCart=true");
+            if (returnPage.contains("/pages/FoodDetail.jsp")) {
+                returnPage = returnPage.replace("/pages/FoodDetail.jsp", "/FoodDetailServlet");
+            }
+
+            // Add openCart=true only if not already present
+            if (!returnPage.contains("openCart=true")) {
+                if (returnPage.contains("?")) {
+                    returnPage += "&openCart=true";
+                } else {
+                    returnPage += "?openCart=true";
+                }
+            }
+            System.out.println(returnPage);
+            response.sendRedirect(returnPage);
+
 
         } catch (Exception e) {
             e.printStackTrace();
-            session.setAttribute("error", "Failed to remove item: " + e.getMessage());
-            response.sendRedirect("AddToCart.jsp?openCart=true");
+            session.setAttribute("error", "Error updating cart ");
+            response.sendRedirect(returnPage);
+
         }
     }
 }

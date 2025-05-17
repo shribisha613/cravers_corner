@@ -71,7 +71,13 @@
         <!-- Remove button form -->
         <form action="${pageContext.request.contextPath}/RemoveFromCartServlet" method="post" style="margin-left: 15px;">
           <input type="hidden" name="cart_item_id" value="${item.cart_item_id}" />
-          
+          <input type="hidden" name="cart_item_id" value="${item.cart_item_id}" />
+            <input type="hidden" name="quantity" value="${item.quantity + 1}" />
+            <c:set var="currentUrl" value="${pageContext.request.requestURI}" />
+	<c:if test="${not empty pageContext.request.queryString}">
+    <c:set var="currentUrl" value="${currentUrl}?${pageContext.request.queryString}" />
+	</c:if>
+	<input type="hidden" name="returnPage" value="${currentUrl}" />
           <button type="submit" class="remove-btn" aria-label="Remove item from cart">×</button>
         </form>
         

@@ -105,7 +105,7 @@ public class UpdateCartServlet extends HttpServlet {
             
         } catch (Exception e) {
             e.printStackTrace();
-            session.setAttribute("error", "Error updating cart: " + e.getMessage());
+            session.setAttribute("error", "Error updating cart ");
             response.sendRedirect(returnPage);
 
         }
