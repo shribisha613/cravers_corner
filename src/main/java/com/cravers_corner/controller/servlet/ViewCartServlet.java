@@ -35,7 +35,9 @@ public class ViewCartServlet extends HttpServlet {
         }
         
         String returnPage = request.getParameter("returnPage");
-        System.out.println(returnPage);
+        if (returnPage == null || returnPage.isEmpty()) {
+            returnPage = request.getContextPath() + "/pages/Home.jsp";
+        }
        
         
 
@@ -68,9 +70,11 @@ public class ViewCartServlet extends HttpServlet {
             
             // Forward to cart page
            
-            if (returnPage.contains("FoodDetail.jsp")) {
-                returnPage = "/cravers_corner/FoodDetailServlet?id=" + item.getFood_id();
+            
+            if (returnPage.contains("/pages/FoodDetail.jsp")) {
+                returnPage = returnPage.replace("/pages/FoodDetail.jsp", "/FoodDetailServlet");
             }
+
             // Add openCart=true only if not already present
             if (!returnPage.contains("openCart=true")) {
                 if (returnPage.contains("?")) {
@@ -79,16 +83,16 @@ public class ViewCartServlet extends HttpServlet {
                     returnPage += "?openCart=true";
                 }
             }
+        
             System.out.println(returnPage);
             response.sendRedirect(returnPage);
-
             
         
             
         } catch (Exception e) {
             e.printStackTrace();
             session.setAttribute("error", "Error loading cart: " + e.getMessage());
-            response.sendRedirect("/page/FoodDetail.jsp");
+            response.sendRedirect(returnPage);
         }
     }
     

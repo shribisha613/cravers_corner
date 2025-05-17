@@ -87,8 +87,8 @@ public class UpdateCartServlet extends HttpServlet {
             // Redirect back to cart page
             
             
-            if (returnPage.contains("FoodDetail.jsp")) {
-                returnPage = "/cravers_corner/FoodDetailServlet?id=" + item.getFood_id();
+            if (returnPage.contains("/pages/FoodDetail.jsp")) {
+                returnPage = returnPage.replace("/pages/FoodDetail.jsp", "/FoodDetailServlet");
             }
 
             // Add openCart=true only if not already present
