@@ -10,17 +10,22 @@
 <body>
 
 <main>
-    <div id="cartPopup" class="cart-popup" style="display: none;">
-        <div class="cart-header">
-            <h2>Your Cart</h2>
-            <span class="close-btn" onclick="closeCart()">&times;</span>
-        </div>
+   <div id="cartPopup" class="cart-popup hidden">
+    <div class="cart-header">
+        <h3>Your Cart</h3>
+        <span class="close-btn" onclick="closeCart()">&times;</span>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- Scrollable items section -->
+    <div id="cartItems" class="cart-items">
+        <!-- Items will be dynamically inserted here -->
+    </div>
+
+    <!-- Fixed bottom summary + button -->
+    <div class="cart-footer">
         <hr class="divider" />
-
-        <div id="cartItems" class="cart-items"></div>
-
-        <hr class="divider" />
-
         <div class="cart-summary">
             <div class="summary-line">
                 <span>Subtotal</span>
@@ -30,13 +35,15 @@
                 <span>Delivery Charge</span>
                 <span>Rs. 100</span>
             </div>
-            <div class="summary-line total-line">
-                <strong>Total</strong>
-                <strong id="totalWithDelivery">Rs. 100</strong>
+            <div class="total-line">
+                <span>Total</span>
+                <span id="total">Rs. 100</span>
             </div>
-            <button class="checkout-btn">PlaceOrder</button>
+            <button class="checkout-btn">Checkout</button>
         </div>
     </div>
+</div>
+
 </main>
 
 <script>
@@ -79,12 +86,13 @@
     }
 
     function showCartPopup() {
-        document.getElementById("cartPopup").style.display = "block";
-        isCartOpen = true;
+    	document.getElementById("cartPopup").classList.remove("hidden");
+        document.body.style.overflow = "hidden";
     }
 
     function closeCart() {
-        document.getElementById('cartPopup').style.display = 'none';
+    	document.getElementById("cartPopup").classList.add("hidden");
+        document.body.style.overflow = ""; 
     }
 
     document.addEventListener("DOMContentLoaded", function () {
