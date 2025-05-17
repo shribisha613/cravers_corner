@@ -49,7 +49,20 @@ public class MenuServlet extends HttpServlet {
                 foodList = foodDAO.searchFoodByName(keyword); // Perform search if keyword exists
                 request.setAttribute("searchKeyword", keyword);
             }
-
+            
+            
+            String sort = request.getParameter("sort"); // Get sort parameter
+            System.out.println("Sort order: " + sort);
+            // Sort functionality
+            if (sort != null && !sort.isEmpty()) {
+                if (sort.equals("asc")) {
+                    foodList.sort((f1, f2) -> Double.compare(f1.getPrice(), f2.getPrice()));
+                } else if (sort.equals("desc")) {
+                    foodList.sort((f1, f2) -> Double.compare(f2.getPrice(), f1.getPrice()));
+                }
+                request.setAttribute("sortOrder", sort);
+            }
+            
             // Set the filtered food list to the request attributes
             request.setAttribute("foodList", foodList);
 
