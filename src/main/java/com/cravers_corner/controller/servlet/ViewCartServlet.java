@@ -26,18 +26,24 @@ public class ViewCartServlet extends HttpServlet {
        
  // ViewCartServlet.java - Corrected version
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession(false);
+    	HttpSession session = request.getSession(false);
 
-        if (session == null || session.getAttribute("user_id") == null) {
+        // Check if session exists and user is logged in
+        if (session == null || session.getAttribute("userWithSession") == null) {
             response.sendRedirect(request.getContextPath() + "/pages/Login.jsp");
             return;
         }
+        
+        String returnPage = request.getParameter("returnPage");
+        System.out.println(returnPage);
+       
+        
 
         User user = (User) session.getAttribute("userWithSession");
         int customer_id = user.getUser_id();
         try {
             CartDAO cartDAO = new CartDAO();
-            FoodDAO foodDAO = new FoodDAO();
+            
             
             // Get customer's cart
             Cart cart = cartDAO.getCartByCustomerId(customer_id);
@@ -61,7 +67,23 @@ public class ViewCartServlet extends HttpServlet {
             }
             
             // Forward to cart page
-            request.getRequestDispatcher("/pages/Header.jsp").forward(request, response);
+           
+            if (returnPage.contains("FoodDetail.jsp")) {
+                returnPage = "/cravers_corner/FoodDetailServlet?id=" + item.getFood_id();
+            }
+            // Add openCart=true only if not already present
+            if (!returnPage.contains("openCart=true")) {
+                if (returnPage.contains("?")) {
+                    returnPage += "&openCart=true";
+                } else {
+                    returnPage += "?openCart=true";
+                }
+            }
+            System.out.println(returnPage);
+            response.sendRedirect(returnPage);
+
+            
+        
             
         } catch (Exception e) {
             e.printStackTrace();

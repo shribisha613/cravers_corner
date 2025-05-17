@@ -21,10 +21,19 @@
 
 		    <section class="icon">
 		     
+		       <form action="${pageContext.request.contextPath}/ViewCartServlet" method="get" style="display:inline;">
+    <c:set var="currentUrl" value="${pageContext.request.requestURI}" />
+<c:if test="${not empty pageContext.request.queryString}">
+    <c:set var="currentUrl" value="${currentUrl}?${pageContext.request.queryString}" />
+</c:if>
+<input type="hidden" name="returnPage" value="${currentUrl}" />
+    
+    <button type="submit" class="icon-btn cart-btn" aria-label="View Cart">
+        <i class="fas fa-shopping-cart"></i>
+    </button>
+</form>
 		        
-		            <button type="submit" class="icon-btn cart-btn" onclick="showCartPopup()">
-		                <i class="fas fa-shopping-cart"></i>
-		            </button>
+		            
 		       
 		    </section>
 		    
