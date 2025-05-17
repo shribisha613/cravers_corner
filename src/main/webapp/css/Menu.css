@@ -6,6 +6,7 @@
     align-items: stretch;
 }
 
+
 .sidebar {
   width: 260px;
   background: white;
@@ -53,7 +54,6 @@
   display: block;
   padding: 12px 15px;
   border-radius: 5px;
-
   background: white;
   color: #333;
   text-decoration: none;
@@ -105,18 +105,46 @@
     justify-content: center;
     align-items: center;
     margin: 20px auto 30px;
-    max-width: 500px;
+    max-width: 700px; /* Increased to allow both elements side by side */
+    gap: 10px; /* spacing between search and sort */
 }
 
+/* Search input */
 .search-form input[type="text"] {
-    width: 100%;
+    flex: 1;
     padding: 10px 20px;
     border-radius: 25px;
     border: 1px solid #0B9B15;
     font-size: 16px;
     outline: none;
     transition: 0.3s;
-}  
+}
+
+/* Label for "Sort by" */
+.search-form label {
+    font-size: 16px;
+    font-weight: 500;
+    margin-left: 10px;
+}
+
+/* Sort dropdown */
+.search-form select {
+    padding: 7px 12px;
+    border-radius: 20px;
+    border: 1px solid #0B9B15;
+    font-size: 16px;
+    outline: none;
+    background-color: white;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+/* Optional: Hover/focus effect */
+.search-form select:hover,
+.search-form select:focus {
+    border-color: #0B9B15;
+    box-shadow: 0 0 0 3px rgba(11, 155, 21, 0.1);
+}
 
 .food-grid {
 	display: grid;
