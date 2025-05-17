@@ -19,6 +19,7 @@ body {
     flex-direction: column;
     padding: 20px;
     overflow: hidden;
+    border-left: 1px solid  #EC5228;
 }
 
 .cart-header {
