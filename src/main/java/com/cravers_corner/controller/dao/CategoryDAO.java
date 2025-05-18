@@ -114,5 +114,22 @@ public class CategoryDAO {
 
 	    return isUpdated;
 	}
+	
+	public boolean deleteCategory(int categoryId) {
+	    boolean isDeleted = false;
+	    String sql = "DELETE FROM categories WHERE category_id = ?";
+
+	    try (PreparedStatement ps = conn.prepareStatement(sql)) {
+	        ps.setInt(1, categoryId);
+	        if (ps.executeUpdate() > 0) {
+	            isDeleted = true;
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return isDeleted;
+	}
+
 
 }

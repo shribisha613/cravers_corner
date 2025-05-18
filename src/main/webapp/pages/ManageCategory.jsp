@@ -15,6 +15,15 @@
   <jsp:include page="AdminHeader.jsp" />
   <jsp:include page="SideNavAdmin.jsp" />
   
+   <c:if test="${not empty sessionScope.message}">
+    <div class="popup-container ${sessionScope.messageType}">
+      <c:out value="${sessionScope.message}" />
+      <button class="close-btn" onclick="this.parentElement.style.display='none'">×</button>
+    </div>
+    <c:remove var="message" scope="session" />
+    <c:remove var="messageType" scope="session" />
+  </c:if>
+  
   <main>
    
     <div class="manage_category-section">
@@ -51,7 +60,12 @@
   <a href="${pageContext.request.contextPath}/EditCategoryServlet?id=${category.category_id}" title="Edit">
     <i class="fas fa-edit"></i>
   </a>
-  <i class="fas fa-trash" title="Delete"></i>
+  
+  <a href="${pageContext.request.contextPath}/DeleteCategoryServlet?id=${category.category_id}" 
+   onclick="return confirm('Are you sure you want to delete this category?');" title = "Delete">
+   <i class="fas fa-trash" ></i>
+</a>
+  
 </div>	
     </c:forEach>
     
