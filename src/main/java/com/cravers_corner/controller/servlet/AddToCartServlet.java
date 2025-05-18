@@ -118,7 +118,7 @@ public class AddToCartServlet extends HttpServlet {
                 int food_id = Integer.parseInt(request.getParameter("food_id"));
                 response.sendRedirect(request.getContextPath() + "/FoodDetailServlet?id=" + food_id + "&error=true");
             } catch (Exception ex) {
-                response.sendRedirect(request.getContextPath() + "/MenuServlet");
+                response.sendRedirect(request.getContextPath() + "/menu");
             }
         }
     }

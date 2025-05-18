@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <title>Check Out</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="../css/CheckOut.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/CheckOut.css">
 </head>
 <body>
 <jsp:include page="Header.jsp" />
@@ -16,51 +16,47 @@
     </c:if>
     
     <div class="main">
+    
+    <form action="${pageContext.request.contextPath}/PlaceOrderServlet" method="post">
     <section class="form">
-    <form action="${pageContext.request.contextPath}/CheckoutServlet" method="post">
+    
         <!-- General Information Section -->
         <div class="form-section">
             <h3>1. General Information</h3>
             <div class="form-group">
                 <label for="username">Username</label>
-                <input type="text" id="username" value="${user.getUsername}" readonly>
+                <input type="text" id="username" value="${user.username}" readonly>
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" value="${user.getEmail}" readonly>
+                <input type="email" id="email" value="${user.email}" readonly>
             </div>
             <div class="form-group">
                 <label for="phone">Phone</label>
-                <input type="tel" id="phone" value="${user.getPhone}" readonly>
+                <input type="tel" id="phone" value="${user.phone}" readonly>
             </div>
             <div class="form-group">
                 <label for="orderNote">Order Note</label>
-                <textarea id="orderNote" name="orderNote" rows="3"></textarea>
+                <textarea id="orderNote" name="orderNote" rows="3" placeholder= "Please enter any order note you want."></textarea>
             </div>
         </div>
         <!-- Delivery Address Section -->
-        <div class="form-section">
-            <h3>2. Delivery Address</h3>
-            <div class="form-group address-group">
-                <div class="input-with-icon">
-                    <input type="text" id="address" value="${user.getAddress}" readonly>
-                    <button type="button" class="plus-btn">
-                        <i class="fas fa-edit"></i>
-                    </button>
-                </div>
+        
+         <div class="form-group">
+                <label for="address">Delivery Address</label>
+                <input type="text" id="address" name = "shipping_address" value="${user.current_address}">
             </div>
-        </div>
+        
 		<!-- Payment Methods Section -->
 		<div class="form-section payment-section">
-		    <h3>3. Payment Methods</h3>
+		    <h3>2. Payment Methods</h3>
 		    <div class="payment-method">
 		        <input type="radio" id="COD" name="payment" value="COD" checked>
 		        <label for="COD">Cash on delivery</label>
 		    </div>
 		</div>
-    </form>
-	</section>
-	<section class="order-summary">
+
+	
 	    <h3>Order Summary</h3>
 	    <div class="summary-body">
 	        <c:forEach var="item" items="${order.items}">
@@ -73,19 +69,22 @@
 	    <div class="summary-footer">
 	        <div class="price-row">
 	            <span>Sub-total</span>
-	            <span>Rs. ${order.totalAmount - 50}</span>
+	            <span>Rs. ${order.totalAmount}</span>
 	        </div>
 	        <div class="price-row">
 	            <span>Delivery charge</span>
-	            <span>Rs. 50</span>
+	            <span>Rs. 100</span>
 	        </div>
 	        <div class="total-row">
 	            <span>Total</span>
-	            <span>Rs. ${order.totalAmount}</span>
+	            <span>Rs. ${order.totalAmount + 100}</span>
 	        </div>
 	        <button type="submit" class="place-order-btn">Place Order</button>
+	        
 	    </div>
+	        
 	</section>
+	</form>
     </div>
 </div>
 <jsp:include page="Footer.jsp" />
