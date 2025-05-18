@@ -35,8 +35,8 @@ body {
 }
 
 .main {
-    display: grid;
-    grid-template-columns: 1.5fr 1fr;
+    display: flex;
+    
     gap: 40px;
     padding: 0 20px;
 }
@@ -154,7 +154,7 @@ input, textarea {
 }
 
 .place-order-btn:hover {
-    background: #219a52;
+    background: darkgreen;
 }
 /* Payment Methods Section */
 .payment-section {
