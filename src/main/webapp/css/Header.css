@@ -56,9 +56,19 @@
 		}
 		
 		.cart-btn:hover .fa-shopping-cart {
-		    color: #FFD700; /* Gold color */
-		    transform: scale(1.1);
-		}
+    color: #FFD700; /* Gold color */
+    transform: scale(1.1);
+}
+
+.cart-btn:active .fa-shopping-cart {
+    color: #FFD700; /* Gold color */
+    transform: scale(1.1);
+}
+
+.cart-btn.active .fa-shopping-cart {
+    color: #FFD700; /* Gold color */
+    transform: scale(1.1);
+}
 		
 		/* Logout icon specific styles */
 		.logout-btn .fa-sign-out-alt {

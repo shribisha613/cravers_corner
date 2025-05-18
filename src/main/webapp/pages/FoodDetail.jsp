@@ -56,10 +56,12 @@ if (qtyParam != null) {
 
       <!-- Add to Cart -->
       
-       <button type="submit" class="add-to-cart"
-  onclick="addToCart('${food.food_id}', '${food.name}', ${food.price}, quantity)">
-  Add to Cart
-</button>
+     <form action="${pageContext.request.contextPath}/AddToCartServlet" method="post">
+    <input type="hidden" name="food_id" value="${food.food_id}" />
+    <input type="hidden" name="quantity" id="quantity-form-input" value="<%= quantity %>" />
+    <!-- No need to pass price as it'll be retrieved from the database -->
+    <button type="submit" class="add-to-cart">Add to Cart</button>
+</form>
       
       
       
@@ -87,11 +89,12 @@ if (qtyParam != null) {
 
   function updateQuantity(change) {
     quantity += change;
-    if (quantity < 0) quantity = 0;
+    if (quantity < 1) quantity = 1;
     if (quantity > 10) quantity = 10;
 
     document.getElementById("quantity-display").innerText = quantity;
     document.getElementById("quantity-input").value = quantity;
+    document.getElementById("quantity-form-input").value = quantity;  // Update the form input
   }
 </script>
 
