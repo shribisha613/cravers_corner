@@ -35,8 +35,8 @@ body {
 }
 
 .main {
-    display: flex;
-    
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
     gap: 40px;
     padding: 0 20px;
 }
@@ -112,9 +112,18 @@ input, textarea {
     border-bottom: 1px solid #eee;
 }
 
+.food-item img{
+	
+	width: 75px;
+  height: 75px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-right: 12px;
+}
 .food-name {
     font-weight: 600;
     color: #333;
+   
 }
 
 .food-price {

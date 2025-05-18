@@ -10,10 +10,14 @@
 </head>
 <body>
 <jsp:include page="Header.jsp" />
+
+
 <div class="container">
     <c:if test="${not empty errorMessage}">
         <div class="error-message">${errorMessage}</div>
     </c:if>
+    
+    
     
     <div class="main">
     
@@ -61,7 +65,8 @@
 	    <div class="summary-body">
 	        <c:forEach var="item" items="${order.items}">
 	            <div class="food-item">
-	                <span class="food-name">Food ${item.foodId}</span>
+	                 <img src="${pageContext.request.contextPath}/${item.image_url}" alt="Food Image" class="food-image">
+	                <p class="food-name">${item.food_name}</p>
 	                <span class="food-price">Rs. ${item.price} X ${item.quantity}</span>
 	            </div>
 	        </c:forEach>

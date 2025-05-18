@@ -73,10 +73,11 @@ public class ProceedCheckoutServlet extends HttpServlet {
             List<OrderItem> orderItems = new ArrayList<>();
             for (CartItem ci : cartItems) {
                 OrderItem oi = new OrderItem();
-                
+                oi.setImage_url(ci.getImage_url());
                 oi.setQuantity(ci.getQuantity());
                 oi.setPrice(ci.getPrice());
                 oi.setSubtotal(ci.getSubtotal());
+                oi.setFood_name(ci.getFood_name());
                 orderItems.add(oi);
             }
             order.setItems(orderItems);
