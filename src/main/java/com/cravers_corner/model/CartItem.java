@@ -11,6 +11,8 @@ public class CartItem {
     private double subtotal;
     private Timestamp created_at;
     private Timestamp updated_at;
+    private String food_name;
+    private String image_url;
 
     // Constructors
     public CartItem() {}
@@ -24,6 +26,7 @@ public class CartItem {
         this.subtotal = subtotal;
         this.created_at = created_at;
         this.updated_at = updated_at;
+        
     }
 
     // Getters and Setters
@@ -89,5 +92,19 @@ public class CartItem {
 
     public void setUpdated_at(Timestamp updated_at) {
         this.updated_at = updated_at;
+    }
+    
+    public String getFood_name() {
+        return food_name;
+    }
+    public void setFood_name(String food_name) {
+        this.food_name = food_name;
+    }
+
+    public String getImage_url() {
+        return image_url;
+    }
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
     }
 }

@@ -39,6 +39,13 @@
             font-weight: bold;
         }
         
+       nav ul li a.active {
+    color: darkgreen;
+    font-weight: bold;
+    border-bottom: 3px solid darkgreen;
+    
+   
+}      
         /* Add this to your existing styles */
 		.icon-btn {
 		    background: none;
@@ -56,9 +63,19 @@
 		}
 		
 		.cart-btn:hover .fa-shopping-cart {
-		    color: #FFD700; /* Gold color */
-		    transform: scale(1.1);
-		}
+    color: #FFD700; /* Gold color */
+    transform: scale(1.1);
+}
+
+.cart-btn:active .fa-shopping-cart {
+    color: #FFD700; /* Gold color */
+    transform: scale(1.1);
+}
+
+.cart-btn.active .fa-shopping-cart {
+    color: #FFD700; /* Gold color */
+    transform: scale(1.1);
+}
 		
 		/* Logout icon specific styles */
 		.logout-btn .fa-sign-out-alt {
