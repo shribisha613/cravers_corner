@@ -19,7 +19,7 @@
 
     <div class="order-top">
       <div>
-        <p><strong>Order #:</strong> 1</p>
+        <p><strong>Order Id:</strong> 1</p>
         <p><strong>Date:</strong> June 1, 2025</p>
       </div>
       <div class="order-by">
