@@ -18,17 +18,7 @@ public class CheckoutServlet extends HttpServlet {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private DataSource dataSource;
-
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-        try {
-            dataSource = (DataSource) config.getServletContext().getAttribute("DATA_SOURCE");
-        } catch (Exception e) {
-            throw new ServletException("Error initializing datasource", e);
-        }
-    }
+	
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -37,11 +27,11 @@ public class CheckoutServlet extends HttpServlet {
         User user = (User) session.getAttribute("userWithSession");
         
         if (user == null) {
-            response.sendRedirect("login.jsp");
+            response.sendRedirect("/pages/Login.jsp");
             return;
         }
 
-        List<OrderItem> cartItems = (List<OrderItem>) session.getAttribute("cart");
+        List<OrderItem> cartItems = (List<OrderItem>) session.getAttribute("cartItems");
         Order order = new Order();
         order.setCustomerId(user.getUser_id());
         order.setStatus("pending");
@@ -68,7 +58,7 @@ public class CheckoutServlet extends HttpServlet {
             return;
         }
 
-        try (Connection conn = dataSource.getConnection()) {
+        try {
             Order order = new Order();
             order.setCustomerId(user.getUser_id());
             order.setStatus("pending");
@@ -83,7 +73,7 @@ public class CheckoutServlet extends HttpServlet {
                                      .sum();
             order.setTotalAmount(subtotal + 50.0);
 
-            OrderDAO orderDAO = new OrderDAO(conn);
+            OrderDAO orderDAO = new OrderDAO();
             int orderId = orderDAO.createOrderWithItems(order);
             
             if (orderId > 0) {
@@ -95,6 +85,9 @@ public class CheckoutServlet extends HttpServlet {
             }
         } catch (SQLException e) {
             throw new ServletException("Database error: " + e.getMessage(), e);
-        }
+        } catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 }

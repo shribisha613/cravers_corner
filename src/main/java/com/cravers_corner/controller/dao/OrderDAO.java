@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.cravers_corner.controller.database.DatabaseConnection;
 import com.cravers_corner.model.Order;
 import com.cravers_corner.model.OrderItem;
 
@@ -16,11 +17,10 @@ public class OrderDAO {
     private Connection conn;
     private OrderItemDAO orderItemDAO;
 
-    public OrderDAO(Connection conn) {
-        this.conn = conn;
-        this.orderItemDAO = new OrderItemDAO(conn);  // instantiate DAO here
-    }
+    public OrderDAO() throws ClassNotFoundException, SQLException {
     
+        this.conn = DatabaseConnection.getConnection();
+    }
     public int createOrderWithItems(Order order) throws SQLException {
         int orderId = -1;
         String insertOrderSql = "INSERT INTO Orders (customer_id, status, total_amount, order_note, order_date) VALUES (?, ?, ?, ?, ?)";

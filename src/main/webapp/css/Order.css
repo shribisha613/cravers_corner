@@ -1,0 +1,85 @@
+@charset "UTF-8";
+
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+main {
+  margin-top: 70px;
+  margin-left: 260px;
+  padding: 20px;
+}
+
+.manage_order_section h3 {
+  font-size: 24px;
+  color: #222;
+  margin-bottom: 25px;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* Header Row */
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  color: black;
+  padding: 12px 15px;
+  border-radius: 10px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.order-header div {
+  flex: 1;
+  text-align: center;
+}
+
+/* Each Order Row */
+.order-row {
+  display: flex;
+  justify-content: space-between;
+  background-color: #fff;
+  padding: 12px 15px;
+  margin-top: 10px;
+  border-radius: 10px;
+  align-items: center;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.order-row:hover {
+  background-color: #f1f1f1;
+}
+
+.order-row div {
+  flex: 1;
+  text-align: center;
+}
+
+/* Status Dropdown */
+.order-row select {
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* View Button */
+.order-row button {
+  padding: 6px 12px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.order-row button:hover {
+  background-color: #218838;
+}
