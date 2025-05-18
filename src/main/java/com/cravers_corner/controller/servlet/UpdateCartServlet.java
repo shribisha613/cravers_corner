@@ -60,8 +60,10 @@ public class UpdateCartServlet extends HttpServlet {
                 boolean updated = cartItemDAO.updateCartItem(item);
                 
                 if (updated) {
-                    // Get updated cart items
-                    List<CartItem> cartItems = cartDAO.getCartItems(cart_id);
+                	
+                    List<CartItem> cartItems = cartItemDAO.getCartItems(cart_id);
+                    
+                    // Get cart items
                     
                     // Recalculate cart total
                     double total = 0;

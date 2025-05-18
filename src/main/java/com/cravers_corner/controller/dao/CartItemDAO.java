@@ -56,9 +56,14 @@ public class CartItemDAO {
         }
     }
     
+   
     public List<CartItem> getCartItems(int cart_id) {
         List<CartItem> list = new ArrayList<>();
-        String sql = "SELECT * FROM cart_items WHERE cart_id = ?";
+        String sql = "SELECT ci.*, f.name AS food_name, f.image_url AS image_url " +
+                     "FROM cart_items ci " +
+                     "JOIN foods f ON ci.food_id = f.food_id " +
+                     "WHERE ci.cart_id = ?";
+
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, cart_id);
             ResultSet rs = stmt.executeQuery();
@@ -70,6 +75,11 @@ public class CartItemDAO {
                 item.setQuantity(rs.getInt("quantity"));
                 item.setPrice(rs.getDouble("price"));
                 item.setSubtotal(rs.getDouble("subtotal"));
+                item.setFood_name(rs.getString("food_name"));
+                item.setImage_url(rs.getString("image_url"));
+                System.out.println(">> Extracted food_name: " + rs.getString("food_name"));
+                System.out.println(">> Extracted image_url: " + rs.getString("image_url"));
+
                 list.add(item);
             }
         } catch (Exception e) {

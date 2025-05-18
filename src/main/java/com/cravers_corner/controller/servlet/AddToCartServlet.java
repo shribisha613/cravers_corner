@@ -82,16 +82,23 @@ public class AddToCartServlet extends HttpServlet {
             item.setQuantity(quantity);
             item.setPrice(price);
             item.setSubtotal(quantity * price);
+            item.setFood_name(food.getName());
+            item.setImage_url(food.getImage_url());
 
             CartItemDAO cartItemDAO = new CartItemDAO();
             cartItemDAO.addOrIncrementCartItem(item);
             System.out.println("Added/updated item in cart");
 
             // Update cart total
-            List<CartItem> items = cartDAO.getCartItems(cart.getCart_id());
+            List<CartItem> items = cartItemDAO.getCartItems(cart.getCart_id());
+            for (CartItem i : items) {
+                System.out.println("Food name: " + i.getFood_name() + " | Image URL: " + i.getImage_url());
+            }
+
             double total = 0;
             for (CartItem ci : items) {
                 total += ci.getSubtotal();
+                
             }
             cartDAO.updateCartTotal(cart.getCart_id(), total);
             System.out.println("Updated cart total: " + total);

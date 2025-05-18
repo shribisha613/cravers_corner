@@ -42,7 +42,7 @@ public class RemoveFromCartServlet extends HttpServlet {
                 cartItemDAO.removeCartItem(cart_item_id);
 
                 // Recalculate total
-                List<CartItem> items = cartDAO.getCartItems(cart_id);
+                List<CartItem> items = cartItemDAO.getCartItems(cart_id);
                 double total = 0;
                 for (CartItem ci : items) {
                     total += ci.getSubtotal();

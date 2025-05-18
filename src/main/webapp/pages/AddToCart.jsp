@@ -25,16 +25,22 @@
     <c:forEach var="item" items="${cartItems}">
       <div class="cart-item" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #ccc;">
         
-        <!-- Item Details -->
+       
         <div class="item-details" style="flex: 1;">
-          <span style="font-weight: bold;">Food ID: ${item.food_id}</span><br/>
-          <span>Price: Rs. <fmt:formatNumber value="${item.price}" maxFractionDigits="2"/></span>
+          <div style="display: flex; align-items: center; gap: 10px;">
+    <img src="${pageContext.request.contextPath}/${item.image_url}" alt="${item.food_name}" style="width: 50px; height: 50px; border-radius: 5px; object-fit: cover;">
+    
+    <div>
+        <div style="font-weight: bold;">${item.food_name}</div>
+        <div>Price: Rs. <fmt:formatNumber value="${item.price}" maxFractionDigits="2"/></div>
+    </div>
+</div>
         </div>
         
-        <!-- Quantity Controls -->
+        
         <div class="quantity-control" style="display: flex; align-items: center; gap: 8px;">
           
-          <!-- Minus button form -->
+         
           <form action="${pageContext.request.contextPath}/UpdateCartServlet" method="post" style="display: inline;">
             <input type="hidden" name="cart_item_id" value="${item.cart_item_id}" />
             <input type="hidden" name="quantity" value="${item.quantity - 1}" />

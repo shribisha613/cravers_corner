@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.cravers_corner.controller.dao.CartDAO;
+import com.cravers_corner.controller.dao.CartItemDAO;
 import com.cravers_corner.controller.dao.FoodDAO;
 import com.cravers_corner.model.Cart;
 import com.cravers_corner.model.CartItem;
@@ -51,8 +52,9 @@ public class ViewCartServlet extends HttpServlet {
             Cart cart = cartDAO.getCartByCustomerId(customer_id);
             
             if (cart != null) {
+            	CartItemDAO cartItemDAO = new CartItemDAO();
                 // Get cart items
-                List<CartItem> cartItems = cartDAO.getCartItems(cart.getCart_id());
+                List<CartItem> cartItems = cartItemDAO.getCartItems(cart.getCart_id());
                 
                 // Store in session - using the actual CartItem objects
                 session.setAttribute("cartItems", cartItems);
