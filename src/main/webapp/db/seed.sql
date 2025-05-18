@@ -33,3 +33,6 @@ INSERT INTO users (first_name, last_name, email, role, phone, password, created_
 ('Mishama', 'Thapa', 'mishma@gmail.com', 'customer', '8888888888', 'jMY2KtYh0Y6DKVg0nk/j8g==', '2025-05-08 14:52:10', '2025-05-08 14:52:10', 'mishmathapa', 'profile_photos/default_profile.png', 'Chipledhunga', 'Chipledhunga'),
 ('Yashica', 'Magar', 'yashica@gmail.com', 'customer', '4444444444', 'ExY59wNACaHp3z3iOYvF8Q==', '2025-05-08 14:52:53', '2025-05-08 14:52:53', 'yashica', 'profile_photos/default_profile.png', 'Lakeside Pokhara', 'Lakeside Pokhara'),
 ('Shribisha', 'Buddhacharya', 'shribisha@gmail.com', 'customer', '9807654321', 'C1GZTvGGNKMnV5j0z9nNlg==', '2025-05-08 14:03:31', '2025-05-08 14:49:48', 'shribisha', 'profile_photos/jeykey.jpg', 'Kathmandu, Nepal', 'Kathmandu, Nepal');
+
+
+

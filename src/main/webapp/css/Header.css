@@ -39,6 +39,13 @@
             font-weight: bold;
         }
         
+       nav ul li a.active {
+    color: darkgreen;
+    font-weight: bold;
+    border-bottom: 3px solid darkgreen;
+    
+   
+}      
         /* Add this to your existing styles */
 		.icon-btn {
 		    background: none;
