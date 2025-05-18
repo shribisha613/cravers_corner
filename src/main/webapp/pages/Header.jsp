@@ -1,19 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <!-- Include Font Awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Header.css">
-<c:set var="isCartOpen" value="${isCartOpen != null && isCartOpen}" />
+
 <header>
     <div class="logo">
         <img src="<%=request.getContextPath()%>/images/logo.png" alt="Logo">
     </div>
-
+<c:set var="currentPage" value="${pageContext.request.requestURI}" />
     <nav>
         <ul>
-            <li><a href="<%=request.getContextPath()%>/pages/Home.jsp">Home</a></li>
-            <li><a href="<%=request.getContextPath()%>/menu">Menu</a></li>
-            <li><a href="<%=request.getContextPath()%>/pages/AboutUs.jsp">About Us</a></li>
+            <li><a href="${pageContext.request.contextPath}/pages/Home.jsp"
+     class="${fn:endsWith(currentPage, '/pages/Home.jsp') ? 'active' : ''}">Home</a></li>
+            <li><a href="<%=request.getContextPath()%>/menu" class="${fn:endsWith(currentPage, '/pages/Menu.jsp') ? 'active' : ''}">Menu</a></li>
+            <li><a href="<%=request.getContextPath()%>/pages/AboutUs.jsp" class="${fn:endsWith(currentPage, '/pages/AboutUs.jsp') ? 'active' : ''}">About Us</a></li>
         </ul>
     </nav>
 
