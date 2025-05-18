@@ -19,75 +19,54 @@
 
         <hr class="divider" />
 
-        <div id="cartItems" class="cart-items">
-            <c:choose>
+       <div id="cartItems" class="cart-items">
+ <c:choose>
   <c:when test="${not empty cartItems}">
-    <c:forEach var="item" items="${cartItems}">
-      <div class="cart-item" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #ccc;">
-        
-       
-        <div class="item-details" style="flex: 1;">
-          <div style="display: flex; align-items: center; gap: 10px;">
-    <img src="${pageContext.request.contextPath}/${item.image_url}" alt="${item.food_name}" style="width: 50px; height: 50px; border-radius: 5px; object-fit: cover;">
+   <c:forEach var="item" items="${cartItems}">
+  <div class="cart-item">
     
-    <div>
-        <div style="font-weight: bold;">${item.food_name}</div>
-        <div>Price: Rs. <fmt:formatNumber value="${item.price}" maxFractionDigits="2"/></div>
-    </div>
-</div>
+    <div class="item-details">
+      
+        <img src="${pageContext.request.contextPath}/${item.image_url}" alt="food" class="cart-item-image" />
+        <div>
+          <div class="item-name">${item.food_name}</div>
+          <div>Price: Rs. <fmt:formatNumber value="${item.price}" maxFractionDigits="2" /></div>
         </div>
-        
-        
-        <div class="quantity-control" style="display: flex; align-items: center; gap: 8px;">
-          
-         
-          <form action="${pageContext.request.contextPath}/UpdateCartServlet" method="post" style="display: inline;">
-            <input type="hidden" name="cart_item_id" value="${item.cart_item_id}" />
-            <input type="hidden" name="quantity" value="${item.quantity - 1}" />
-            <c:set var="currentUrl" value="${pageContext.request.requestURI}" />
-<c:if test="${not empty pageContext.request.queryString}">
-    <c:set var="currentUrl" value="${currentUrl}?${pageContext.request.queryString}" />
-</c:if>
-<input type="hidden" name="returnPage" value="${currentUrl}" />
-            
-            <button type="submit" class="btn" aria-label="Decrease quantity" ${item.quantity <= 1 ? "disabled" : ""}>–</button>
-          </form>
-          
-          <!-- Quantity display -->
-          <span>${item.quantity}</span>
-          
-          <!-- Plus button form -->
-          <form action="${pageContext.request.contextPath}/UpdateCartServlet" method="post" style="display: inline;">
-            <input type="hidden" name="cart_item_id" value="${item.cart_item_id}" />
-            <input type="hidden" name="quantity" value="${item.quantity + 1}" />
-            <c:set var="currentUrl" value="${pageContext.request.requestURI}" />
-<c:if test="${not empty pageContext.request.queryString}">
-    <c:set var="currentUrl" value="${currentUrl}?${pageContext.request.queryString}" />
-</c:if>
-<input type="hidden" name="returnPage" value="${currentUrl}" />
-            <button type="submit" class="btn" aria-label="Increase quantity" ${item.quantity >= 10 ? "disabled" : ""}>+</button>
-          </form>
-        </div>
-        
-        <!-- Item subtotal -->
-        <div style="min-width: 100px; text-align: right;">
-          Rs. <fmt:formatNumber value="${item.subtotal}" maxFractionDigits="2"/>
-        </div>
-        
-        <!-- Remove button form -->
-        <form action="${pageContext.request.contextPath}/RemoveFromCartServlet" method="post" style="margin-left: 15px;">
-          <input type="hidden" name="cart_item_id" value="${item.cart_item_id}" />
-          <input type="hidden" name="cart_item_id" value="${item.cart_item_id}" />
-            <input type="hidden" name="quantity" value="${item.quantity + 1}" />
-            <c:set var="currentUrl" value="${pageContext.request.requestURI}" />
-	<c:if test="${not empty pageContext.request.queryString}">
-    <c:set var="currentUrl" value="${currentUrl}?${pageContext.request.queryString}" />
-	</c:if>
-	<input type="hidden" name="returnPage" value="${currentUrl}" />
-          <button type="submit" class="remove-btn" aria-label="Remove item from cart">×</button>
-        </form>
-        
       </div>
+   
+    
+    <div class="quantity-controls">
+      <form action="${pageContext.request.contextPath}/UpdateCartServlet" method="post">
+        <input type="hidden" name="cart_item_id" value="${item.cart_item_id}" />
+        <input type="hidden" name="quantity" value="${item.quantity - 1}" />
+        <c:set var="currentUrl" value="${pageContext.request.requestURI}" />
+        <c:if test="${not empty pageContext.request.queryString}">
+          <c:set var="currentUrl" value="${currentUrl}?${pageContext.request.queryString}" />
+        </c:if>
+        <input type="hidden" name="returnPage" value="${currentUrl}" />
+        <button type="submit" class="btn" aria-label="Decrease quantity" ${item.quantity <= 1 ? "disabled" : ""}>–</button>
+      </form>
+      
+      <span>${item.quantity}</span>
+      
+      <form action="${pageContext.request.contextPath}/UpdateCartServlet" method="post">
+        <input type="hidden" name="cart_item_id" value="${item.cart_item_id}" />
+        <input type="hidden" name="quantity" value="${item.quantity + 1}" />
+        <input type="hidden" name="returnPage" value="${currentUrl}" />
+        <button type="submit" class="btn" aria-label="Increase quantity" ${item.quantity >= 10 ? "disabled" : ""}>+</button>
+      </form>
+    </div>
+
+    <div style="min-width: 100px; text-align: right;">
+      Rs. <fmt:formatNumber value="${item.subtotal}" maxFractionDigits="2" />
+    </div>
+    
+    <form action="${pageContext.request.contextPath}/RemoveFromCartServlet" method="post">
+      <input type="hidden" name="cart_item_id" value="${item.cart_item_id}" />
+      <input type="hidden" name="returnPage" value="${currentUrl}" />
+      <button type="submit" class="remove-btn" aria-label="Remove item">×</button>
+    </form>
+  </div>
     </c:forEach>
   </c:when>
   
@@ -95,8 +74,8 @@
     <p>Your cart is empty.</p>
   </c:otherwise>
 </c:choose>
+</div>
 
-        </div>
 
         <div class="cart-footer">
             <hr class="divider" />
