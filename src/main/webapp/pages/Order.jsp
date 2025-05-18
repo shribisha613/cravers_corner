@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,17 +23,23 @@
 	     <div>Status</div>
 	     <div>Action</div>
     </div>
-    <div class="order-row">
-    	<div>101</div>
-    	<div>Rs. 3456</div>
-    	<div>  
-    		<select name="status">
-    			<option value="pending" >Pending</option>
-    			<option value="completed" >Completed</option>
-  			</select>
-  		</div>
-  		<div><a href="${pageContext.request.contextPath}/pages/OrderDetail.jsp"><button>View Details</button></a></div>
-    </div>
+		<c:forEach var="order" items="${orders}">
+		  <div class="order-row">
+		    <div>${order.orderId}</div>
+		    <div>Rs. ${order.totalAmount}</div>
+		    <div>
+		      <select name="status">
+		        <option value="pending" ${order.status == 'pending' ? 'selected' : ''}>Pending</option>
+		        <option value="completed" ${order.status == 'completed' ? 'selected' : ''}>Completed</option>
+		      </select>
+		    </div>
+		    <div>
+		      <a href="${pageContext.request.contextPath}/pages/OrderDetail.jsp?orderId=${order.orderId}">
+		        <button>View Details</button>
+		      </a>
+		    </div>
+		  </div>
+		</c:forEach>
 	</main>
 </body>
 </html>
