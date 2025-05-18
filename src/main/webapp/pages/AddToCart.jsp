@@ -99,7 +99,11 @@
                     <span>Total</span>
                     <span id="total">Rs. <fmt:formatNumber value="${cartTotal + 100}" maxFractionDigits="2" /></span>
                 </div>
-                <button class="checkout-btn">Checkout</button>
+               <form action="${pageContext.request.contextPath}/CheckoutServlet" method="post">
+    <input type="hidden" name="cart_id" value="${cart.id}" />
+    <input type="hidden" name="returnPage" value="${pageContext.request.requestURI}" />
+    <button type="submit" class="checkout-btn">Checkout</button>
+</form>
             </div>
         </div>
     </div>
@@ -114,14 +118,7 @@
         }
         
 
-        document.querySelector(".checkout-btn").addEventListener("click", function () {
-            const itemCount = ${cartItemCount != null ? cartItemCount : 0};
-            if (itemCount === 0) {
-                alert("Your cart is empty.");
-            } else {
-                window.location.href = "CheckoutServlet";
-            }
-        });
+        
     });
 
     function showCartPopup() {
