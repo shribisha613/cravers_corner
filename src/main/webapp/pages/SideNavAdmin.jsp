@@ -17,7 +17,7 @@
   
    
     <div class="nav-item ${activePage == 'orders' ? 'active' : ''}">
-        <a href="orders.jsp"><i class="fas fa-receipt"></i> Orders</a>
+        <a href="${pageContext.request.contextPath}/GetOrderServlet"><i class="fas fa-receipt"></i> Orders</a>
     </div>
     
     <div class="nav-item ${activePage == 'category' ? 'active' : ''}">
