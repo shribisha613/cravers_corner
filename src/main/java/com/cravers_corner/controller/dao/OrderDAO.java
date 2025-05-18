@@ -1,8 +1,13 @@
 package com.cravers_corner.controller.dao;
 
 
-import java.sql.*;
-import java.util.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.cravers_corner.model.Order;
 import com.cravers_corner.model.OrderItem;
@@ -15,42 +20,37 @@ public class OrderDAO {
         this.conn = conn;
         this.orderItemDAO = new OrderItemDAO(conn);  // instantiate DAO here
     }
-
+    
     public int createOrderWithItems(Order order) throws SQLException {
         int orderId = -1;
-        String insertOrderSql = "INSERT INTO Orders (customer_id, status, total_amount) VALUES (?, ?, ?)";
+        String insertOrderSql = "INSERT INTO Orders (customer_id, status, total_amount, order_note, order_date) VALUES (?, ?, ?, ?, ?)";
 
         try {
-            conn.setAutoCommit(false); // Begin transaction
+            conn.setAutoCommit(false);
 
-            // Insert into Orders
             try (PreparedStatement stmt = conn.prepareStatement(insertOrderSql, Statement.RETURN_GENERATED_KEYS)) {
                 stmt.setInt(1, order.getCustomerId());
-                stmt.setString(2, order.getStatus()); // or default to "pending"
+                stmt.setString(2, order.getStatus());
                 stmt.setDouble(3, order.getTotalAmount());
+                stmt.setString(4, order.getOrderNote());
+                stmt.setTimestamp(5, order.getOrderDate());
+                
                 stmt.executeUpdate();
-
                 ResultSet rs = stmt.getGeneratedKeys();
-                if (rs.next()) {
-                    orderId = rs.getInt(1);
-                }
+                if (rs.next()) orderId = rs.getInt(1);
             }
-
-            // Insert Order Items
-            for (OrderItem item : order.getItems()){
-                item.setOrderId(orderId); // assign order_id FK to each item
+            for (OrderItem item : order.getItems()) {
+                item.setOrderId(orderId);
                 orderItemDAO.insertOrderItem(item);
             }
 
-            conn.commit(); // Commit transaction
-
+            conn.commit();
         } catch (SQLException e) {
-            conn.rollback(); // Rollback on failure
+            conn.rollback();
             throw e;
         } finally {
-            conn.setAutoCommit(true); // Restore auto-commit
+            conn.setAutoCommit(true);
         }
-
         return orderId;
     }
 
@@ -62,12 +62,20 @@ public class OrderDAO {
             stmt.setInt(1, orderId);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                return extractOrder(rs);
+                Order order = new Order();
+                order.setOrderId(rs.getInt("order_id"));
+                order.setCustomerId(rs.getInt("customer_id"));
+                order.setStatus(rs.getString("status"));
+                order.setTotalAmount(rs.getDouble("total_amount"));
+                order.setOrderNote(rs.getString("order_note"));
+                order.setOrderDate(rs.getTimestamp("order_date"));
+                order.setCreatedAt(rs.getTimestamp("created_at"));
+                order.setUpdatedAt(rs.getTimestamp("updated_at"));
+                return order;
             }
         }
         return null;
     }
-
     // Get all orders
     public List<Order> getAllOrders() throws SQLException {
         List<Order> orders = new ArrayList<>();
@@ -113,4 +121,6 @@ public class OrderDAO {
         order.setUpdatedAt(rs.getTimestamp("updated_at"));
         return order;
     }
+
+
 }
