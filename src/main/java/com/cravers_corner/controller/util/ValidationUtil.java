@@ -19,6 +19,8 @@ public class ValidationUtil {
         return value != null && value.matches("^[A-Za-z\\s]{2,}$");
     }
     
+ 
+    
     // 3. Validate username: starts with a letter, allows letters, numbers, underscores, minimum 7 characters
     public static boolean isValidUsername(String value) {
         return value != null && value.matches("^[a-zA-Z][a-zA-Z0-9_]{6,}$");

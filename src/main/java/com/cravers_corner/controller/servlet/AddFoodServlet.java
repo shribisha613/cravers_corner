@@ -137,10 +137,7 @@ public class AddFoodServlet extends HttpServlet {
             if (ValidationUtil.isNullOrEmpty(description)) {
                 setErrorAndRedirect(session, response, "Food desciption is required.", name, description, price, category_id, serving_size, image_url);
                 return;
-            } else if (!ValidationUtil.isValidName(description)) {
-                setErrorAndRedirect(session, response, "Food description  must be valid.", name, description, price, category_id, serving_size, image_url);
-                return;
-            }
+            } 
 
 
 
@@ -197,13 +194,16 @@ public class AddFoodServlet extends HttpServlet {
                 	
                     session.setAttribute("messageType", "success");
                     session.setAttribute("message", "Food item added successfully!");
-                    response.sendRedirect(request.getContextPath() + "/pages/AddFood.jsp");
+                    List<Category> categoryList = foodDAO.getAllCategories();
+                    request.setAttribute("categoryList", categoryList);
+                    request.getRequestDispatcher("/pages/AddFood.jsp").forward(request, response);
                     System.out.println("Food added successfully");
                 } else {
                 	setErrorAndRedirect(session, response, "Failed to add category. Please try again.", name, description, price, category_id, serving_size, image_url);
                     
                     List<Category> categoryList = foodDAO.getAllCategories();
                     request.setAttribute("categoryList", categoryList);
+                   
                     request.getRequestDispatcher("/pages/AddFood.jsp").forward(request, response);
                     System.out.println("Failed to add food");
                 }

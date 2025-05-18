@@ -35,19 +35,19 @@
 			      <i class="fas fa-search"></i>
 			    </button>
 			  </div>
-				</form>
+		</form>
           
           
- <form id="sortForm" method="get" action="${pageContext.request.contextPath}/GetFoodServlet">
-  <div class="sort-wrapper">
-    <span class="sort-label">Sort By:</span>
-    <select class="sort-dropdown" name="sort" onchange="document.getElementById('sortForm').submit()">
-      <option value="joined_date_desc" ${param.sort == 'joined_date_desc' ? 'selected' : ''}>Newest Addition</option>
-      <option value="name" ${param.sort == 'name' ? 'selected' : ''}>Name</option>
-      <option value="price_desc" ${param.sort == 'price_desc' ? 'selected' : ''}>Price: High to Low</option>
-      <option value="price_asc" ${param.sort == 'price_asc' ? 'selected' : ''}>Price: Low to High</option>
-    </select>
-  </div>
+	 <form id="sortForm" method="get" action="${pageContext.request.contextPath}/GetFoodServlet">
+	  <div class="sort-wrapper">
+	    <span class="sort-label">Sort By:</span>
+	    <select class="sort-dropdown" name="sort" onchange="document.getElementById('sortForm').submit()">
+	      <option value="joined_date_desc" ${param.sort == 'joined_date_desc' ? 'selected' : ''}>Newest Addition</option>
+	      <option value="name" ${param.sort == 'name' ? 'selected' : ''}>Name</option>
+	      <option value="price_desc" ${param.sort == 'price_desc' ? 'selected' : ''}>Price: High to Low</option>
+	      <option value="price_asc" ${param.sort == 'price_asc' ? 'selected' : ''}>Price: Low to High</option>
+	    </select>
+	  </div>
 </form>
 
         

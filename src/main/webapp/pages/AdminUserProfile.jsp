@@ -70,7 +70,7 @@
     <p style="margin-top:5px">${userProfile.username}</p>
 </div>
         <form class="profile-form" 
-      action="${pageContext.request.contextPath}/UserProfileServlet" 
+      action="${pageContext.request.contextPath}/AdminUserProfileServlet" 
       method="post" 
       enctype="multipart/form-data">
       

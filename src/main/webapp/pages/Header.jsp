@@ -12,7 +12,7 @@
         <ul>
             <li><a href="<%=request.getContextPath()%>/pages/Home.jsp">Home</a></li>
             <li><a href="<%=request.getContextPath()%>/menu">Menu</a></li>
-            <li><a href="<%=request.getContextPath()%>/AboutUs.jsp">About Us</a></li>
+            <li><a href="<%=request.getContextPath()%>/pages/AboutUs.jsp">About Us</a></li>
         </ul>
     </nav>
 
@@ -20,12 +20,15 @@
  
 
 		    <section class="icon">
-		        <a href="Cart.jsp">
-		            <button type="button" class="icon-btn cart-btn">
+		     
+		        
+		            <button type="submit" class="icon-btn cart-btn" onclick="showCartPopup()">
 		                <i class="fas fa-shopping-cart"></i>
 		            </button>
-		        </a>
+		       
 		    </section>
+		    
+		      
 
 
  <a href="<%=request.getContextPath()%>/UserProfileServlet" class="icon">
@@ -47,7 +50,7 @@
    <section class="icon">
 
 		        <form action="<%=request.getContextPath()%>/LogoutServlet" method="post">
-		            <button type="submit" class="icon-btn logout-btn">
+		            <button type="submit" class="icon-btn logout-btn" >
 		                <i class="fas fa-sign-out-alt"></i>
 		            </button>
 		        </form>
@@ -56,5 +59,8 @@
     
     
 </header>
+<jsp:include page="/pages/AddToCart.jsp" />
+
+
 
 
