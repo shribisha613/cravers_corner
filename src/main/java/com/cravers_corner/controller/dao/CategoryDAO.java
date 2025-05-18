@@ -69,4 +69,67 @@ public class CategoryDAO {
 
         return categories;
     }
+	
+	// Added getCategoryById to edit a specific category
+	public Category getCategoryById(int id) {
+	    Category category = null;
+	    String sql = "SELECT * FROM categories WHERE category_id = ?";
+
+	    try (PreparedStatement ps = conn.prepareStatement(sql)) {
+	        ps.setInt(1, id);
+	        ResultSet rs = ps.executeQuery();
+	        if (rs.next()) {
+	            category = new Category();
+	            category.setCategory_id(rs.getInt("category_id"));
+	            category.setName(rs.getString("name"));
+	            category.setDescription(rs.getString("description"));
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return category;
+	}
+
+	
+	// have added method updated Category
+	public boolean updateCategory(Category category) {
+	    boolean isUpdated = false;
+	    String sql = "UPDATE categories SET name = ?, description = ?, updated_at = ? WHERE category_id = ?";
+
+	    try (PreparedStatement ps = conn.prepareStatement(sql)) {
+	        Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+
+	        ps.setString(1, category.getName());
+	        ps.setString(2, category.getDescription());
+	        ps.setTimestamp(3, currentTime);
+	        ps.setInt(4, category.getCategory_id());
+
+	        if (ps.executeUpdate() > 0) {
+	            isUpdated = true;
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return isUpdated;
+	}
+	
+	public boolean deleteCategory(int categoryId) {
+	    boolean isDeleted = false;
+	    String sql = "DELETE FROM categories WHERE category_id = ?";
+
+	    try (PreparedStatement ps = conn.prepareStatement(sql)) {
+	        ps.setInt(1, categoryId);
+	        if (ps.executeUpdate() > 0) {
+	            isDeleted = true;
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return isDeleted;
+	}
+
+
 }

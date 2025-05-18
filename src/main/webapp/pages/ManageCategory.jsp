@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,9 +14,18 @@
   <c:set var="activePage" value="category" scope="request" />
   <jsp:include page="AdminHeader.jsp" />
   <jsp:include page="SideNavAdmin.jsp" />
+  
+   <c:if test="${not empty sessionScope.message}">
+    <div class="popup-container ${sessionScope.messageType}">
+      <c:out value="${sessionScope.message}" />
+      <button class="close-btn" onclick="this.parentElement.style.display='none'">×</button>
+    </div>
+    <c:remove var="message" scope="session" />
+    <c:remove var="messageType" scope="session" />
+  </c:if>
+  
   <main>
    
-
     <div class="manage_category-section">
       <h3>Cravers Corner’s Manage Category Interface</h3>
        
@@ -35,6 +43,12 @@
       <div>Description</div>
       <div>Action</div>
     </div>
+    
+    <c:if test="${not empty errorMessage}">
+    <div class="error-message">
+        <i class="fas fa-exclamation-circle"></i> ${errorMessage}
+    </div>
+   </c:if>
 
     <c:forEach var="category" items="${categoryList}">
 		      <div class="food-row">
@@ -43,14 +57,16 @@
 		        <div>${category.description}</div>
 		        
 		         <div>
-  <a href="${pageContext.request.contextPath}/EditCategoryServlet?id=${food.food_id}" title="Edit">
+  <a href="${pageContext.request.contextPath}/EditCategoryServlet?id=${category.category_id}" title="Edit">
     <i class="fas fa-edit"></i>
   </a>
-  <i class="fas fa-trash" title="Delete"></i>
-</div>
-		   
-		        
-		
+  
+  <a href="${pageContext.request.contextPath}/DeleteCategoryServlet?id=${category.category_id}" 
+   onclick="return confirm('Are you sure you want to delete this category?');" title = "Delete">
+   <i class="fas fa-trash" ></i>
+</a>
+  
+</div>	
     </c:forEach>
     
      
@@ -60,8 +76,10 @@
       <a href="${pageContext.request.contextPath}/AddCategoryServlet">
     <button type="button" class="green-btn">Add Category</button>
 </a>
-    
     </div>
+    
+    
+    
   </main>
 </body>
 </html>
