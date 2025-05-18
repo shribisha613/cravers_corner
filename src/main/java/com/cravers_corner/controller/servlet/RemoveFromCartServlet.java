@@ -60,6 +60,10 @@ public class RemoveFromCartServlet extends HttpServlet {
                 returnPage = returnPage.replace("/pages/FoodDetail.jsp", "/FoodDetailServlet");
             }
 
+            
+            if (returnPage.contains("/pages/Menu.jsp")) {
+                returnPage = returnPage.replace("/pages/Menu.jsp", "/menu");
+            }
             // Add openCart=true only if not already present
             if (!returnPage.contains("openCart=true")) {
                 if (returnPage.contains("?")) {

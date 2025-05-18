@@ -12,12 +12,19 @@
 
 <main>
     <div id="cartPopup" class="cart-popup hidden">
+   
         <div class="cart-header">
             <h3>Your Cart</h3>
             <span class="close-btn" onclick="closeCart()">&times;</span>
         </div>
 
-        <hr class="divider" />
+       
+         <c:if test="${not empty errorMessage}">
+    <div class="error-message">
+      <i class="fa-solid fa-burger"></i> ${errorMessage}
+    </div>
+</c:if>
+<hr class="divider" />
 
        <div id="cartItems" class="cart-items">
  <c:choose>
@@ -53,7 +60,7 @@
         <input type="hidden" name="cart_item_id" value="${item.cart_item_id}" />
         <input type="hidden" name="quantity" value="${item.quantity + 1}" />
         <input type="hidden" name="returnPage" value="${currentUrl}" />
-        <button type="submit" class="btn" aria-label="Increase quantity" ${item.quantity >= 10 ? "disabled" : ""}>+</button>
+        <button type="submit" class="btn" aria-label="Increase quantity" ${item.quantity >=10 ? "disabled" : ""}>+</button>
       </form>
     </div>
 
@@ -78,7 +85,7 @@
 
 
         <div class="cart-footer">
-            <hr class="divider" />
+            
             <div class="cart-summary">
                 <div class="summary-line">
                     <span>Subtotal</span>
@@ -102,8 +109,10 @@
     document.addEventListener("DOMContentLoaded", function () {
         const params = new URLSearchParams(window.location.search);
         if (params.get("openCart") === "true") {
+        	
             showCartPopup();
         }
+        
 
         document.querySelector(".checkout-btn").addEventListener("click", function () {
             const itemCount = ${cartItemCount != null ? cartItemCount : 0};
@@ -121,8 +130,19 @@
     }
 
     function closeCart() {
-        document.getElementById("cartPopup").classList.add("hidden");
-        document.body.style.overflow = "";
+    	document.getElementById("cartPopup").classList.add("hidden");
+        document.body.style.overflow = "auto";
+
+        // Parse current URL parameters
+        const url = new URL(window.location.href);
+        url.searchParams.delete("openCart"); // Remove only openCart param
+
+        // Update the URL without reloading the page
+        window.history.replaceState(null, "", url.toString());
+        const cartButton = document.querySelector(".cart-btn");
+        if (cartButton.classList.contains("active")) {
+            cartButton.classList.remove("active");
+        }
     }
 </script>
 

@@ -38,9 +38,18 @@ public class UpdateCartServlet extends HttpServlet {
             
             
             
-            // Validate quantity
-            if (quantity < 1) quantity = 1;
-            if (quantity > 10) quantity = 10;
+            if (quantity < 1) {
+                quantity = 1;
+            } else if (quantity > 10) {
+                quantity = 10;
+            }
+
+            // Set or clear error message based on normalized quantity
+            if (quantity >= 10) {
+                session.setAttribute("errorMessage", "You can only order up to 10 units of each item.");
+            } else {
+                session.removeAttribute("errorMessage");
+            }
 
             CartItemDAO cartItemDAO = new CartItemDAO();
             CartDAO cartDAO = new CartDAO();
@@ -78,12 +87,12 @@ public class UpdateCartServlet extends HttpServlet {
                     session.setAttribute("cartItems", cartItems);
                     session.setAttribute("cartTotal", total);
                     session.setAttribute("cartItemCount", cartItems.size());
-                    session.setAttribute("message", "Cart updated successfully");
+                    session.setAttribute("success", "Cart updated successfully");
                 } else {
-                    session.setAttribute("error", "Failed to update cart item");
+                    session.setAttribute("errorMessage", "Failed to update cart item");
                 }
             } else {
-                session.setAttribute("error", "Cart item not found");
+                session.setAttribute("errorMessage", "Cart item not found");
             }
             
             // Redirect back to cart page
@@ -93,6 +102,10 @@ public class UpdateCartServlet extends HttpServlet {
                 returnPage = returnPage.replace("/pages/FoodDetail.jsp", "/FoodDetailServlet");
             }
 
+            
+            if (returnPage.contains("/pages/Menu.jsp")) {
+                returnPage = returnPage.replace("/pages/Menu.jsp", "/menu");
+            }
             // Add openCart=true only if not already present
             if (!returnPage.contains("openCart=true")) {
                 if (returnPage.contains("?")) {
@@ -107,7 +120,7 @@ public class UpdateCartServlet extends HttpServlet {
             
         } catch (Exception e) {
             e.printStackTrace();
-            session.setAttribute("error", "Error updating cart ");
+            session.setAttribute("errorMessage", "Error updating cart ");
             response.sendRedirect(returnPage);
 
         }

@@ -76,6 +76,10 @@ public class ViewCartServlet extends HttpServlet {
             if (returnPage.contains("/pages/FoodDetail.jsp")) {
                 returnPage = returnPage.replace("/pages/FoodDetail.jsp", "/FoodDetailServlet");
             }
+            
+            if (returnPage.contains("/pages/Menu.jsp")) {
+                returnPage = returnPage.replace("/pages/Menu.jsp", "/menu");
+            }
 
             // Add openCart=true only if not already present
             if (!returnPage.contains("openCart=true")) {
@@ -87,7 +91,15 @@ public class ViewCartServlet extends HttpServlet {
             }
         
             System.out.println(returnPage);
+            boolean isCartOpen = false;
+            if (returnPage != null && returnPage.contains("openCart=true")) {
+                isCartOpen = true;
+            }
+
+            // Set attribute to forward info to JSP
+            request.setAttribute("isCartOpen", isCartOpen);
             response.sendRedirect(returnPage);
+            
             
         
             
