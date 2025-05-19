@@ -49,6 +49,12 @@ public class AdminUserProfileServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/pages/Login.jsp");
             return;
         }
+        
+        String role = (String) session.getAttribute("role");
+        if (!"admin".equals(role)) {
+            response.sendRedirect(request.getContextPath() + "/pages/AccessDenied.jsp");
+            return;
+        }
 
         // Get the user from session
         User sessionUser = (User) session.getAttribute("userWithSession");
