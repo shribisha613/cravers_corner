@@ -14,12 +14,13 @@ import com.cravers_corner.model.Order;
 import com.cravers_corner.model.OrderItem;
 
 public class OrderDAO {
-    private Connection conn;
+    public Connection conn;
     private OrderItemDAO orderItemDAO;
 
     public OrderDAO() throws ClassNotFoundException, SQLException {
     
         this.conn = DatabaseConnection.getConnection();
+        this.orderItemDAO = new OrderItemDAO();
     }
     public int createOrderWithItems(Order order) throws SQLException {
         int orderId = -1;

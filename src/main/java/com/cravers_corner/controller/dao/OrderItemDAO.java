@@ -4,14 +4,21 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.cravers_corner.controller.database.DatabaseConnection;
 import com.cravers_corner.model.OrderItem;
 
-public class OrderItemDAO {
-    private Connection conn;
+public class OrderItemDAO{
+	private Connection conn;
+	private PreparedStatement ps;
+	// Constructor: Initializes the database connection when an object is created
+	public OrderItemDAO() throws ClassNotFoundException, SQLException {
+		this.conn = DatabaseConnection.getConnection();
+	}
 
-    public OrderItemDAO(Connection conn) {
-        this.conn = conn;
-    }
+
+    
+      
+    
 
     // Insert a new order item
     public void insertOrderItem(OrderItem item) throws SQLException {

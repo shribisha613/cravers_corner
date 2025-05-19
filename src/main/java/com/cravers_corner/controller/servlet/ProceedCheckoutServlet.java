@@ -29,7 +29,7 @@ public class ProceedCheckoutServlet extends HttpServlet {
         User user = (User) session.getAttribute("userWithSession");
         String returnPage = request.getParameter("returnPage");
         if (user == null) {
-            response.sendRedirect("pages/Login.jsp");
+            response.sendRedirect("/pages/Login.jsp");
             return;
         }
 
@@ -83,13 +83,14 @@ public class ProceedCheckoutServlet extends HttpServlet {
             order.setItems(orderItems);
 
             // Step 5: Set attributes for JSP
-            request.setAttribute("user", user);
-            request.setAttribute("cart", userCart);
-            request.setAttribute("cartItems", cartItems);
-            request.setAttribute("cartTotal", cartTotal);
-            request.setAttribute("order", order);
+            session.setAttribute("user", user);
+            session.setAttribute("cart", userCart);
+            session.setAttribute("cartItems", cartItems);
+            session.setAttribute("cartTotal", cartTotal);
+            session.setAttribute("order", order);
+            session.setAttribute("orderItems", orderItems);
 
-            request.getRequestDispatcher("pages/CheckOut.jsp").forward(request, response);
+            request.getRequestDispatcher("/pages/CheckOut.jsp").forward(request, response);
 
         } catch (Exception e) {
             e.printStackTrace();
