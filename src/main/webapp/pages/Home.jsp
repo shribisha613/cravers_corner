@@ -23,6 +23,7 @@
             <h2 class="slogan">Crave. Order. Enjoy. Repeat.</h2>
             <p class="order-btn">Order Now</p>
         </section>
+        </div>
 
       <h2 class="section-title">Discover Tasty Categories</h2>
       
