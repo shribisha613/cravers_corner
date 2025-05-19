@@ -28,6 +28,7 @@
     <div class="form-container">
     
     <form action="${pageContext.request.contextPath}/PlaceOrderServlet" method="post">
+    <div class="checkout-content">
     
     <div class="customer-info">
     
@@ -96,9 +97,10 @@
 		        <button type="submit" class="place-order-btn">Place Order</button>
 		        
 		    </div>
-		   </div>     
+		    </div>
+		    
 	</div>
-	</form >
+	</form>
     </div>
 </div>
 <jsp:include page="Footer.jsp" />

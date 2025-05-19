@@ -104,7 +104,7 @@
                 </div>
                <form action="${pageContext.request.contextPath}/ProceedCheckoutServlet" method="get">
    
-    <input type="hidden" name="returnPage" value="${currentUrl}" />
+    
     <button type="submit" class="checkout-btn">Checkout</button>
 </form>
             </div>
