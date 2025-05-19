@@ -28,14 +28,16 @@ public class HomeServlet extends HttpServlet {
 
 			List<Category> categoryList = categoryDAO.getAllCategories();
 			List<List<Food>> allCategoryFoods = new ArrayList<>();
-
+			
 			for (Category category : categoryList) {
 				List<Food> foods = categoryDAO.getTopFoodsByCategory(category.getCategory_id(), 4);
 				allCategoryFoods.add(foods);
 			}
+			List<Food> topOrderedFoods = foodDAO.getTop3MostOrderedFoods();
 
 			request.setAttribute("categoryList", categoryList);
 			request.setAttribute("allCategoryFoods", allCategoryFoods);
+			request.setAttribute("topOrderedFoods", topOrderedFoods);
 			request.getRequestDispatcher("/pages/Home.jsp").forward(request, response);
 
 		} catch (ClassNotFoundException | SQLException e) {
@@ -48,3 +50,4 @@ public class HomeServlet extends HttpServlet {
 		doGet(request, response);
 	}
 }
+

@@ -51,18 +51,15 @@
 
 
     <!-- Offers Section -->
-    <h2 class="section-title">Hot Picks on the Menu</h2>
-    <div class="offers">
-        <div class="offer" style="background-image: url('../images/jodi combo.jpg')">
-            <span>Jodi Combo</span>
+   <h2 class="section-title">Top Picks on the Menu</h2>
+<div class="top-ordered-container" >
+    <c:forEach var="food" items="${topOrderedFoods}">
+        <div class="top-food-card" onclick="location.href='${pageContext.request.contextPath}/FoodDetailServlet?id=${food.food_id}'">
+            <img src="${pageContext.request.contextPath}/${food.image_url}" alt="${food.name}" />
+            <h3>${food.name}</h3>
+            <p>Price: $${food.price}</p>
         </div>
-        <div class="offer" style="background-image: url('../images/fam combo.jpg')">
-            <span>Family Combo</span>
-        </div>
-        <div class="offer" style="background-image: url('../images/solo combo.jpg')">
-            <span>Solo Yolo Combo</span>
-        </div>
-    </div>
+    </c:forEach>
 </div>
 
 <jsp:include page="Footer.jsp" />
