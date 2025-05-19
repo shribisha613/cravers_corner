@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.cravers_corner.controller.database.DatabaseConnection;
 import com.cravers_corner.model.Category;
+import com.cravers_corner.model.Food;
 
 public class CategoryDAO {
 
@@ -129,6 +130,32 @@ public class CategoryDAO {
 	    }
 
 	    return isDeleted;
+	}
+
+	public List<Food> getTopFoodsByCategory(int category_id, int limit) {
+	    List<Food> foods = new ArrayList<>();
+	    String sql = "SELECT * FROM foods WHERE category_id = ? ORDER BY food_id LIMIT ?";
+
+	    try (PreparedStatement ps = conn.prepareStatement(sql)) {
+	        ps.setInt(1, category_id);
+	        ps.setInt(2, limit);
+
+	        ResultSet rs = ps.executeQuery();
+	        while (rs.next()) {
+	            Food food = new Food();
+	            food.setFood_id(rs.getInt("food_id"));
+	            food.setName(rs.getString("name"));
+	            food.setDescription(rs.getString("description"));
+	            food.setPrice(rs.getDouble("price"));
+	            food.setImage_url(rs.getString("image_url")); // adjust field names based on your table
+	            food.setCategory_id(rs.getInt("category_id"));
+	            foods.add(food);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return foods;
 	}
 
 
