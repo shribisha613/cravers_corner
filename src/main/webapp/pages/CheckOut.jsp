@@ -12,10 +12,18 @@
 <jsp:include page="Header.jsp" />
 
 
-<div class="container">
+<c:if test="${not empty sessionScope.successMessage}">
+	    <script>
+	        alert("${sessionScope.successMessage}");
+	    </script>
+	    <c:remove var="successMessage" scope="session"/>
+	</c:if>
     <c:if test="${not empty errorMessage}">
         <div class="error-message">${errorMessage}</div>
     </c:if>
+
+<div class="container">
+	
 
     <div class="form-container">
     
@@ -89,7 +97,7 @@
 		    </div>
 		   </div>     
 	</div>
-	</form>
+	</form >
     </div>
 </div>
 <jsp:include page="Footer.jsp" />
