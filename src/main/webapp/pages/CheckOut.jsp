@@ -28,6 +28,7 @@
     <div class="form-container">
     
     <form action="${pageContext.request.contextPath}/PlaceOrderServlet" method="post">
+    
     <div class="customer-info">
     
         <!-- General Information Section -->
@@ -66,9 +67,9 @@
 		    </div>
 		</div>
 	</div>
-	<div class=order-summary>
+	
 	<!-- Order summary Section -->
-		<div class=orderr-summary>
+		<div class=order-summary>
 		    <h3>Order Summary</h3>
 		    <div class="summary-body">
 		        <c:forEach var="item" items="${order.items}">
