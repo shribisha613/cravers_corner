@@ -35,13 +35,21 @@ body {
 }
 
 .main {
-    display: grid;
-    grid-template-columns: 1.5fr 1fr;
+    display: flex;
+    align-items: justify-content;
     gap: 40px;
     padding: 0 20px;
 }
 
+.form-container {
+    display: flex;
+
+    width: 100%;
+    margin-top:50px;
+}
+
 .form-section {
+	margin-top:20px;
     margin-bottom: 30px;
 }
 
