@@ -270,6 +270,26 @@ public class FoodDAO {
 
         return categories;
     }
+	
+	public boolean deleteFoodById(int food_id) {
+	    boolean isDeleted = false;
+	    String sql = "DELETE FROM foods WHERE food_id = ?";
+
+	    try (
+	         PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+	        stmt.setInt(1, food_id);
+	        int rows = stmt.executeUpdate();
+	        if (rows > 0) {
+	            isDeleted = true;
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return isDeleted;
+	}
 
 	
 }
