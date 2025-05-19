@@ -54,7 +54,15 @@
 
       </div>
       </div>
+      
+ <c:if test="${not empty success}">
+    <div class="success-message" id="successMessage">
+        <i class="fa-solid fa-check"></i> ${success}
+         <button class="close-btn" onclick="this.parentElement.style.display='none'">x</button>
 
+    </div>
+    <c:remove var="success" scope="session" />
+</c:if>
 
     <!-- Table-like header row -->
     <div class="food-header">
@@ -73,6 +81,9 @@
     </div>
 </c:if>
 
+ 
+
+
     <c:forEach var="food" items="${foodList}">
       <div class="food-row">
         <div>${food.name}</div>
@@ -86,7 +97,13 @@
   <a href="${pageContext.request.contextPath}/EditFoodServlet?id=${food.food_id}" title="Edit">
     <i class="fas fa-edit"></i>
   </a>
-  <i class="fas fa-trash" title="Delete"></i>
+ 
+  <a href="${pageContext.request.contextPath}/DeleteFoodServlet?food_id=${food.food_id}" 
+   title="Delete" 
+   onclick="return confirm('Are you sure you want to delete this food item from database?');">
+   <i class="fas fa-trash" title="Delete"></i>
+</a>
+  
 </div>
       </div>
     </c:forEach>
