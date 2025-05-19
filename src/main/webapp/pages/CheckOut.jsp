@@ -16,13 +16,11 @@
     <c:if test="${not empty errorMessage}">
         <div class="error-message">${errorMessage}</div>
     </c:if>
-    
-    
-    
-    <div class="main">
+
+    <div class="form-container">
     
     <form action="${pageContext.request.contextPath}/PlaceOrderServlet" method="post">
-    <section class="form">
+    <div class="customer-info">
     
         <!-- General Information Section -->
         <div class="form-section">
@@ -46,10 +44,10 @@
         </div>
         <!-- Delivery Address Section -->
         
-         <div class="form-group">
-                <label for="address">Delivery Address</label>
-                <input type="text" id="address" name = "shipping_address" value="${user.current_address}">
-            </div>
+        <div class="form-group">
+              <label for="address">Delivery Address</label>
+              <input type="text" id="address" name = "shipping_address" value="${user.current_address}">
+        </div>
         
 		<!-- Payment Methods Section -->
 		<div class="form-section payment-section">
@@ -59,36 +57,38 @@
 		        <label for="COD">Cash on delivery</label>
 		    </div>
 		</div>
-
-	
-	    <h3>Order Summary</h3>
-	    <div class="summary-body">
-	        <c:forEach var="item" items="${order.items}">
-	            <div class="food-item">
-	                 <img src="${pageContext.request.contextPath}/${item.image_url}" alt="Food Image" class="food-image">
-	                <p class="food-name">${item.food_name}</p>
-	                <span class="food-price">Rs. ${item.price} X ${item.quantity}</span>
-	            </div>
-	        </c:forEach>
-	    </div>
-	    <div class="summary-footer">
-	        <div class="price-row">
-	            <span>Sub-total</span>
-	            <span>Rs. ${order.totalAmount}</span>
-	        </div>
-	        <div class="price-row">
-	            <span>Delivery charge</span>
-	            <span>Rs. 100</span>
-	        </div>
-	        <div class="total-row">
-	            <span>Total</span>
-	            <span>Rs. ${order.totalAmount + 100}</span>
-	        </div>
-	        <button type="submit" class="place-order-btn">Place Order</button>
-	        
-	    </div>
-	        
-	</section>
+	</div>
+	<div class=order-summary>
+	<!-- Order summary Section -->
+		<div class=orderr-summary>
+		    <h3>Order Summary</h3>
+		    <div class="summary-body">
+		        <c:forEach var="item" items="${order.items}">
+		            <div class="food-item">
+		                 <img src="${pageContext.request.contextPath}/${item.image_url}" alt="Food Image" class="food-image">
+		                <p class="food-name">${item.food_name}</p>
+		                <span class="food-price">Rs. ${item.price} X ${item.quantity}</span>
+		            </div>
+		        </c:forEach>
+		    </div>
+		    <div class="summary-footer">
+		        <div class="price-row">
+		            <span>Sub-total</span>
+		            <span>Rs. ${order.totalAmount}</span>
+		        </div>
+		        <div class="price-row">
+		            <span>Delivery charge</span>
+		            <span>Rs. 100</span>
+		        </div>
+		        <div class="total-row">
+		            <span>Total</span>
+		            <span>Rs. ${order.totalAmount + 100}</span>
+		        </div>
+		        <button type="submit" class="place-order-btn">Place Order</button>
+		        
+		    </div>
+		   </div>     
+	</div>
 	</form>
     </div>
 </div>

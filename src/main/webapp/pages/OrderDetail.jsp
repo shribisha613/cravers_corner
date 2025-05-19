@@ -46,23 +46,10 @@
     <p><strong>Pizza</strong></p>
   </div>
   <div class="qty-sub">
-    <p>Quantity: 1</p>
-    <p>Subtotal: Rs. 250</p>
+    <p><strong>Quantity:</strong> 1</p>
+    <p><strong>Subtotal:</strong> Rs. 250</p>
   </div>
 </div>
-    
-<div class="order-item">
-  <img src="img/burger.jpg" alt="Burger">
-  <div class="item-details">
-    <p><strong>Burger</strong></p>
-  </div>
-  <div class="qty-sub">
-    <p>Quantity: 1</p>
-    <p>Subtotal: Rs. 100</p>
-  </div>
-</div>
-
-      
 
     <hr>
 
