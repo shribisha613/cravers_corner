@@ -30,19 +30,22 @@
 
 <div class="category-container">
     <c:forEach var="category" items="${categoryList}" varStatus="status">
-        <div class="category-card" onclick="location.href='${pageContext.request.contextPath}/menu?type=${category.name}'">
-            <h3 class="category-title">${category.name}</h3>
-            <div class="food-thumbnails">
-                <c:forEach var="food" items="${allCategoryFoods[status.index]}" end="3">
-                    <div class="thumbnail-box">
-                        <img src="${pageContext.request.contextPath}/${food.image_url}" alt="Food Image">
-                        <p class="food-name">${food.name}</p>
-                    </div>
-                </c:forEach>
+        
+            <div class="category-card" onclick="location.href='${pageContext.request.contextPath}/menu?type=${category.name}'">
+                <h3 class="category-title">${category.name}</h3>
+                <div class="food-thumbnails">
+                    <c:forEach var="food" items="${allCategoryFoods[status.index]}" end="3" varStatus="foodStatus">
+                        <div class="thumbnail-box ${allCategoryFoods[status.index].size() == 1 ? 'single' : ''}">
+                            <img src="${pageContext.request.contextPath}/${food.image_url}" alt="Food Image">
+                            <p class="food-name">${food.name}</p>
+                        </div>
+                    </c:forEach>
+                </div>
             </div>
-        </div>
+       
     </c:forEach>
 </div>
+
 
 
 
