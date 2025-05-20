@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
 import com.cravers_corner.controller.dao.AdminDashboardDAO;
+import com.cravers_corner.model.OrderItem;
 
 @WebServlet("/AdminDashboardServlet")
 public class AdminDashboardServlet extends HttpServlet {
@@ -28,6 +29,12 @@ public class AdminDashboardServlet extends HttpServlet {
         request.setAttribute("totalCategories", totalCategories);
         request.setAttribute("totalFoodItems", totalFoodItems);
         request.setAttribute("totalCustomers", totalCustomers);
+
+
+        request.setAttribute("todaysOrders", dao.getTodaysOrderCount());
+        request.setAttribute("mostOrderedCategory", dao.getMostOrderedCategory());
+        request.setAttribute("mostOrderedItem", dao.getMostOrderedItem());
+        request.setAttribute("usersLastMonth", dao.getUsersRegisteredLastMonth());
 
         RequestDispatcher rd = request.getRequestDispatcher("/pages/AdminDashboard.jsp");
         rd.forward(request, response);

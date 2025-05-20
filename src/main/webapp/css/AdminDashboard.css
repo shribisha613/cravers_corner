@@ -82,8 +82,7 @@ a {
     background-color: #ecf0f1;
     padding: 10px 20px;
     border-radius: 8px;
-    font-size: 22px;
-    font-weight: bold;
+    font-size: 20px;
     color: #2c3e50;
     text-align: center;
 }
@@ -94,36 +93,79 @@ a {
 }
 
 /* Recent Orders Table */
-.recent-orders-section {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+.recent-orders-section h3 {
+  font-size: 24px;
+  color: #222;
+  margin-bottom: 25px;
+  font-weight: 700;
+  text-align: center;
+}
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  color: black;
+  padding: 12px 15px;
+  border-radius: 10px;
+  font-weight: bold;
+  text-align: center;
 }
 
-.recent-orders-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
+.order-header div {
+  flex: 1;
+  text-align: center;
 }
 
-.recent-orders-table th,
-.recent-orders-table td {
-    padding: 12px 15px;
-    border-bottom: 1px solid #ddd;
-    text-align: left;
+/* Each Order Row */
+.order-row {
+  display: flex;
+  justify-content: space-between;
+  background-color: #fff;
+  padding: 12px 15px;
+  margin-top: 10px;
+  border-radius: 10px;
+  align-items: center;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
+
+.order-row:hover {
+  background-color: #f1f1f1;
+}
+
+.order-row div {
+  flex: 1;
+  text-align: center;
+}
+
+/* Status Dropdown */
+.order-row select {
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* View Button */
+.order-row button {
+  padding: 6px 12px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.order-row button:hover {
+  background-color: #218838;
+}
+
 
 .view-link {
     color: #2980b9;
     font-weight: bold;
 }
 
-/* Footer */
-.footer {
-    background-color: #2c3e50;
-    color: white;
-    text-align: center;
-    padding: 15px;
-    position: relative;
-}
+
