@@ -3,107 +3,61 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>My Orders</title>
-<!-- Font Awesome CDN -->
+    <meta charset="UTF-8">
+    <title>My Orders</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/MyOrders.css">
 </head>
-</head>
 <body>
-    <h2>Starting My Orders <h2>
-    <jsp:include page="Header.jsp" />
-   
-    <div class="toggle-buttons">
-      <button id="profileBtn" class="active" onclick="showProfile()">Profile</button>
-      <button id="ordersBtn" onclick="showOrders()">My Orders</button>
+<jsp:include page="Header.jsp" />
+
+<main>
+    <div class="tabs">
+        <a href="${pageContext.request.contextPath}/UserProfileServlet">Profile</a>
+        <a href="#" class="active">My Orders</a>
     </div>
-    
-    <div class="content-box" id="ordersSection" style="display: none;">
-      <div class="order-box">
-        <div class="order-date">Date: 2025-05-02</div>
-        
-        <div class="order-table">
-          <div class="table-header">
-            <div>Item</div>
-            <div>Price</div>
-            <div>Quantity</div>
-            <div>Total</div>
-          </div>
 
-          <div class="table-row">
-            <div>Chicken Biryani</div>
-            <div>Rs. 200</div>
-            <div>2</div>
-            <div>Rs. 400</div>
-          </div>
-
-          <div class="table-row">
-            <div>Delivery Charge</div>
-            <div>Rs. 50</div>
-            <div>-</div>
-            <div>Rs. 50</div>
-          </div>
+    <c:if test="${not empty errorMessage}">
+        <div class="error-alert">
+            <c:out value="${errorMessage}"/>
+            <button class="close-btn" onclick="this.parentElement.style.display='none'">x</button>
         </div>
+    </c:if>
 
-        <div class="order-summary">
-          <div>Status: Complete</div>
-          <div>Total: Rs. 450</div>
-        </div>
+    <div class="content-box" id="ordersSection">
+        <c:forEach var="order" items="${orders}">
+            <div class="order-box">
+                <label>Order Date</label>
+                <div class="order-date">Date: <c:out value="${order.orderDate}" /></div>
 
-        <hr />
+                <div class="order-table">
+                    <div class="table-header">
+                        <div>Item</div>
+                        <div>Price</div>
+                        <div>Quantity</div>
+                        <div>Total<*/div>
+                    </div>
 
-        <!-- Repeat another order -->
-        <div class="order-date">Date: 2025-04-28</div>
+                    <c:forEach var="item" items="${order.items}">
+                        <div class="table-row">
+                            <div><c:out value="${item.itemName}" /></div>
+                            <div>Rs. <c:out value="${item.price}" /></div>
+                            <div><c:out value="${item.quantity}" /></div>
+                            <div>Rs. <c:out value="${item.total}" /></div>
+                        </div>
+                    </c:forEach>
+                </div>
 
-        <div class="order-table">
-          <div class="table-header">
-            <div>Item</div>
-            <div>Price</div>
-            <div>Quantity</div>
-            <div>Total</div>
-          </div>
+                <div class="order-summary">
+                    <div>Status: <c:out value="${order.status}" /></div>
+                    <div>Total: Rs. <c:out value="${order.totalPrice}" /></div>
+                </div>
 
-          <div class="table-row">
-            <div>Veg Thali</div>
-            <div>Rs. 150</div>
-            <div>1</div> -->
-            <div>Rs. 150</div>
-          </div>
-
-          <div class="table-row">
-            <div>Delivery Charge</div>
-            <div>Rs. 30</div>
-            <div>-</div>
-            <div>Rs. 30</div>
-          </div>
-        </div>
-
-        <div class="order-summary">
-          <div>Status: Complete</div>
-          <div>Total: Rs. 180</div>
-        </div>
-
-        <hr />
-      </div>
+                <hr />
+            </div>
+        </c:forEach>
     </div>
-  </main>
-  <script>
-    function showProfile() {
-      document.getElementById("profileSection").style.display = "block";
-      document.getElementById("ordersSection").style.display = "none";
+</main>
 
-      document.getElementById("profileBtn").classList.add("active");
-      document.getElementById("ordersBtn").classList.remove("active");
-    }
-
-    function showOrders() {
-      document.getElementById("profileSection").style.display = "none";
-      document.getElementById("ordersSection").style.display = "block";
-
-      document.getElementById("ordersBtn").classList.add("active");
-      document.getElementById("profileBtn").classList.remove("active");
-    }
-  </script>
-    
+</body>
 </html>

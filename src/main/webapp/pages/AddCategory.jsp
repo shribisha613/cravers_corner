@@ -12,7 +12,7 @@
   <jsp:include page="SideNavAdmin.jsp" />
 
       <div class="form-wrapper">
-      <a href="${pageContext.request.contextPath}/pages/ManageCategory.jsp" class="back-button">
+      <a href="${pageContext.request.contextPath}/GetCategoryServlet" class="back-button">
 		  <i class="fa-solid fa-arrow-left"></i>
 		</a>
       
