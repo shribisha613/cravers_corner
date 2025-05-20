@@ -102,6 +102,7 @@ public class UserProfileServlet extends HttpServlet {
         String newPassword = request.getParameter("password");
         String confirmPassword = request.getParameter("confirm_password");
         String profile_image_url = null;
+        String existingImage = request.getParameter("existing_profile_image");
         
         Part image = request.getPart("profile_image");
         
@@ -148,6 +149,10 @@ public class UserProfileServlet extends HttpServlet {
             request.setAttribute("profileImagePath", displayPath); 
            
         }
+        }
+        
+        if (profile_image_url == null) {
+            profile_image_url = existingImage;
         }
         
         if (ValidationUtil.isNullOrEmpty(firstName) || !ValidationUtil.isValidName(firstName)) {
