@@ -34,7 +34,7 @@
 		      </select>
 		    </div>
 		    <div>
-		      <a href="${pageContext.request.contextPath}/ViewOrderServlet?orderId=${order.orderId}">
+		      <a href="${pageContext.request.contextPath}/ViewOrderDetailServlet?orderId=${order.orderId}">
 		        <button>View Details</button>
 		      </a>
 		    </div>

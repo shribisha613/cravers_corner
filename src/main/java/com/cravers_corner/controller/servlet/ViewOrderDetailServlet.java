@@ -1,6 +1,4 @@
-package controller.servlets;
-
-
+package com.cravers_corner.controller.servlet;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,44 +10,42 @@ import com.cravers_corner.model.Order;
 
 import java.io.IOException;
 
-@WebServlet("/viewOrderDetail")
+@WebServlet("/ViewOrderDetailServlet")
 public class ViewOrderDetailServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    	
-    	System.out.println("hh");
+        
+        System.out.println("checking");
 
         try {
-            // Get the orderId from request
             String orderIdParam = request.getParameter("orderId");
             System.out.println(orderIdParam);
+
             if (orderIdParam == null || orderIdParam.isEmpty()) {
-                response.sendRedirect("${pageContext.request.contextPath}" + "/pages/Orders.jsp");
+                response.sendRedirect(request.getContextPath() + "/pages/Order.jsp");
                 return;
             }
 
             int orderId = Integer.parseInt(orderIdParam);
 
-            // Fetch order details from DAO
             OrderDAO orderDAO = new OrderDAO();
             Order order = orderDAO.getOrderById(orderId);
 
             if (order != null) {
-                // Pass the order to the JSP
                 request.setAttribute("order", order);
+                System.out.println(order);//checking
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/OrderDetail.jsp");
                 dispatcher.forward(request, response);
             } else {
-                // Order not found
-                response.sendRedirect("/pages/Orders.jsp?error=OrderNotFound");
+                response.sendRedirect(request.getContextPath() + "/GetOrderServlet");
             }
         } catch (NumberFormatException e) {
-            response.sendRedirect("/pages/Orders.jsp?error=InvalidOrderId");
+            response.sendRedirect(request.getContextPath() + "/GetOrderServlet");
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("/pages/Orders.jsp");
+            response.sendRedirect(request.getContextPath() + "/GetOrderServlet");
         }
     }
 }

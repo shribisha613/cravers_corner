@@ -19,22 +19,22 @@
 
     <div class="order-top">
       <div>
-        <p><strong>Order Id:</strong> ${order.id}</p>
-        <p><strong>Date:</strong> ${order.date}</p>
+        <p><strong>Order Id:</strong> ${order.orderId}</p>
+        <p><strong>Date:</strong> ${order.orderDate}</p>
       </div>
       <div class="order-by">
-        <p><strong>Ordered by:</strong> ${order.orderedBy}</p>
-        <p class="contact-no"><strong>Contact No:</strong> ${order.contactNo}</p>
+        <p><strong>Ordered by:</strong> ${order.customerId}</p>
+        <p class="contact-no"><strong>Contact No:</strong> ${order.orderContact}</p>
       </div>
     </div>
 
     <hr>
 
     <div class="order-address-note">
-      <p><strong>Delivery Address:</strong> ${order.address}</p>
+      <p><strong>Delivery Address:</strong> ${order.shippingAddress}</p>
       <div class="order-note">
         <p><strong>Order Note:</strong></p>
-        <p>${order.note}</p>
+        <p>${order.orderNote}</p>
       </div>
     </div>
 
@@ -43,9 +43,9 @@
     <!-- Loop through order items -->
     <c:forEach var="item" items="${order.items}">
       <div class="order-item">
-        <img src="${pageContext.request.contextPath}/img/${item.imagePath}" alt="${item.productName}" />
+        <img src="${pageContext.request.contextPath}/${item.image_url}" alt="${item.food_name}" />
         <div class="item-details">
-          <p><strong>${item.productName}</strong></p>
+          <p><strong>${item.food_name}</strong></p>
         </div>
         <div class="qty-sub">
           <p><strong>Quantity:</strong> ${item.quantity}</p>
@@ -56,7 +56,7 @@
     </c:forEach>
 
     <div class="order-total">
-      <p><strong>Total:</strong> Rs. ${order.total}</p>
+      <p><strong>Total:</strong> Rs. ${order.totalAmount}</p>
     </div>
   </div>
 </main>
