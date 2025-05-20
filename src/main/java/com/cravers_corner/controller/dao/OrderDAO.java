@@ -58,12 +58,15 @@ public class OrderDAO {
 
     // Get order by ID
     public Order getOrderById(int orderId) throws SQLException {
-        String sql = "SELECT * FROM Orders WHERE order_id = ?";
+        String sql = "SELECT order_id, customer_id, status, total_amount, order_note, created_at, updated_at FROM Orders WHERE order_id = ?";
+        
+        Order order = new Order();
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, orderId);
             ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                Order order = new Order();
+           
+            while(rs.next()) {
+                
                 order.setOrderId(rs.getInt("order_id"));
                 order.setCustomerId(rs.getInt("customer_id"));
                 order.setStatus(rs.getString("status"));
@@ -72,10 +75,13 @@ public class OrderDAO {
                 order.setOrderDate(rs.getTimestamp("order_date"));
                 order.setCreatedAt(rs.getTimestamp("created_at"));
                 order.setUpdatedAt(rs.getTimestamp("updated_at"));
-                return order;
+                
             }
+        }catch (SQLException e) {
+            e.printStackTrace();
         }
-        return null;
+
+        return order;
     }
     // Get all orders
     public List<Order> getAllOrders() throws SQLException {
