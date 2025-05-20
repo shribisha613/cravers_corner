@@ -60,25 +60,65 @@ public class OrderDAO {
 
     // Get order by ID
     public Order getOrderById(int orderId) throws SQLException {
-        String sql = "SELECT * FROM Orders WHERE order_id = ?";
+        String sql = "SELECT o.order_id, o.customer_id, o.status, o.total_amount, o.order_note, o.order_date, " +
+                     "o.created_at, o.updated_at, " +
+                     "u.phone, u.current_address, " +
+                     "oi.order_item_id, oi.food_id, oi.quantity, oi.price, oi.subtotal, " +
+                     "f.name, f.image_url " +
+                     "FROM Orders o " +
+                     "JOIN Users u ON o.customer_id = u.user_id " +
+                     "LEFT JOIN Order_items oi ON o.order_id = oi.order_id " +
+                     "LEFT JOIN Foods f ON oi.food_id = f.food_id " +
+                     "WHERE o.order_id = ?";
+        
+        Order order = null;
+        List<OrderItem> items = new ArrayList<>();
+
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, orderId);
             ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                Order order = new Order();
-                order.setOrderId(rs.getInt("order_id"));
-                order.setCustomerId(rs.getInt("customer_id"));
-                order.setStatus(rs.getString("status"));
-                order.setTotalAmount(rs.getDouble("total_amount"));
-                order.setOrderNote(rs.getString("order_note"));
-                order.setOrderDate(rs.getTimestamp("order_date"));
-                order.setCreatedAt(rs.getTimestamp("created_at"));
-                order.setUpdatedAt(rs.getTimestamp("updated_at"));
-                return order;
+
+            while (rs.next()) {
+                if (order == null) {
+                    order = new Order();
+                    order.setOrderId(rs.getInt("order_id"));
+                    order.setCustomerId(rs.getInt("customer_id"));
+                    order.setStatus(rs.getString("status"));
+                    order.setTotalAmount(rs.getDouble("total_amount"));
+                    order.setOrderNote(rs.getString("order_note"));
+                    order.setOrderDate(rs.getTimestamp("order_date"));
+                    order.setCreatedAt(rs.getTimestamp("created_at"));
+                    order.setUpdatedAt(rs.getTimestamp("updated_at"));
+
+                    // Customer details
+                    order.setOrderContact(rs.getString("phone"));
+                    order.setShippingAddress(rs.getString("current_address"));
+                }
+
+                int orderItemId = rs.getInt("order_item_id");
+                if (orderItemId > 0) { // valid order item row
+                    OrderItem item = new OrderItem();
+                    item.setOrderItemId(orderItemId);
+                    item.setOrderId(rs.getInt("order_id"));
+                    item.setFoodId(rs.getInt("food_id"));
+                    item.setQuantity(rs.getInt("quantity"));
+                    item.setPrice(rs.getDouble("price"));
+                    item.setSubtotal(rs.getDouble("subtotal"));
+                    item.setFood_name(rs.getString("name"));
+                    item.setImage_url(rs.getString("image_url"));
+
+                    items.add(item);
+                }
             }
         }
-        return null;
+
+        if (order != null) {
+            order.setItems(items);
+        }
+
+        return order;
     }
+
     // Get all orders
     public List<Order> getAllOrders() throws SQLException {
         List<Order> orders = new ArrayList<>();
