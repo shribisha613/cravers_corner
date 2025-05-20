@@ -87,7 +87,7 @@ public class UpdateCartServlet extends HttpServlet {
                     session.setAttribute("cartItems", cartItems);
                     session.setAttribute("cartTotal", total);
                     session.setAttribute("cartItemCount", cartItems.size());
-                    session.setAttribute("success", "Cart updated successfully");
+                    
                 } else {
                     session.setAttribute("errorMessage", "Failed to update cart item");
                 }
