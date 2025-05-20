@@ -3,7 +3,11 @@ package com.cravers_corner.controller.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.cravers_corner.controller.database.DatabaseConnection;
+import com.cravers_corner.model.Order;
 
 public class AdminDashboardDAO {
 
@@ -120,6 +124,33 @@ public class AdminDashboardDAO {
             e.printStackTrace();
         }
         return count;
+    }
+    
+    public List<Order> getRecentOrders(int limit) {
+        List<Order> orders = new ArrayList<>();
+        String sql = "SELECT order_id, customer_id, status, total_amount, order_note, order_date, created_at, updated_at FROM Orders WHERE status = 'pending' ORDER BY order_date DESC LIMIT ?";
+        
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, limit);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Order order = new Order();
+                    order.setOrderId(rs.getInt("order_id"));
+                    order.setCustomerId(rs.getInt("customer_id"));
+                    order.setStatus(rs.getString("status"));
+                    order.setTotalAmount(rs.getDouble("total_amount"));
+                    order.setOrderNote(rs.getString("order_note"));
+                    order.setOrderDate(rs.getTimestamp("order_date"));
+                    order.setCreatedAt(rs.getTimestamp("created_at"));
+                    order.setUpdatedAt(rs.getTimestamp("updated_at"));
+                    orders.add(order);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return orders;
     }
 
 }
