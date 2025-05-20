@@ -25,6 +25,17 @@
     </div>
 </c:if>
 
+<c:if test="${not empty successMessage}">
+    <div class="success-message" id="successMessage">
+        <i class="fa-solid fa-check"></i> ${successMessage}
+         <button class="close-btn" onclick="this.parentElement.style.display='none'">x</button>
+
+    </div>
+    <c:remove var="successMessage" scope="session" />
+</c:if>
+
+
+   
 
 
 <hr class="divider" />

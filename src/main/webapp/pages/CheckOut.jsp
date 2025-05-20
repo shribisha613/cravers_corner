@@ -11,21 +11,28 @@
 <body>
 <jsp:include page="Header.jsp" />
 
-
-<c:if test="${not empty sessionScope.successMessage}">
-	    <script>
-	        alert("${sessionScope.successMessage}");
-	    </script>
-	    <c:remove var="successMessage" scope="session"/>
-	</c:if>
-    <c:if test="${not empty errorMessage}">
-        <div class="error-message">${errorMessage}</div>
-    </c:if>
-
 <div class="container">
-	
+	<c:if test="${not empty successMessage}">
+    <div class="success-message" id="successMessage">
+        <i class="fa-solid fa-check"></i> ${successMessage}
+         <button class="close-btn" onclick="this.parentElement.style.display='none'">x</button>
+
+    </div>
+    <c:remove var="successMessage" scope="session" />
+</c:if>
+
+
+    <c:if test="${not empty errorMessage}">
+    <div class="error-message">
+        <i class="fas fa-exclamation-circle"></i> ${errorMessage}
+        <button class="close-btn" onclick="this.parentElement.style.display='none'">x</button>
+    </div>
+     <c:remove var="successMessage" scope="session" />
+</c:if>
 
     <div class="form-container">
+    
+    
     
     <form action="${pageContext.request.contextPath}/PlaceOrderServlet" method="post">
     <div class="checkout-content">
@@ -94,6 +101,8 @@
 		            <span>Total</span>
 		            <span>Rs. ${order.totalAmount + 100}</span>
 		        </div>
+		        
+		        
 		        <button type="submit" class="place-order-btn">Place Order</button>
 		        
 		    </div>
