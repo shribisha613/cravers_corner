@@ -78,6 +78,7 @@ public class ProceedCheckoutServlet extends HttpServlet {
                 oi.setPrice(ci.getPrice());
                 oi.setSubtotal(ci.getSubtotal());
                 oi.setFood_name(ci.getFood_name());
+                oi.setFoodId(ci.getFood_id());
                 orderItems.add(oi);
             }
             order.setItems(orderItems);
