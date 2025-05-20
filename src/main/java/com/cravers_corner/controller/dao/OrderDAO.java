@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,38 +23,39 @@ public class OrderDAO {
         this.conn = DatabaseConnection.getConnection();
         this.orderItemDAO = new OrderItemDAO();
     }
-    public int createOrderWithItems(Order order) throws SQLException {
-        int orderId = -1;
-        String insertOrderSql = "INSERT INTO Orders (customer_id, status, total_amount, order_note, order_date) VALUES (?, ?, ?, ?, ?)";
+    
+    public int createOrderWithItems(Order order) throws SQLException, ClassNotFoundException {
+        int generatedOrderId = 0;
+        String sql = "INSERT INTO orders (customer_id, total_amount, status, order_date, created_at, updated_at, order_note) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        
+        try (
+             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            
+            ps.setInt(1, order.getCustomerId());
+            ps.setDouble(2, order.getTotalAmount());
+            ps.setString(3, order.getStatus());
+            ps.setTimestamp(4, order.getOrderDate());
+            ps.setTimestamp(5, order.getCreatedAt());
+            ps.setTimestamp(6, order.getUpdatedAt());
+            ps.setString(7, order.getOrderNote());
 
-        try {
-            conn.setAutoCommit(false);
+            int affectedRows = ps.executeUpdate();
 
-            try (PreparedStatement stmt = conn.prepareStatement(insertOrderSql, Statement.RETURN_GENERATED_KEYS)) {
-                stmt.setInt(1, order.getCustomerId());
-                stmt.setString(2, order.getStatus());
-                stmt.setDouble(3, order.getTotalAmount());
-                stmt.setString(4, order.getOrderNote());
-                stmt.setTimestamp(5, order.getOrderDate());
-                
-                stmt.executeUpdate();
-                ResultSet rs = stmt.getGeneratedKeys();
-                if (rs.next()) orderId = rs.getInt(1);
+            if (affectedRows == 0) {
+                throw new SQLException("Creating order failed, no rows affected.");
             }
-            for (OrderItem item : order.getItems()) {
-                item.setOrderId(orderId);
-                orderItemDAO.insertOrderItem(item);
-            }
 
-            conn.commit();
-        } catch (SQLException e) {
-            conn.rollback();
-            throw e;
-        } finally {
-            conn.setAutoCommit(true);
+            try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    generatedOrderId = generatedKeys.getInt(1);
+                } else {
+                    throw new SQLException("Creating order failed, no ID obtained.");
+                }
+            }
         }
-        return orderId;
+        return generatedOrderId;
     }
+
 
 
     // Get order by ID

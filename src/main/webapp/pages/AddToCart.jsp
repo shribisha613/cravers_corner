@@ -25,6 +25,17 @@
     </div>
 </c:if>
 
+<c:if test="${not empty successMessage}">
+    <div class="success-message" id="successMessage">
+        <i class="fa-solid fa-check"></i> ${successMessage}
+         <button class="close-btn" onclick="this.parentElement.style.display='none'">x</button>
+
+    </div>
+    <c:remove var="successMessage" scope="session" />
+</c:if>
+
+
+   
 
 
 <hr class="divider" />
@@ -104,7 +115,7 @@
                 </div>
                <form action="${pageContext.request.contextPath}/ProceedCheckoutServlet" method="get">
    
-    <input type="hidden" name="returnPage" value="${currentUrl}" />
+    
     <button type="submit" class="checkout-btn">Checkout</button>
 </form>
             </div>
