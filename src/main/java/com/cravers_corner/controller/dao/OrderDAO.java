@@ -122,7 +122,7 @@ public class OrderDAO {
     // Get all orders
     public List<Order> getAllOrders() throws SQLException {
         List<Order> orders = new ArrayList<>();
-        String sql = "SELECT * FROM Orders";
+        String sql = "SELECT * FROM orders WHERE status = 'pending' ORDER BY order_date ASC";
         try (Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
@@ -132,15 +132,18 @@ public class OrderDAO {
         return orders;
     }
 
-    // Update order status
-    public boolean updateOrderStatus(int orderId, String status) throws SQLException {
-        String sql = "UPDATE Orders SET status = ? WHERE order_id = ?";
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, status);
-            stmt.setInt(2, orderId);
-            return stmt.executeUpdate() > 0;
+    
+    public boolean updateOrderStatus(int orderId, String status) throws SQLException, ClassNotFoundException {
+        String sql = "UPDATE orders SET status = ? WHERE order_id = ?";
+        try (
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, status);
+            ps.setInt(2, orderId);
+            int rows = ps.executeUpdate();
+            return rows > 0;
         }
     }
+
 
     // Delete order
     public boolean deleteOrder(int orderId) throws SQLException {

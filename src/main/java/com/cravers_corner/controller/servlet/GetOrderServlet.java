@@ -29,7 +29,7 @@ public class GetOrderServlet extends HttpServlet {
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
             request.setAttribute("error", "Unable to fetch orders.");
-            request.getRequestDispatcher("/pages/Error.jsp").forward(request, response);
+            request.getRequestDispatcher("/pages/Order.jsp").forward(request, response);
         }
     }
 }

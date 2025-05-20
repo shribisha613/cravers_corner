@@ -8,7 +8,7 @@ body {
 }
 
 main {
-  margin-top: 70px;
+  margin-top: 100px;
   margin-left: 260px;
   padding: 20px;
 }
@@ -24,6 +24,7 @@ main {
 /* Header Row */
 .order-header {
   display: flex;
+  margin-top: 10px;
   justify-content: space-between;
   background-color: white;
   color: black;
@@ -31,6 +32,7 @@ main {
   border-radius: 10px;
   font-weight: bold;
   text-align: center;
+ box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .order-header div {
@@ -83,3 +85,64 @@ main {
 .order-row button:hover {
   background-color: #218838;
 }
+
+
+.error-message {
+    padding: 12px 20px;
+    margin: 20px auto;
+    background: #F8F8F8;
+    color: #CC5500;
+    border-left: 4px solid #EC5228;
+    border-radius: 5px;
+    width: fit-content;
+    max-width: 600px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    font-size: 18 px;
+    line-height: 1.5;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.error-message i {
+    color: #EC5228;
+    font-size: 20px;
+    
+}
+
+.success-message {
+    padding: 12px 20px;
+    margin: 20px auto;
+    background: #F8F8F8;
+    color: darkgreen;
+    border-left: 4px solid green;
+    border-radius: 5px;
+    width: fit-content;
+    max-width: 600px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    font-size: 18 px;
+    line-height: 1.5;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.close-btn{
+	background: none;
+    border: none;
+    font-size: 20px;
+    color: black;      /* or any color you prefer */
+    cursor: pointer;
+    
+	
+}
+
+.success-message i {
+    color: darkgreen;
+    font-size: 18px;
+    
+}
+
+
