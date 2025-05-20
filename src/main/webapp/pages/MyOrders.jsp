@@ -9,18 +9,37 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/MyOrders.css">
 </head>
-</head>
+
 <body>
-    <h2>Starting My Orders <h2>
     <jsp:include page="Header.jsp" />
-   
-    <div class="toggle-buttons">
-      <button id="profileBtn" class="active" onclick="showProfile()">Profile</button>
-      <button id="ordersBtn" onclick="showOrders()">My Orders</button>
+
+ <main>
+ 
+  <!-- Tab bar -->
+    <div class="tabs">
+        <a href="${pageContext.request.contextPath}/UserProfileServlet" >Profile</a>
+        <a href="#" class="active">My Orders</a>
     </div>
     
-    <div class="content-box" id="ordersSection" style="display: none;">
+    <c:if test = "${not empty errorMessage}">
+    <div class = "error-alert">
+        <c:out value = "${errorMessage}"/>
+        <button class = "close-btn" onclick= "this.parentElement.style.display= 'none'">x</button>
+    </div>
+    </c:if>
+    
+    
+    <c:if test="${not empty info}">
+     <div class="info-alert">
+           <c:out value="${info}" />
+                  
+            <button class="close-btn" onclick="this.parentElement.style.display='none'">x</button>
+      </div>
+	</c:if>
+    
+    <div class="content-box" id="ordersSection">
       <div class="order-box">
+      <label>Order Date</label>
         <div class="order-date">Date: 2025-05-02</div>
         
         <div class="order-table">
@@ -87,23 +106,8 @@
         <hr />
       </div>
     </div>
-  </main>
-  <script>
-    function showProfile() {
-      document.getElementById("profileSection").style.display = "block";
-      document.getElementById("ordersSection").style.display = "none";
+    </main>
+    </body>
 
-      document.getElementById("profileBtn").classList.add("active");
-      document.getElementById("ordersBtn").classList.remove("active");
-    }
-
-    function showOrders() {
-      document.getElementById("profileSection").style.display = "none";
-      document.getElementById("ordersSection").style.display = "block";
-
-      document.getElementById("ordersBtn").classList.add("active");
-      document.getElementById("profileBtn").classList.remove("active");
-    }
-  </script>
     
 </html>

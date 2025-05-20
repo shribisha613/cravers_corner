@@ -20,7 +20,7 @@
     <!-- Tab bar -->
     <div class="tabs">
         <a href="#" class="active">Profile</a>
-        <a href="#">My Orders</a>
+        <a href="${pageContext.request.contextPath}/UserOrderServlet">My Orders</a>
     </div>
 
     <c:if test="${not empty errorMessage}">
