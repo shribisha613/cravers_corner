@@ -170,10 +170,21 @@ public class OrderDAO {
     
     
     
+   
+
+    
     public List<Order> getCompletedOrdersByCustomerId(int customerId) throws SQLException {
         List<Order> orders = new ArrayList<>();
 
-        String sql = "SELECT o.order_id, o.customer_id, o.status, o.total_amount, o.order_note, o.order_date, o.created_at, o.updated_at, oi.order_item_id, oi.food_id, oi.quantity, oi.price, oi.subtotal, f.name FROM Orders o JOIN Order_items oi ON o.order_id = oi.order_id JOIN Foods f ON oi.food_id = f.food_id WHERE o.customer_id = ? AND (o.status = 'complete') ORDER BY o.order_date DESC";
+        String sql = "SELECT "
+                   + "o.order_id, o.customer_id, o.status, o.total_amount, o.order_note, o.order_date, o.created_at, o.updated_at, "
+                   + "oi.order_item_id, oi.food_id, oi.quantity, oi.price, oi.subtotal, "
+                   + "f.name AS food_name, f.image_url AS food_image "
+                   + "FROM Orders o "
+                   + "JOIN Order_items oi ON o.order_id = oi.order_id "
+                   + "JOIN Foods f ON oi.food_id = f.food_id "
+                   + "WHERE o.customer_id = ? AND o.status = 'completed' "
+                   + "ORDER BY o.order_date DESC, o.order_id";
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, customerId);
@@ -195,11 +206,13 @@ public class OrderDAO {
                     currentOrder.setOrderDate(rs.getTimestamp("order_date"));
                     currentOrder.setCreatedAt(rs.getTimestamp("created_at"));
                     currentOrder.setUpdatedAt(rs.getTimestamp("updated_at"));
-                    currentOrder.setItems(new ArrayList<>());
+
+                    currentOrder.setItems(new ArrayList<>());  // Initialize the list of order items
                     orders.add(currentOrder);
                     currentOrderId = orderId;
                 }
 
+                // Create an order item for each row and add it to the current order's items list
                 OrderItem item = new OrderItem();
                 item.setOrderItemId(rs.getInt("order_item_id"));
                 item.setOrderId(orderId);
@@ -207,15 +220,21 @@ public class OrderDAO {
                 item.setQuantity(rs.getInt("quantity"));
                 item.setPrice(rs.getDouble("price"));
                 item.setSubtotal(rs.getDouble("subtotal"));
-                item.setFood_name(rs.getString("name"));
-                item.setImage_url(rs.getString("image_url"));
+                item.setFood_name(rs.getString("food_name"));
+                item.setImage_url(rs.getString("food_image"));
 
                 currentOrder.getItems().add(item);
+            }
+            
+            System.out.println("Total orders fetched: " + orders.size());
+            for (Order o : orders) {
+                System.out.println("Order ID: " + o.getOrderId() + ", items: " + (o.getItems() != null ? o.getItems().size() : "null"));
             }
         }
 
         return orders;
     }
+
 
 	public OrderItemDAO getOrderItemDAO() {
 		return orderItemDAO;

@@ -55,6 +55,13 @@ public class AuthorizationFilter implements Filter {
             return;
         }
         
+        if (uri.endsWith("/pages/MyOrders.jsp")) {
+            // Redirect to HomeServlet instead of allowing direct access to Home.jsp
+            res.sendRedirect(req.getContextPath() + "/UserOrderServlet");
+            return;
+        }
+        
+        
         
        
 

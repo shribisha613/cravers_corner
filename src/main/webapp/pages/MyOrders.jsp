@@ -26,7 +26,7 @@
 
     <div class="content-box" id="ordersSection">
         <c:forEach var="order" items="${orders}">
-            <div class="order-box">
+         
                 <label>Order Date</label>
                 <div class="order-date">Date: <c:out value="${order.orderDate}" /></div>
 
@@ -35,22 +35,22 @@
                         <div>Item</div>
                         <div>Price</div>
                         <div>Quantity</div>
-                        <div>Total<*/div>
+                        <div>Total</div>
                     </div>
 
                     <c:forEach var="item" items="${order.items}">
                         <div class="table-row">
-                            <div><c:out value="${item.itemName}" /></div>
+                            <div><c:out value="${item.food_name}" /></div>
                             <div>Rs. <c:out value="${item.price}" /></div>
                             <div><c:out value="${item.quantity}" /></div>
-                            <div>Rs. <c:out value="${item.total}" /></div>
+                            <div>Rs. <c:out value="${item.subtotal}" /></div>
                         </div>
                     </c:forEach>
                 </div>
 
                 <div class="order-summary">
                     <div>Status: <c:out value="${order.status}" /></div>
-                    <div>Total: Rs. <c:out value="${order.totalPrice}" /></div>
+                    <div>Total: Rs. <c:out value="${order.totalAmount}" /></div>
                 </div>
 
                 <hr />
