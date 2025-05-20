@@ -270,6 +270,50 @@ public class FoodDAO {
 
         return categories;
     }
+	
+	public boolean deleteFoodById(int food_id) {
+	    boolean isDeleted = false;
+	    String sql = "DELETE FROM foods WHERE food_id = ?";
 
+	    try (
+	         PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+	        stmt.setInt(1, food_id);
+	        int rows = stmt.executeUpdate();
+	        if (rows > 0) {
+	            isDeleted = true;
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return isDeleted;
+	}
+	
+	
+
+	 public List<Food> getTop3MostOrderedFoods() throws SQLException {
+	        List<Food> topFoods = new ArrayList<>();
+
+	        String sql = "SELECT f.food_id, f.name, f.image_url, f.price, SUM(oi.quantity) AS total_ordered FROM foods f JOIN order_items oi ON f.food_id = oi.food_id GROUP BY f.food_id, f.name, f.image_url, f.price ORDER BY total_ordered DESC LIMIT 3; ";
+
+	        try (PreparedStatement ps = conn.prepareStatement(sql);
+	             ResultSet rs = ps.executeQuery()) {
+
+	            while (rs.next()) {
+	                Food food = new Food();
+	                food.setFood_id(rs.getInt("food_id"));
+	                food.setName(rs.getString("name"));
+	                food.setImage_url(rs.getString("image_url"));
+	                food.setPrice(rs.getDouble("price"));
+	                // You can also store total_ordered if needed
+	                topFoods.add(food);
+	            }
+	        }
+
+	        return topFoods;
+	    }
+	
 	
 }

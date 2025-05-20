@@ -24,6 +24,20 @@
       <i class="fa-solid fa-burger"></i> ${errorMessage}
     </div>
 </c:if>
+
+<c:if test="${not empty successMessage}">
+    <div class="success-message" id="successMessage">
+        <i class="fa-solid fa-check"></i> ${successMessage}
+         <button class="close-btn" onclick="this.parentElement.style.display='none'">x</button>
+
+    </div>
+    <c:remove var="successMessage" scope="session" />
+</c:if>
+
+
+   
+
+
 <hr class="divider" />
 
        <div id="cartItems" class="cart-items">
@@ -87,23 +101,35 @@
         <div class="cart-footer">
             
             <div class="cart-summary">
-                <div class="summary-line">
-                    <span>Subtotal</span>
-                    <span id="subtotal">Rs. <fmt:formatNumber value="${cartTotal}" maxFractionDigits="2" /></span>
-                </div>
-                <div class="summary-line">
-                    <span>Delivery Charge</span>
-                    <span>Rs. 100</span>
-                </div>
-                <div class="total-line">
-                    <span>Total</span>
-                    <span id="total">Rs. <fmt:formatNumber value="${cartTotal + 100}" maxFractionDigits="2" /></span>
-                </div>
-               <form action="${pageContext.request.contextPath}/CheckoutServlet" method="post">
-    <input type="hidden" name="cart_id" value="${cart.id}" />
-    <input type="hidden" name="returnPage" value="${pageContext.request.requestURI}" />
-    <button type="submit" class="checkout-btn">Checkout</button>
-</form>
+<c:if test="${not empty cartItems}">
+    <div class="summary-line">
+        <span>Subtotal</span>
+        <span id="subtotal">Rs. <fmt:formatNumber value="${cartTotal}" maxFractionDigits="2" /></span>
+    </div>
+    <div class="summary-line">
+        <span>Delivery Charge</span>
+        <span>Rs. 100</span>
+    </div>
+    <div class="total-line">
+        <span>Total</span>
+        <span id="total">Rs. <fmt:formatNumber value="${cartTotal + 100}" maxFractionDigits="2" /></span>
+    </div>
+</c:if>
+               <c:choose>
+    <c:when test="${empty cartItems}">
+        <div class="empty-cart-warning">
+            <p style="color: red; font-weight: bold;">Your cart is empty. Add items before proceeding to checkout.</p>
+            <button class="checkout-btn" disabled style="opacity: 0.6; cursor: not-allowed;">Checkout</button>
+        </div>
+    </c:when>
+    <c:otherwise>
+        <form action="${pageContext.request.contextPath}/ProceedCheckoutServlet" method="get">
+            <input type="hidden" name="returnPage" value="${pageContext.request.requestURI}" />
+            <button type="submit" class="checkout-btn">Checkout</button>
+        </form>
+    </c:otherwise>
+</c:choose>
+
             </div>
         </div>
     </div>

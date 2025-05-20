@@ -152,4 +152,14 @@ public class CartItemDAO {
         }
     }
 
+    
+    public void deleteCartItemsByUserId(int user_id) throws SQLException, ClassNotFoundException {
+        String sql = "DELETE ci FROM cart_items ci JOIN carts c ON ci.cart_id = c.cart_id WHERE c.customer_id = ?";
+        
+        try (
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, user_id);
+            ps.executeUpdate();
+        }
+    }
 }

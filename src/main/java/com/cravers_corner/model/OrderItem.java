@@ -11,6 +11,8 @@ public class OrderItem {
     private double subtotal;
     private Timestamp createdAt;
     private Timestamp updatedAt;
+    private String image_url;
+    private String food_name;
 
     // Getters and setters
 
@@ -76,5 +78,19 @@ public class OrderItem {
 
     public void setUpdatedAt(Timestamp updatedAt) {
         this.updatedAt = updatedAt;
+    }
+    public String getImage_url() {
+        return image_url;
+    }
+
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
+    }
+    
+    public String getFood_name() {
+        return food_name;
+    }
+    public void setFood_name(String food_name) {
+        this.food_name = food_name;
     }
 }

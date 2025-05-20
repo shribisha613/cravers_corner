@@ -19,36 +19,50 @@
 <jsp:include page="Header.jsp" />
     <div class="container">
         <section class="hero">
-            <h1>"Crave It, Wave It,<br>We'll Slay It"</h1>
-            <a href="#" class="order-btn">Order Now</a>
+            <h1>Crave it, Wave it, and <br>We'll Slay it ! </h1>
+            <h2 class="slogan">Crave. Order. Enjoy. Repeat.</h2>
+            <p class="order-btn">Order Now</p>
         </section>
+        </div>
 
-        <h2 class="section-title">Order By Category</h2>
-        <div class="categories">
-            <div class="category" style="background-image: url('../images/pizza.jpg')">
-                <span>Western</span>
+      <h2 class="section-title">Discover Tasty Categories</h2>
+      
+      
+
+
+<div class="category-container">
+    <c:forEach var="category" items="${categoryList}" varStatus="status">
+        
+            <div class="category-card" onclick="location.href='${pageContext.request.contextPath}/menu?type=${category.name}'">
+                <h3 class="category-title">${category.name}</h3>
+           <div class="food-thumbnails ${allCategoryFoods[status.index].size() == 2 ? 'two-items' : ''}">
+                    <c:forEach var="food" items="${allCategoryFoods[status.index]}" end="3" varStatus="foodStatus">
+                        <div class="thumbnail-box ${allCategoryFoods[status.index].size() == 1 ? 'single' : ''}">
+                            <img src="${pageContext.request.contextPath}/${food.image_url}" alt="Food Image">
+                            <p class="food-name">${food.name}</p>
+                        </div>
+                    </c:forEach>
+                </div>
             </div>
-            <div class="category" style="background-image: url('../images/bhat.jpg')">
-                <span>Nepali</span>
-            </div>
-            <div class="category" style="background-image: url('../images/teok.jpg')">
-                <span>Korean</span>
-            </div>
+       
+    </c:forEach>
+</div>
+
+
+
+
+    <!-- Offers Section -->
+   <h2 class="section-title">Top Picks on the Menu</h2>
+<div class="top-ordered-container" >
+    <c:forEach var="food" items="${topOrderedFoods}">
+        <div class="top-food-card" onclick="location.href='${pageContext.request.contextPath}/FoodDetailServlet?id=${food.food_id}'">
+            <img src="${pageContext.request.contextPath}/${food.image_url}" alt="${food.name}" />
+            <h3>${food.name}</h3>
+            <p>Price: $${food.price}</p>
         </div>
-        <!-- Offers Section -->
-        <h2 class="section-title">Best Combo Offers</h2>
-        <div class="offers">
-            <div class="offer" style="background-image: url('../images/jodi combo.jpg')">
-                <span>Jodi Combo</span>
-            </div>
-            <div class="offer" style="background-image: url('../images/fam combo.jpg')">
-                <span>Family Combo</span>
-            </div>
-            <div class="offer" style="background-image: url('../images/solo combo.jpg')">
-                <span>Solo Yolo Combo</span>
-            </div>
-        </div>
-    </div>
+    </c:forEach>
+</div>
+
 <jsp:include page="Footer.jsp" />
 </body>
 </html>

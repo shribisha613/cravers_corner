@@ -90,6 +90,8 @@ public class UserDAO {
 		                user.setPhone(rs.getString("phone"));
 		                user.setProfile_image_url(rs.getString("profile_image_url"));
 		                user.setRole(rs.getString("role"));
+		                user.setCurrent_address(rs.getString("current_address"));
+		                user.setShipping_address(rs.getString("shipping_address"));
 		                return user;
 		            } else {
 		                // Password does not match

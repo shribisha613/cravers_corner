@@ -13,7 +13,7 @@
 <c:set var="currentPage" value="${pageContext.request.requestURI}" />
     <nav>
         <ul>
-            <li><a href="${pageContext.request.contextPath}/pages/Home.jsp"
+            <li><a href="${pageContext.request.contextPath}/HomeServlet"
      class="${fn:endsWith(currentPage, '/pages/Home.jsp') ? 'active' : ''}">Home</a></li>
             <li><a href="<%=request.getContextPath()%>/menu" class="${fn:endsWith(currentPage, '/pages/Menu.jsp') ? 'active' : ''}">Menu</a></li>
             <li><a href="<%=request.getContextPath()%>/pages/AboutUs.jsp" class="${fn:endsWith(currentPage, '/pages/AboutUs.jsp') ? 'active' : ''}">About Us</a></li>

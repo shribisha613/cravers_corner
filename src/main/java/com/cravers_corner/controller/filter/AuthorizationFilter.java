@@ -19,7 +19,7 @@ public class AuthorizationFilter implements Filter {
     private static final String[] ADMIN_PAGES = { "AdminDashboard.jsp", "ManageFood.jsp", 
     		"AdminUserProfile.jsp", "AddCategory.jsp", "AddFood.jsp", "ManageCategory.jsp", 
     		"SideNavAdmin.jsp", "AdminHeader.jsp", "ManageUser"};
-    private static final String[] CUSTOMER_PAGES = { "Home.jsp", "UserProfile.jsp", "Menu.jsp", "FoodDetail.jsp", "MyOrders.jsp", "CheckOut.jsp", "Header.jsp", "AddToCart.jsp" };
+    private static final String[] CUSTOMER_PAGES = { "Home.jsp", "UserProfile.jsp", "Menu.jsp", "FoodDetail.jsp", "MyOrders.jsp", "CheckOut.jsp", "Header.jsp", "AddToCart.jsp", "/UserProfileServlet" };
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -42,6 +42,21 @@ public class AuthorizationFilter implements Filter {
             chain.doFilter(request, response);
             return;
         }
+        
+        if (uri.endsWith("/pages/Home.jsp")) {
+            // Redirect to HomeServlet instead of allowing direct access to Home.jsp
+            res.sendRedirect(req.getContextPath() + "/HomeServlet");
+            return;
+        }
+        
+        if (uri.endsWith("/pages/Menu.jsp")) {
+            // Redirect to HomeServlet instead of allowing direct access to Home.jsp
+            res.sendRedirect(req.getContextPath() + "/menu");
+            return;
+        }
+        
+        
+       
 
         // Check if the role is null (i.e., user not logged in)
         if (role == null) {
@@ -64,6 +79,26 @@ public class AuthorizationFilter implements Filter {
             res.sendRedirect(req.getContextPath() + "/pages/AccessDenied.jsp");
             return;
         }
+        
+        if (uri.endsWith("/UserProfileServlet")) {
+            if ("customer".equals(role)) {
+                chain.doFilter(request, response); // Allow the customer through
+            } else {
+                res.sendRedirect(req.getContextPath() + "/pages/AccessDenied.jsp");
+            }
+            return; // Important to stop here
+        }
+
+        
+        if (uri.endsWith("/AdminUserProfileServlet")) {
+            if ("admin".equals(role)) {
+                chain.doFilter(request, response); // Allow the admin through
+            } else {
+                res.sendRedirect(req.getContextPath() + "/pages/AccessDenied.jsp");
+            }
+            return;
+        }
+        
 
         // If the page is accessible by the current role, allow access to the page
         chain.doFilter(request, response);

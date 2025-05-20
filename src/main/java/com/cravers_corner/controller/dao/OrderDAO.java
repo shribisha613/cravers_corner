@@ -6,76 +6,119 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.cravers_corner.controller.database.DatabaseConnection;
 import com.cravers_corner.model.Order;
 import com.cravers_corner.model.OrderItem;
 
 public class OrderDAO {
-    private Connection conn;
+    public Connection conn;
     private OrderItemDAO orderItemDAO;
 
-    public OrderDAO(Connection conn) {
-        this.conn = conn;
-        this.orderItemDAO = new OrderItemDAO(conn);  // instantiate DAO here
+    public OrderDAO() throws ClassNotFoundException, SQLException {
+    
+        this.conn = DatabaseConnection.getConnection();
+        this.orderItemDAO = new OrderItemDAO();
     }
     
-    public int createOrderWithItems(Order order) throws SQLException {
-        int orderId = -1;
-        String insertOrderSql = "INSERT INTO Orders (customer_id, status, total_amount, order_note, order_date) VALUES (?, ?, ?, ?, ?)";
+    public int createOrderWithItems(Order order) throws SQLException, ClassNotFoundException {
+        int generatedOrderId = 0;
+        String sql = "INSERT INTO orders (customer_id, total_amount, status, order_date, created_at, updated_at, order_note) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        
+        try (
+             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            
+            ps.setInt(1, order.getCustomerId());
+            ps.setDouble(2, order.getTotalAmount());
+            ps.setString(3, order.getStatus());
+            ps.setTimestamp(4, order.getOrderDate());
+            ps.setTimestamp(5, order.getCreatedAt());
+            ps.setTimestamp(6, order.getUpdatedAt());
+            ps.setString(7, order.getOrderNote());
 
-        try {
-            conn.setAutoCommit(false);
+            int affectedRows = ps.executeUpdate();
 
-            try (PreparedStatement stmt = conn.prepareStatement(insertOrderSql, Statement.RETURN_GENERATED_KEYS)) {
-                stmt.setInt(1, order.getCustomerId());
-                stmt.setString(2, order.getStatus());
-                stmt.setDouble(3, order.getTotalAmount());
-                stmt.setString(4, order.getOrderNote());
-                stmt.setTimestamp(5, order.getOrderDate());
-                
-                stmt.executeUpdate();
-                ResultSet rs = stmt.getGeneratedKeys();
-                if (rs.next()) orderId = rs.getInt(1);
-            }
-            for (OrderItem item : order.getItems()) {
-                item.setOrderId(orderId);
-                orderItemDAO.insertOrderItem(item);
+            if (affectedRows == 0) {
+                throw new SQLException("Creating order failed, no rows affected.");
             }
 
-            conn.commit();
-        } catch (SQLException e) {
-            conn.rollback();
-            throw e;
-        } finally {
-            conn.setAutoCommit(true);
+            try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    generatedOrderId = generatedKeys.getInt(1);
+                } else {
+                    throw new SQLException("Creating order failed, no ID obtained.");
+                }
+            }
         }
-        return orderId;
+        return generatedOrderId;
     }
+
 
 
     // Get order by ID
     public Order getOrderById(int orderId) throws SQLException {
-        String sql = "SELECT * FROM Orders WHERE order_id = ?";
+        String sql = "SELECT o.order_id, o.customer_id, o.status, o.total_amount, o.order_note, o.order_date, " +
+                     "o.created_at, o.updated_at, " +
+                     "u.phone, u.current_address, " +
+                     "oi.order_item_id, oi.food_id, oi.quantity, oi.price, oi.subtotal, " +
+                     "f.name, f.image_url " +
+                     "FROM Orders o " +
+                     "JOIN Users u ON o.customer_id = u.user_id " +
+                     "LEFT JOIN Order_items oi ON o.order_id = oi.order_id " +
+                     "LEFT JOIN Foods f ON oi.food_id = f.food_id " +
+                     "WHERE o.order_id = ?";
+        
+        Order order = null;
+        List<OrderItem> items = new ArrayList<>();
+
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, orderId);
             ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                Order order = new Order();
-                order.setOrderId(rs.getInt("order_id"));
-                order.setCustomerId(rs.getInt("customer_id"));
-                order.setStatus(rs.getString("status"));
-                order.setTotalAmount(rs.getDouble("total_amount"));
-                order.setOrderNote(rs.getString("order_note"));
-                order.setOrderDate(rs.getTimestamp("order_date"));
-                order.setCreatedAt(rs.getTimestamp("created_at"));
-                order.setUpdatedAt(rs.getTimestamp("updated_at"));
-                return order;
+
+            while (rs.next()) {
+                if (order == null) {
+                    order = new Order();
+                    order.setOrderId(rs.getInt("order_id"));
+                    order.setCustomerId(rs.getInt("customer_id"));
+                    order.setStatus(rs.getString("status"));
+                    order.setTotalAmount(rs.getDouble("total_amount"));
+                    order.setOrderNote(rs.getString("order_note"));
+                    order.setOrderDate(rs.getTimestamp("order_date"));
+                    order.setCreatedAt(rs.getTimestamp("created_at"));
+                    order.setUpdatedAt(rs.getTimestamp("updated_at"));
+
+                    // Customer details
+                    order.setOrderContact(rs.getString("phone"));
+                    order.setShippingAddress(rs.getString("current_address"));
+                }
+
+                int orderItemId = rs.getInt("order_item_id");
+                if (orderItemId > 0) { // valid order item row
+                    OrderItem item = new OrderItem();
+                    item.setOrderItemId(orderItemId);
+                    item.setOrderId(rs.getInt("order_id"));
+                    item.setFoodId(rs.getInt("food_id"));
+                    item.setQuantity(rs.getInt("quantity"));
+                    item.setPrice(rs.getDouble("price"));
+                    item.setSubtotal(rs.getDouble("subtotal"));
+                    item.setFood_name(rs.getString("name"));
+                    item.setImage_url(rs.getString("image_url"));
+
+                    items.add(item);
+                }
             }
         }
-        return null;
+
+        if (order != null) {
+            order.setItems(items);
+        }
+
+        return order;
     }
+
     // Get all orders
     public List<Order> getAllOrders() throws SQLException {
         List<Order> orders = new ArrayList<>();
