@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-
+<c:set var="activePage" value="orders" scope="request" />
 <jsp:include page="AdminHeader.jsp" />
 <jsp:include page="SideNavAdmin.jsp" />
 
