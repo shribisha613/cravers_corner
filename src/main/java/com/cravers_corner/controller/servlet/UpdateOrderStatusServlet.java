@@ -44,6 +44,14 @@ public class UpdateOrderStatusServlet extends HttpServlet {
             session.setAttribute("errorMessage", "An error occurred while updating order status.");
         }
 
-        response.sendRedirect(request.getContextPath() + "/GetOrderServlet"); // Ensure this servlet loads updated orders
+        String referer = request.getHeader("referer");
+        if (referer != null && referer.contains("AdminDashboard")) {
+            response.sendRedirect(request.getContextPath() + "/AdminDashboardServlet");
+        } else {
+            response.sendRedirect(request.getContextPath() + "/GetOrderServlet");
+        }
     }
-}
+        
+        // Ensure this servlet loads updated orders
+    }
+

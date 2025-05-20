@@ -47,13 +47,13 @@
 		    <div>${order.orderId}</div>
 		    <div>Rs. ${order.totalAmount}</div>
 		    <div>
-  <form action="${pageContext.request.contextPath}/UpdateOrderStatusServlet" method="post">
-    <input type="hidden" name="orderId" value="${order.orderId}" />
-    <select name="status" onchange="this.form.submit()">
-      <option value="pending" ${order.status == 'pending' ? 'selected' : ''}>Pending</option>
-      <option value="completed" ${order.status == 'completed' ? 'selected' : ''}>Completed</option>
-    </select>
-  </form>
+		  <form action="${pageContext.request.contextPath}/UpdateOrderStatusServlet" method="post">
+		    <input type="hidden" name="orderId" value="${order.orderId}" />
+		    <select name="status" onchange="this.form.submit()">
+		      <option value="pending" ${order.status == 'pending' ? 'selected' : ''}>Pending</option>
+		      <option value="completed" ${order.status == 'completed' ? 'selected' : ''}>Completed</option>
+		    </select>
+		  </form>
 </div>
 		    <div>
 		      <a href="${pageContext.request.contextPath}/ViewOrderDetailServlet?orderId=${order.orderId}">

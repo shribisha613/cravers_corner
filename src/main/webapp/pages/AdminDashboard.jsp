@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -102,23 +103,26 @@
 		     <div>Status</div>
 		     <div>Action</div>
 	    </div>
-			<c:forEach var="order" items="${orders}">
-			  <div class="order-row">
-			    <div>${order.orderId}</div>
-			    <div>Rs. ${order.totalAmount}</div>
-			    <div>
-			      <select name="status">
-			        <option value="pending" ${order.status == 'pending' ? 'selected' : ''}>Pending</option>
-			        <option value="completed" ${order.status == 'completed' ? 'selected' : ''}>Completed</option>
-			      </select>
-			    </div>
-			    <div>
-			      <a href="${pageContext.request.contextPath}/ViewOrderDetailServlet?orderId=${order.orderId}">
-			        <button>View Details</button>
-			      </a>
-			    </div>
-			  </div>
-			</c:forEach>
+		<c:forEach var="order" items="${orders}">
+		    <div class="order-row">
+		        <div> ${order.orderId}</div>
+		        <div>Rs. ${order.totalAmount}</div>
+		        <div>
+				  <form action="${pageContext.request.contextPath}/UpdateOrderStatusServlet" method="post">
+				    <input type="hidden" name="orderId" value="${order.orderId}" />
+				    <select name="status" onchange="this.form.submit()">
+				      <option value="pending" ${order.status == 'pending' ? 'selected' : ''}>Pending</option>
+				      <option value="completed" ${order.status == 'completed' ? 'selected' : ''}>Completed</option>
+				    </select>
+				  </form>
+				  </div>
+				    <div>
+		            <a href="${pageContext.request.contextPath}/ViewOrderDetailServlet?orderId=${order.orderId}">
+		                <button>View Details</button>
+		            </a>
+		        </div>
+		    </div>
+		</c:forEach>
     </div>
 </main>
 </body>

@@ -89,7 +89,7 @@ a {
 
 .stat-icon i {
     font-size: 28px;
-    color: #ff8080; /* light orange color for icon in the body*/
+    color: rgb(255, 128, 64); /* light orange color for icon in the body*/
 }
 
 /* Recent Orders Table */
