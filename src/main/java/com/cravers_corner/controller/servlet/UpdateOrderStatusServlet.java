@@ -26,12 +26,21 @@ public class UpdateOrderStatusServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
         OrderDAO dao;
+        boolean isFromAdminDashboard = false;
+
+        String referer = request.getHeader("referer");
+        if (referer != null && referer.contains("AdminDashboard")) {
+            isFromAdminDashboard = true;
+        }
+
         try {
             dao = new OrderDAO();
             boolean updated = dao.updateOrderStatus(orderId, status);
 
             if (updated) {
-                if ("completed".equalsIgnoreCase(status)) {
+                if ("deleted".equalsIgnoreCase(status)) {
+                    session.setAttribute("successMessage", "Order #" + orderId + " has been deleted.");
+                } else if ("completed".equalsIgnoreCase(status)) {
                     session.setAttribute("successMessage", "Order #" + orderId + " has been marked as completed.");
                 } else {
                     session.setAttribute("successMessage", "Order #" + orderId + " status updated to " + status + ".");
@@ -39,19 +48,16 @@ public class UpdateOrderStatusServlet extends HttpServlet {
             } else {
                 session.setAttribute("errorMessage", "Failed to update status for Order #" + orderId + ".");
             }
+
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
             session.setAttribute("errorMessage", "An error occurred while updating order status.");
         }
 
-        String referer = request.getHeader("referer");
-        if (referer != null && referer.contains("AdminDashboard")) {
+        if (isFromAdminDashboard) {
             response.sendRedirect(request.getContextPath() + "/AdminDashboardServlet");
         } else {
             response.sendRedirect(request.getContextPath() + "/GetOrderServlet");
         }
     }
-        
-        // Ensure this servlet loads updated orders
-    }
-
+}
