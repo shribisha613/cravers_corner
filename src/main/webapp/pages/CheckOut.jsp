@@ -63,7 +63,7 @@
         
         <div class="form-group">
               <label for="address">Delivery Address</label>
-              <input type="text" id="address" name = "shipping_address" value="${user.current_address}">
+              <input type="text" id="address" name = "shipping_address" value="${user.current_address}" readonly>
         </div>
         
 		<!-- Payment Methods Section -->
