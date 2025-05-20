@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Order.css">
 </head>
 <body>
+<c:set var="activePage" value="orders" scope="request" />
 	<jsp:include page="AdminHeader.jsp" />
 	<jsp:include page="SideNavAdmin.jsp" />
 	
