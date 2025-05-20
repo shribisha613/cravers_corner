@@ -96,13 +96,32 @@
 
     <!-- Recent Orders Table -->
     <div class="recent-orders-section">
+    
+    
         <h3>Most Recent Orders</h3>
+        
+        <c:if test="${not empty errorMessage}">
+    <div class="error-message">
+      <i class="fa-solid fa-burger"></i> ${errorMessage}
+    </div>
+</c:if>
+
+<c:if test="${not empty successMessage}">
+    <div class="success-message" id="successMessage">
+        <i class="fa-solid fa-check"></i> ${successMessage}
+         <button class="close-btn" onclick="this.parentElement.style.display='none'">x</button>
+
+    </div>
+    <c:remove var="successMessage" scope="session" />
+</c:if>
 	    <div class="order-header">
 		     <div>Order Id</div>
 		     <div>Total Amount</div>
 		     <div>Status</div>
 		     <div>Action</div>
 	    </div>
+	    
+	     
 		<c:forEach var="order" items="${orders}">
 		    <div class="order-row">
 		        <div> ${order.orderId}</div>
