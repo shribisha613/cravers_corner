@@ -91,7 +91,7 @@
 		    <div class="summary-footer">
 		        <div class="price-row">
 		            <span>Sub-total</span>
-		            <span>Rs. ${order.totalAmount}</span>
+		            <span>Rs. ${cartTotal}</span>
 		        </div>
 		        <div class="price-row">
 		            <span>Delivery charge</span>
@@ -99,7 +99,7 @@
 		        </div>
 		        <div class="total-row">
 		            <span>Total</span>
-		            <span>Rs. ${order.totalAmount + 100}</span>
+		            <span>Rs. ${order.totalAmount}</span>
 		        </div>
 		        
 		        
