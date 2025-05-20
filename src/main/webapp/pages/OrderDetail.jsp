@@ -26,7 +26,7 @@
                           pattern="yyyy-MM-dd" /></p>
       </div>
       <div class="order-by">
-        <p><strong>Ordered by:</strong> ${order.customerId}</p>
+        <p><strong>Ordered by:</strong> # ${order.customerId}</p>
         <p class="contact-no"><strong>Contact No:</strong>${order.orderContact}</p>
       </div>
     </div>

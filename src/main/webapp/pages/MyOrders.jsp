@@ -57,7 +57,7 @@
 
                 <div class="order-summary">
                     <div>Status: <c:out value="${order.status}" /></div>
-                    <div>Total: Rs. <c:out value="${order.totalAmount}" /></div>
+                    <div>Total [ Including Delivery Charge, Rs. 100 ] : Rs. <c:out value="${order.totalAmount}" /></div>
                 </div>
 
                 <hr />

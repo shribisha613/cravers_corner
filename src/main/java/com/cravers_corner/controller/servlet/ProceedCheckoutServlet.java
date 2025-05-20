@@ -63,7 +63,7 @@ public class ProceedCheckoutServlet extends HttpServlet {
             // Step 4: Create Order and OrderItems
             Order order = new Order();
             order.setCustomerId(user.getUser_id());
-            order.setTotalAmount(cartTotal);
+            order.setTotalAmount(cartTotal+ 100);
             order.setStatus("Pending");
             order.setOrderDate(new Timestamp(System.currentTimeMillis()));
             order.setCreatedAt(new Timestamp(System.currentTimeMillis()));
