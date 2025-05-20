@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,11 +22,12 @@
     <div class="order-top">
       <div>
         <p><strong>Order Id:</strong> ${order.orderId}</p>
-        <p><strong>Date:</strong> ${order.orderDate}</p>
+        <p><strong>Date:</strong> <fmt:formatDate value="${order.orderDate}" 
+                          pattern="yyyy-MM-dd" /></p>
       </div>
       <div class="order-by">
         <p><strong>Ordered by:</strong> ${order.customerId}</p>
-        <p class="contact-no"><strong>Contact No:</strong> ${order.orderContact}</p>
+        <p class="contact-no"><strong>Contact No:</strong>${user.created_at}</p>
       </div>
     </div>
 
