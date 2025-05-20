@@ -67,6 +67,12 @@ public class RemoveFromCartServlet extends HttpServlet {
             
             if (returnPage.contains("/pages/Home.jsp")) {
                 returnPage = returnPage.replace("/pages/Home.jsp", "/HomeServlet");
+                
+                
+            }
+            
+            if (returnPage.contains("/pages/MyOrders.jsp")) {
+                returnPage = returnPage.replace("/pages/MyOrders.jsp", "/UserOrderServlet");
             }
             // Add openCart=true only if not already present
             if (!returnPage.contains("openCart=true")) {

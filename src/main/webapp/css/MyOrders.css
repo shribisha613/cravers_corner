@@ -9,11 +9,22 @@
 }
 
 body {
+	
+	margin-left: 240px;
     background-color: #f9f9f9;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
+
+/* Main content padding (use if applicable) */
+.main {
+    margin-left: 260px;   /* Push away from left */
+    margin-top: 100px;    /* Top space */
+    display: flex;
+    justify-content: center;
+}
+
 
 /* Container */
 .container {
@@ -47,12 +58,7 @@ body {
     font-weight: bold;
 }
 
-/* Main content padding (use if applicable) */
-.main {
-    margin-top: 70px;
-    margin-left: 260px;
-    padding: 20px;
-}
+
 
 /* Content Box */
 .content-box {
