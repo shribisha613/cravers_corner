@@ -74,6 +74,9 @@ public class PlaceOrderServlet extends HttpServlet {
 	        session.setAttribute("successMessage", successMsg);
 
 	        // Clear session attributes after successful order placement
+	        session.removeAttribute("cart");
+	        session.removeAttribute("cartItems");
+	        session.removeAttribute("cartTotal");
 	        session.removeAttribute("order");
 	        session.removeAttribute("orderItems");
 
