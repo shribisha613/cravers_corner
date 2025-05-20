@@ -167,6 +167,69 @@ public class OrderDAO {
         order.setUpdatedAt(rs.getTimestamp("updated_at"));
         return order;
     }
+    
+    
+    
+    public List<Order> getCompletedOrdersByCustomerId(int customerId) throws SQLException {
+        List<Order> orders = new ArrayList<>();
+
+        String sql = "SELECT o.order_id, o.customer_id, o.status, o.total_amount, o.order_note, o.order_date, o.created_at, o.updated_at, oi.order_item_id, oi.food_id, oi.quantity, oi.price, oi.subtotal, f.name FROM Orders o JOIN Order_items oi ON o.order_id = oi.order_id JOIN Foods f ON oi.food_id = f.food_id WHERE o.customer_id = ? AND (o.status = 'complete') ORDER BY o.order_date DESC";
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, customerId);
+            ResultSet rs = stmt.executeQuery();
+
+            Order currentOrder = null;
+            int currentOrderId = -1;
+
+            while (rs.next()) {
+                int orderId = rs.getInt("order_id");
+
+                if (orderId != currentOrderId) {
+                    currentOrder = new Order();
+                    currentOrder.setOrderId(orderId);
+                    currentOrder.setCustomerId(rs.getInt("customer_id"));
+                    currentOrder.setStatus(rs.getString("status"));
+                    currentOrder.setTotalAmount(rs.getDouble("total_amount"));
+                    currentOrder.setOrderNote(rs.getString("order_note"));
+                    currentOrder.setOrderDate(rs.getTimestamp("order_date"));
+                    currentOrder.setCreatedAt(rs.getTimestamp("created_at"));
+                    currentOrder.setUpdatedAt(rs.getTimestamp("updated_at"));
+                    currentOrder.setItems(new ArrayList<>());
+                    orders.add(currentOrder);
+                    currentOrderId = orderId;
+                }
+
+                OrderItem item = new OrderItem();
+                item.setOrderItemId(rs.getInt("order_item_id"));
+                item.setOrderId(orderId);
+                item.setFoodId(rs.getInt("food_id"));
+                item.setQuantity(rs.getInt("quantity"));
+                item.setPrice(rs.getDouble("price"));
+                item.setSubtotal(rs.getDouble("subtotal"));
+                item.setFood_name(rs.getString("name"));
+                item.setImage_url(rs.getString("image_url"));
+
+                currentOrder.getItems().add(item);
+            }
+        }
+
+        return orders;
+    }
+
+	public OrderItemDAO getOrderItemDAO() {
+		return orderItemDAO;
+	}
+
+	public void setOrderItemDAO(OrderItemDAO orderItemDAO) {
+		this.orderItemDAO = orderItemDAO;
+	}
+
+
+
+    
+    
+    
 
 
 }
