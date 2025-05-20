@@ -23,11 +23,18 @@
             <button class="close-btn" onclick="this.parentElement.style.display='none'">x</button>
         </div>
     </c:if>
+    
+    <c:if test="${empty orders}">
+	    <div class="info-alert">You have not placed any orders yet.</div>
+	</c:if>
+    
 
     <div class="content-box" id="ordersSection">
         <c:forEach var="order" items="${orders}">
-         
-                <label>Order Date</label>
+        
+             <div class = "order-box"> 
+                <div class="order-Id">ORDER ID: <c:out value="${order.orderId}" /></div>
+                
                 <div class="order-date">Date: <c:out value="${order.orderDate}" /></div>
 
                 <div class="order-table">
@@ -42,7 +49,7 @@
                         <div class="table-row">
                             <div><c:out value="${item.food_name}" /></div>
                             <div>Rs. <c:out value="${item.price}" /></div>
-                            <div><c:out value="${item.quantity}" /></div>
+                            <div><c:out value="${item.quantity}"/></div>
                             <div>Rs. <c:out value="${item.subtotal}" /></div>
                         </div>
                     </c:forEach>
