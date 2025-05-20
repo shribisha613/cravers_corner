@@ -248,7 +248,7 @@ input, textarea {
     align-items: center;
     gap: 12px;
     font-family: 'Segoe UI', Roboto, sans-serif;
-    font-size: 18 px;
+    font-size: 20 px;
     line-height: 1.5;
     box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }

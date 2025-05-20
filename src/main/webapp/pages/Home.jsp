@@ -19,7 +19,7 @@
 <jsp:include page="Header.jsp" />
     <div class="container">
         <section class="hero">
-            <h1>Cravings Delivered, Happiness Guaranteed !</h1>
+            <h1>Crave it, Wave it, and <br>We'll Slay it ! </h1>
             <h2 class="slogan">Crave. Order. Enjoy. Repeat.</h2>
             <p class="order-btn">Order Now</p>
         </section>

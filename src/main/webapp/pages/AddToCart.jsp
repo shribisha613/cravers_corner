@@ -101,23 +101,35 @@
         <div class="cart-footer">
             
             <div class="cart-summary">
-                <div class="summary-line">
-                    <span>Subtotal</span>
-                    <span id="subtotal">Rs. <fmt:formatNumber value="${cartTotal}" maxFractionDigits="2" /></span>
-                </div>
-                <div class="summary-line">
-                    <span>Delivery Charge</span>
-                    <span>Rs. 100</span>
-                </div>
-                <div class="total-line">
-                    <span>Total</span>
-                    <span id="total">Rs. <fmt:formatNumber value="${cartTotal + 100}" maxFractionDigits="2" /></span>
-                </div>
-               <form action="${pageContext.request.contextPath}/ProceedCheckoutServlet" method="get">
-   
-    
-    <button type="submit" class="checkout-btn">Checkout</button>
-</form>
+<c:if test="${not empty cartItems}">
+    <div class="summary-line">
+        <span>Subtotal</span>
+        <span id="subtotal">Rs. <fmt:formatNumber value="${cartTotal}" maxFractionDigits="2" /></span>
+    </div>
+    <div class="summary-line">
+        <span>Delivery Charge</span>
+        <span>Rs. 100</span>
+    </div>
+    <div class="total-line">
+        <span>Total</span>
+        <span id="total">Rs. <fmt:formatNumber value="${cartTotal + 100}" maxFractionDigits="2" /></span>
+    </div>
+</c:if>
+               <c:choose>
+    <c:when test="${empty cartItems}">
+        <div class="empty-cart-warning">
+            <p style="color: red; font-weight: bold;">Your cart is empty. Add items before proceeding to checkout.</p>
+            <button class="checkout-btn" disabled style="opacity: 0.6; cursor: not-allowed;">Checkout</button>
+        </div>
+    </c:when>
+    <c:otherwise>
+        <form action="${pageContext.request.contextPath}/ProceedCheckoutServlet" method="get">
+            <input type="hidden" name="returnPage" value="${pageContext.request.requestURI}" />
+            <button type="submit" class="checkout-btn">Checkout</button>
+        </form>
+    </c:otherwise>
+</c:choose>
+
             </div>
         </div>
     </div>
