@@ -15,7 +15,9 @@ public class Order {
     private List<OrderItem> items;
     private String orderContact;
     private String shippingAddress;
-    
+    private String customerUsername;
+    private String customerfname;
+    private String customerlname;
     
 
 	//getter and setter
@@ -90,5 +92,29 @@ public class Order {
 		this.shippingAddress = shippingAddress;
 	}
 	
+	public String getCustomerUsername() {
+		return customerUsername;
+	}
+
+	public void setCustomerUsername(String customerUsername) {
+		this.customerUsername = customerUsername;
+	}
+	
+	public String getCustomerlname() {
+		return customerlname;
+	}
+
+	public void setCustomerlname(String customerlname) {
+		this.customerlname = customerlname;
+	}
+	
+	public String getCustomerfname() {
+		return customerfname;
+	}
+
+	public void setCustomerfname(String customerfname) {
+		this.customerfname = customerfname;
+	}
+    
     
 }

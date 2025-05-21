@@ -23,26 +23,29 @@
         <a href="${pageContext.request.contextPath}/UserOrderServlet">My Orders</a>
     </div>
 
-    <c:if test="${not empty errorMessage}">
+    <c:if test="${not empty sessionScope.errorMessage}">
      <div class="error-alert">
                   <c:out value="${errorMessage}" />
                   
                    <button class="close-btn" onclick="this.parentElement.style.display='none'">x</button>
       </div>
+       <c:remove var="errorMessage" scope="session" />
 	</c:if>
 	
-	<c:if test="${not empty info}">
+	<c:if test="${not empty sessionScope.info}">
  <div class="info-alert">
       <c:out value="${info}" />
       <button class="close-btn" onclick="this.parentElement.style.display='none'">×</button>
  </div>
+  <c:remove var="info" scope="session" />
 </c:if>
     
- <c:if test="${not empty success}">
+ <c:if test="${not empty sessionScope.success}">
     <div class="popup-container success">
         <c:out value="${success}" />
         <button class="close-btn" onclick="this.parentElement.style.display='none'">×</button>
     </div>
+    <c:remove var="success" scope="session" />
 </c:if>
 
  <div id="fileMessage" class="popup-container success" style="display: none;">
@@ -52,16 +55,7 @@
     <!-- Profile Section -->
     <div class="profile-section">
         <div class="profile-pic">
-    <c:choose>
-    <c:when test="${empty userWithSession.profile_image_url}">
-        <!-- Default image if no profile image is uploaded -->
-          <img src="${pageContext.request.contextPath}/profile_photos/default_profile.png" alt="Profile Image" class="profile-image" />
-    </c:when>
-    <c:otherwise>
-        <!-- Custom uploaded image -->
-          <img src="${pageContext.request.contextPath}/${userWithSession.profile_image_url}" alt="Profile Image" class="profile-image" />
-    </c:otherwise>
-</c:choose>
+    <img src="${pageContext.request.contextPath}/${userWithSession.profile_image_url}" alt="Profile Image" class="profile-image" />
     
      <label for="profileImageInput" class="edit-btn" title="Edit Profile">
         <i class="fas fa-edit"></i>
@@ -131,6 +125,7 @@
     <input type="password" name="confirm_password" placeholder="Retype the new password" />
 </div>
 
+<input type="hidden" name="existing_profile_image" value="${userWithSession.profile_image_url}" />
 
             
             <button type="submit" class="save-btn">Save</button>

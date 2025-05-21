@@ -63,7 +63,7 @@ public class OrderDAO {
     public Order getOrderById(int orderId) throws SQLException {
         String sql = "SELECT o.order_id, o.customer_id, o.status, o.total_amount, o.order_note, o.order_date, " +
                      "o.created_at, o.updated_at, " +
-                     "u.phone, u.current_address, " +
+                     "u.phone, u.current_address, u.username, u.first_name, u.last_name, " +
                      "oi.order_item_id, oi.food_id, oi.quantity, oi.price, oi.subtotal, " +
                      "f.name, f.image_url " +
                      "FROM Orders o " +
@@ -90,8 +90,9 @@ public class OrderDAO {
                     order.setOrderDate(rs.getTimestamp("order_date"));
                     order.setCreatedAt(rs.getTimestamp("created_at"));
                     order.setUpdatedAt(rs.getTimestamp("updated_at"));
-
-                    // Customer details
+                    order.setCustomerUsername(rs.getString("username")); 
+                    order.setCustomerfname(rs.getString("first_name"));
+                    order.setCustomerlname(rs.getString("last_name"));// Customer details
                     order.setOrderContact(rs.getString("phone"));
                     order.setShippingAddress(rs.getString("current_address"));
                 }
