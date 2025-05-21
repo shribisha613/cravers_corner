@@ -26,18 +26,19 @@ public class OrderDAO {
     
     public int createOrderWithItems(Order order) throws SQLException, ClassNotFoundException {
         int generatedOrderId = 0;
-        String sql = "INSERT INTO orders (customer_id, total_amount, status, order_date, created_at, updated_at, order_note) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO orders (customer_id, order_date, status, total_amount, order_note, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)";
         
         try (
              PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             
             ps.setInt(1, order.getCustomerId());
-            ps.setDouble(2, order.getTotalAmount());
+            ps.setTimestamp(2, order.getOrderDate());
             ps.setString(3, order.getStatus());
-            ps.setTimestamp(4, order.getOrderDate());
-            ps.setTimestamp(5, order.getCreatedAt());
-            ps.setTimestamp(6, order.getUpdatedAt());
-            ps.setString(7, order.getOrderNote());
+            ps.setDouble(4, order.getTotalAmount());
+            ps.setString(5, order.getOrderNote());
+            ps.setTimestamp(6, order.getCreatedAt());
+            ps.setTimestamp(7, order.getUpdatedAt());
+           
 
             int affectedRows = ps.executeUpdate();
 
@@ -62,7 +63,7 @@ public class OrderDAO {
     public Order getOrderById(int orderId) throws SQLException {
         String sql = "SELECT o.order_id, o.customer_id, o.status, o.total_amount, o.order_note, o.order_date, " +
                      "o.created_at, o.updated_at, " +
-                     "u.phone, u.current_address, " +
+                     "u.phone, u.current_address, u.username, u.first_name, u.last_name, " +
                      "oi.order_item_id, oi.food_id, oi.quantity, oi.price, oi.subtotal, " +
                      "f.name, f.image_url " +
                      "FROM Orders o " +
@@ -89,8 +90,9 @@ public class OrderDAO {
                     order.setOrderDate(rs.getTimestamp("order_date"));
                     order.setCreatedAt(rs.getTimestamp("created_at"));
                     order.setUpdatedAt(rs.getTimestamp("updated_at"));
-
-                    // Customer details
+                    order.setCustomerUsername(rs.getString("username")); 
+                    order.setCustomerfname(rs.getString("first_name"));
+                    order.setCustomerlname(rs.getString("last_name"));// Customer details
                     order.setOrderContact(rs.getString("phone"));
                     order.setShippingAddress(rs.getString("current_address"));
                 }

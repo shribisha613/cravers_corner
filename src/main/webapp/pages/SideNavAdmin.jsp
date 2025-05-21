@@ -29,7 +29,7 @@
 </a>
     </div>
     <div class="nav-item ${activePage == 'users' ? 'active' : ''}">
-        <a href="${pageContext.request.contextPath}/ManageUserServlet"><i class="fas fa-chart-bar"></i> Manage Users</a>
+        <a href="${pageContext.request.contextPath}/ManageUserServlet"><i class="fas fa-chart-bar"></i> Customer Log</a>
     </div>
 </div>
 

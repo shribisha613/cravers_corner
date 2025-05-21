@@ -10,6 +10,20 @@ import com.cravers_corner.controller.database.DatabaseConnection;
 import com.cravers_corner.model.Order;
 
 public class AdminDashboardDAO {
+	
+	public int getTotalActiveOrders() {
+	    int count = 0;
+	    try (Connection conn = DatabaseConnection.getConnection();
+	         PreparedStatement ps = conn.prepareStatement("SELECT COUNT(*) FROM Orders where status='pending'");
+	         ResultSet rs = ps.executeQuery()) {
+	        if (rs.next()) {
+	            count = rs.getInt(1);
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return count;
+	}
 
     public int getTotalCategories() {
         int count = 0;

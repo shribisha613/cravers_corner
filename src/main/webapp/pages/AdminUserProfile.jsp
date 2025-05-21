@@ -130,7 +130,7 @@
 </div>
 
 
-            
+            <input type="hidden" name="existing_profile_image" value="${userWithSession.profile_image_url}" />
             <button type="submit" class="save-btn">Save</button>
         </form>
     </div>
