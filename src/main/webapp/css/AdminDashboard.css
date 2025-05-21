@@ -76,14 +76,17 @@ a {
 .stat-title {
     font-size: 16px;
     color: #555;
+    text-align:center;
+    padding-bottom:5px;
 }
 
 .stat-count-box {
-    background-color: #ecf0f1;
+    background-color: white;
     padding: 10px 20px;
     border-radius: 8px;
     font-size: 20px;
-    color: #2c3e50;
+	border: 1px solid green;
+  	padding: 10px;
     text-align: center;
 }
 
