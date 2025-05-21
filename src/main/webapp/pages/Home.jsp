@@ -21,7 +21,7 @@
         <section class="hero">
             <h1>Crave it, Wave it, and <br>We'll Slay it ! </h1>
             <h2 class="slogan">Crave. Order. Enjoy. Repeat.</h2>
-            <p class="order-btn">Order Now</p>
+          <a href="${pageContext.request.contextPath}/menu" class="order-btn">Order Now</a>
         </section>
         </div>
 
