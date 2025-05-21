@@ -77,6 +77,8 @@ public class PlaceOrderServlet extends HttpServlet {
 	        session.removeAttribute("cart");
 	        session.removeAttribute("cartItems");
 	        session.removeAttribute("cartTotal");
+	        session.removeAttribute("orders");
+	        session.removeAttribute("orderItems");
 	        
 
 	        // Set success message for display on CheckOut.jsp

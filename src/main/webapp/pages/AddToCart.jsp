@@ -23,6 +23,7 @@
     <div class="error-message">
       <i class="fa-solid fa-burger"></i> ${errorMessage}
     </div>
+     <c:remove var="errorMessage" scope="session" />
 </c:if>
 
 <c:if test="${not empty successMessage}">

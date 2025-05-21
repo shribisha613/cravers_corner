@@ -27,6 +27,7 @@
                   
                    <button class="close-btn" onclick="this.parentElement.style.display='none'">x</button>
       </div>
+       <c:remove var="errorMessage" scope="session" />
 	</c:if>
 	
 	<c:if test="${not empty info}">
@@ -34,6 +35,7 @@
       <c:out value="${info}" />
       <button class="close-btn" onclick="this.parentElement.style.display='none'">×</button>
  </div>
+  <c:remove var="info" scope="session" />
 </c:if>
     
  <c:if test="${not empty success}">
@@ -41,6 +43,7 @@
         <c:out value="${success}" />
         <button class="close-btn" onclick="this.parentElement.style.display='none'">×</button>
     </div>
+     <c:remove var="success" scope="session" />
 </c:if>
 
  <div id="fileMessage" class="popup-container success" style="display: none;">

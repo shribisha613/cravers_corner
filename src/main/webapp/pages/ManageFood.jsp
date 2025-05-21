@@ -79,6 +79,7 @@
     <div class="error-message">
         <i class="fas fa-exclamation-circle"></i> ${errorMessage}
     </div>
+     <c:remove var="errorMessage" scope="session" />
 </c:if>
 
  
@@ -100,7 +101,7 @@
  
   <a href="${pageContext.request.contextPath}/DeleteFoodServlet?food_id=${food.food_id}" 
    title="Delete" 
-   onclick="return confirm('Are you sure you want to delete this food item from database?');">
+   onclick="return confirm('Are you sure you want to discontinue this food item?');">
    <i class="fas fa-trash" title="Delete"></i>
 </a>
   

@@ -62,7 +62,7 @@ public class CartItemDAO {
         String sql = "SELECT ci.*, f.name AS food_name, f.image_url AS image_url " +
                      "FROM cart_items ci " +
                      "JOIN foods f ON ci.food_id = f.food_id " +
-                     "WHERE ci.cart_id = ?";
+                     "WHERE ci.cart_id = ? AND f.status = 'available'";
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, cart_id);

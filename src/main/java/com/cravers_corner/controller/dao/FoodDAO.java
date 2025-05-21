@@ -57,7 +57,7 @@ public class FoodDAO {
 	
 	public Food getFoodById(int food_id) {
 	    Food food = null;
-	    String sql = "SELECT f.*, c.name as category_name FROM foods f JOIN categories c ON f.category_id = c.category_id WHERE f.food_id = ?";
+	    String sql = "SELECT f.*, c.name as category_name FROM foods f JOIN categories c ON f.category_id = c.category_id WHERE f.food_id = ? AND f.status = 'available'";
 
 	    try (PreparedStatement ps = conn.prepareStatement(sql)) {
 	        ps.setInt(1, food_id);
@@ -90,7 +90,7 @@ public class FoodDAO {
 	
 	public List<Food> searchFoodByName(String keyword) {
 	    List<Food> foodList = new ArrayList<>();
-	    String query = "SELECT f.*, c.name as category_name FROM foods f JOIN categories c ON f.category_id = c.category_id WHERE f.name LIKE ?";
+	    String query = "SELECT f.*, c.name AS category_name FROM foods f JOIN categories c ON f.category_id = c.category_id WHERE f.name LIKE ? AND f.status = 'available'";
 
 	    try (PreparedStatement ps = conn.prepareStatement(query)) {
 	        ps.setString(1, "%" + keyword + "%"); // partial match search
@@ -121,9 +121,11 @@ public class FoodDAO {
 	
 	public List<Food> getAllFood() throws SQLException {
 	    List<Food> foodList = new ArrayList<>();
-	    String query = "SELECT f.food_id, f.name, f.description, f.serving_size, f.price, f.image_url, f.category_id, c.name as category_name" +
-	                   "FROM foods f " +
-	                   "JOIN categories c ON f.category_id = c.category_id ";   // Join the category table to get the name
+	    String query = "SELECT f.food_id, f.name, f.description, f.serving_size, f.price, f.image_url, f.category_id, " +
+	             "c.name AS category_name " +
+	             "FROM foods f " +
+	             "JOIN categories c ON f.category_id = c.category_id " +
+	             "WHERE f.status = 'available'";   // Join the category table to get the name
 
 	    try (
 	         PreparedStatement stmt = conn.prepareStatement(query);
@@ -150,9 +152,7 @@ public class FoodDAO {
 	
 	public List<Food> getAllFood(String sortOrder) throws SQLException {
 	    List<Food> foodList = new ArrayList<>();
-	    String query = "SELECT f.food_id, f.name, f.description, f.serving_size, f.price, f.image_url, f.category_id, c.name  as category_name " +
-	                   "FROM foods f " +
-	                   "JOIN categories c ON f.category_id = c.category_id ORDER BY "  + sortOrder; // Join the category table to get the name
+	    String query = "SELECT f.food_id, f.name, f.description, f.serving_size, f.price, f.image_url, f.category_id, c.name AS category_name FROM foods f JOIN categories c ON f.category_id = c.category_id WHERE f.status = 'available' ORDER BY  "  + sortOrder; // Join the category table to get the name
 
 	    try (
 	         PreparedStatement stmt = conn.prepareStatement(query);
@@ -198,8 +198,8 @@ public class FoodDAO {
         if (categoryId == -1) return foodList; // no matching category
 
         String query = "SELECT f.*, c.name AS category_name " +
-                       "FROM foods f JOIN categories c ON f.category_id = c.category_id " +
-                       "WHERE f.category_id = ? ";
+                "FROM foods f JOIN categories c ON f.category_id = c.category_id " +
+                "WHERE f.category_id = ? AND f.status = 'available'";
 
         try (PreparedStatement ps = conn.prepareStatement(query)) {
             ps.setInt(1, categoryId); // now using proper ID
@@ -273,7 +273,7 @@ public class FoodDAO {
 	
 	public boolean deleteFoodById(int food_id) {
 	    boolean isDeleted = false;
-	    String sql = "DELETE FROM foods WHERE food_id = ?";
+	    String sql = "UPDATE foods SET status = 'discontinued', updated_at = CURRENT_TIMESTAMP WHERE food_id = ?";
 
 	    try (
 	         PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -296,7 +296,13 @@ public class FoodDAO {
 	 public List<Food> getTop3MostOrderedFoods() throws SQLException {
 	        List<Food> topFoods = new ArrayList<>();
 
-	        String sql = "SELECT f.food_id, f.name, f.image_url, f.price, SUM(oi.quantity) AS total_ordered FROM foods f JOIN order_items oi ON f.food_id = oi.food_id GROUP BY f.food_id, f.name, f.image_url, f.price ORDER BY total_ordered DESC LIMIT 3; ";
+	        String sql = "SELECT f.food_id, f.name, f.image_url, f.price, SUM(oi.quantity) AS total_ordered " +
+	                 "FROM foods f " +
+	                 "JOIN order_items oi ON f.food_id = oi.food_id " +
+	                 "WHERE f.status = 'available' " +
+	                 "GROUP BY f.food_id, f.name, f.image_url, f.price " +
+	                 "ORDER BY total_ordered DESC " +
+	                 "LIMIT 3";
 
 	        try (PreparedStatement ps = conn.prepareStatement(sql);
 	             ResultSet rs = ps.executeQuery()) {
