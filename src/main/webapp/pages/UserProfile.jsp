@@ -23,7 +23,7 @@
         <a href="${pageContext.request.contextPath}/UserOrderServlet">My Orders</a>
     </div>
 
-    <c:if test="${not empty sessionScope.errorMessage}">
+    <c:if test="${not empty errorMessage}">
      <div class="error-alert">
                   <c:out value="${errorMessage}" />
                   

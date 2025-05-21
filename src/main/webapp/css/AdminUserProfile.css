@@ -130,24 +130,21 @@
 .error-alert, 
 .popup-container.success,
 .info-alert {
-    width: 90%;
-    max-width: 600px;
+  padding: 12px 20px;
     margin: 20px auto;
-    padding: 16px 20px;
-    border-radius: 8px;
-    position: relative;
-    font-size: 16px;
-    font-weight: 500;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background: #F8F8F8;
+    color: darkgreen;
+    border-left: 4px solid green;
+    border-radius: 5px;
+    width: fit-content;
+    max-width: 600px;
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    animation: fadeIn 0.5s ease-in-out;
-    line-height: 1.6;           /* Better line spacing */
-    word-break: break-word;     /* Prevents overflow */
-    white-space: normal;        /* Allows text wrapping */
-    flex-wrap: wrap;            /* Allow content to wrap */
-    gap: 12px;                  /* Adds space between text and close button */
+    align-items: center;
+    gap: 12px;
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    font-size: 18 px;
+    line-height: 1.5;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);                  /* Adds space between text and close button */
 }
 
 /* Error styling */

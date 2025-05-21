@@ -11,18 +11,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-  <c:set var="activePage" value="category" scope="request" />
+   <c:set var="activePage" value="category" scope="request" />
   <jsp:include page="AdminHeader.jsp" />
   <jsp:include page="SideNavAdmin.jsp" />
-  
-   <c:if test="${not empty sessionScope.message}">
-    <div class="popup-container ${sessionScope.messageType}">
-      <c:out value="${sessionScope.message}" />
-      <button class="close-btn" onclick="this.parentElement.style.display='none'">×</button>
-    </div>
-    <c:remove var="message" scope="session" />
-    <c:remove var="messageType" scope="session" />
-  </c:if>
   
   <main>
    
@@ -37,6 +28,26 @@
 			   </form>
            </div> 
     </div>
+    
+   
+  
+  <c:if test="${not empty successMessage}">
+    <div class="success-message" id="successMessage">
+        <i class="fa-solid fa-check"></i> ${successMessage}
+         <button class="close-btn" onclick="this.parentElement.style.display='none'">x</button>
+
+    </div>
+    <c:remove var="successMessage" scope="session" />
+</c:if>
+
+  <c:if test="${not empty errorMessage}">
+    <div class="error-message" id="errorMessage">
+        <i class="fas fa-exclamation-circle"></i> ${errorMessage}
+         <button class="close-btn" onclick="this.parentElement.style.display='none'">x</button>
+
+    </div>
+    <c:remove var="errorMessage" scope="session" />
+</c:if>
 
     <!-- Table-like header row -->
     <div class="food-header">
@@ -45,11 +56,7 @@
       <div>Action</div>
     </div>
     
-    <c:if test="${not empty errorMessage}">
-    <div class="error-message">
-        <i class="fas fa-exclamation-circle"></i> ${errorMessage}
-    </div>
-   </c:if>
+    
 
     <c:forEach var="category" items="${categoryList}">
 		  <div class="food-row">
