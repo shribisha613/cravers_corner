@@ -42,7 +42,7 @@ public class AdminDashboardDAO {
     public int getTotalFoodItems() {
         int count = 0;
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement("SELECT COUNT(*) FROM Foods;");
+             PreparedStatement ps = conn.prepareStatement("SELECT COUNT(*) FROM Foods where status = 'available'");
              ResultSet rs = ps.executeQuery()) {
             if (rs.next()) {
                 count = rs.getInt(1);

@@ -48,7 +48,7 @@ public class DeleteFoodServlet extends HttpServlet {
 
             if (deleted) {
                
-                session.setAttribute("success", "Food item deleted successfully.");
+                session.setAttribute("success", "Food item discontinued successfully.");
             } else {
                
                 session.setAttribute("errorMessage", "Failed to delete food item.");

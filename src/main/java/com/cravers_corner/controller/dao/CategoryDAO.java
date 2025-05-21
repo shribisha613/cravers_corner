@@ -71,6 +71,31 @@ public class CategoryDAO {
         return categories;
     }
 	
+	public List<Category> getAllCategoriesForHome() {
+	    List<Category> categories = new ArrayList<>();
+	    String sql = "SELECT DISTINCT c.category_id, c.name, c.description " +
+	                 "FROM categories c " +
+	                 "JOIN foods f ON c.category_id = f.category_id " +
+	                 "WHERE f.status = 'available'";
+
+	    try (PreparedStatement ps = conn.prepareStatement(sql);
+	         ResultSet rs = ps.executeQuery()) {
+
+	        while (rs.next()) {
+	            Category category = new Category();
+	            category.setCategory_id(rs.getInt("category_id"));
+	            category.setName(rs.getString("name"));
+	            category.setDescription(rs.getString("description"));
+	            categories.add(category);
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return categories;
+	}
+
 	// Added getCategoryById to edit a specific category
 	public Category getCategoryById(int id) {
 	    Category category = null;
@@ -158,7 +183,7 @@ public class CategoryDAO {
 
 	public List<Food> getTopFoodsByCategory(int category_id, int limit) {
 	    List<Food> foods = new ArrayList<>();
-	    String sql = "SELECT * FROM foods WHERE category_id = ? ORDER BY food_id LIMIT ?";
+	    String sql =  "SELECT * FROM foods WHERE category_id = ? AND status = 'available' ORDER BY food_id LIMIT ?";;
 
 	    try (PreparedStatement ps = conn.prepareStatement(sql)) {
 	        ps.setInt(1, category_id);

@@ -26,7 +26,7 @@ public class HomeServlet extends HttpServlet {
 			categoryDAO = new CategoryDAO();
 			foodDAO = new FoodDAO();
 
-			List<Category> categoryList = categoryDAO.getAllCategories();
+			List<Category> categoryList = categoryDAO. getAllCategoriesForHome();
 			List<List<Food>> allCategoryFoods = new ArrayList<>();
 			
 			for (Category category : categoryList) {
