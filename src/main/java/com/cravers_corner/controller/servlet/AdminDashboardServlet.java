@@ -29,6 +29,7 @@ public class AdminDashboardServlet extends HttpServlet {
         request.setAttribute("totalFoodItems", totalFoodItems);
         request.setAttribute("totalCustomers", totalCustomers);
 
+        request.setAttribute("totalActiveOrders", dao.getTotalActiveOrders());
 
         request.setAttribute("todaysOrders", dao.getTodaysOrderCount());
         request.setAttribute("mostOrderedCategory", dao.getMostOrderedCategory());
