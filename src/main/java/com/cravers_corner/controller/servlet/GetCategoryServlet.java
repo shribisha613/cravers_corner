@@ -37,7 +37,16 @@ public class GetCategoryServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		 try {
 	           CategoryDAO categoryDAO = new CategoryDAO();
+	           String keyword = request.getParameter("keyword");
 	            List<Category> categoryList = categoryDAO.getAllCategories();
+	            
+	            
+	            if (keyword != null && !keyword.trim().isEmpty()) {
+	                categoryList = categoryDAO.searchCategoryByName(keyword);
+	                request.setAttribute("isSearchResult", true);
+	            } else {
+	                categoryList = categoryDAO.getAllCategories();
+	            }
 	            
 	            // Check if the list is not empty
 	            if (categoryList != null && !categoryList.isEmpty()) {

@@ -91,6 +91,30 @@ public class CategoryDAO {
 
 	    return category;
 	}
+	
+	//For search functions:
+	public List<Category> searchCategoryByName(String keyword) {
+	    List<Category> categories = new ArrayList<>();
+	    String sql = "SELECT category_id, name, description FROM categories WHERE name LIKE ?";
+
+	    try (PreparedStatement ps = conn.prepareStatement(sql)) {
+	        ps.setString(1, "%" + keyword + "%");
+	        ResultSet rs = ps.executeQuery();
+
+	        while (rs.next()) {
+	            Category category = new Category();
+	            category.setCategory_id(rs.getInt("category_id"));
+	            category.setName(rs.getString("name"));
+	            category.setDescription(rs.getString("description"));
+	            categories.add(category);
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return categories;
+	}
 
 	
 	// have added method updated Category

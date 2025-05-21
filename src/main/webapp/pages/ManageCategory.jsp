@@ -28,13 +28,14 @@
    
     <div class="manage_category-section">
       <h3>Cravers Corner’s Manage Category Interface</h3>
-       
-      <div class="manage_category-controls">
-        <div class="search-container">
-          <input type="text" placeholder="Search..." class="search" />
-          <i class="fas fa-search"></i>
-        </div>
-    </div>
+           <div class="manage_category-controls">
+  				<form action="${pageContext.request.contextPath}/GetCategoryServlet" method="get" class="search-container">
+    				<input type="text" name="keyword" placeholder=".....search here....." class="search" value="${param.keyword}" />
+    				<button type="submit" style="background: none; border: none; cursor: pointer;">
+     				 <i class="fas fa-search"></i>
+    				</button>
+			   </form>
+           </div> 
     </div>
 
     <!-- Table-like header row -->
@@ -51,26 +52,23 @@
    </c:if>
 
     <c:forEach var="category" items="${categoryList}">
-		      <div class="food-row">
+		  <div class="food-row">
 		        <div>${category.name}</div>
-		     </div>
 		        <div>${category.description}</div>
 		        
-		         <div>
-  <a href="${pageContext.request.contextPath}/EditCategoryServlet?id=${category.category_id}" title="Edit">
-    <i class="fas fa-edit"></i>
-  </a>
+		        <div>
+                   <a href="${pageContext.request.contextPath}/EditCategoryServlet?id=${category.category_id}" title="Edit">
+                     <i class="fas fa-edit"></i>
+                   </a>
   
-  <a href="${pageContext.request.contextPath}/DeleteCategoryServlet?id=${category.category_id}" 
-   onclick="return confirm('Are you sure you want to delete this category?');" title = "Delete">
-   <i class="fas fa-trash" ></i>
-</a>
+                   <a href="${pageContext.request.contextPath}/DeleteCategoryServlet?id=${category.category_id}" 
+                      onclick="return confirm('Are you sure you want to delete this category?');" title = "Delete">
+                      <i class="fas fa-trash" ></i>
+                   </a>
   
-</div>	
+                </div>	
+           </div>
     </c:forEach>
-    
-     
-    
 
     <div class="add-category">
       <a href="${pageContext.request.contextPath}/AddCategoryServlet">
