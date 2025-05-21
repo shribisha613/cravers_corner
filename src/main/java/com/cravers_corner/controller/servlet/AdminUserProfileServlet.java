@@ -159,13 +159,13 @@ public class AdminUserProfileServlet extends HttpServlet {
                     request.setAttribute("errorMessage", usernameAvailabilityMessage);
                     // Optionally preserve form data here for user convenience
                     request.setAttribute("userProfile", sessionUser);
-                    request.getRequestDispatcher("/pages/UserProfile.jsp").forward(request, response);
+                    request.getRequestDispatcher("/pages/AdminUserProfile.jsp").forward(request, response);
                     return;
                 }
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
                 request.setAttribute("errorMessage", "System error occurred during username validation.");
-                request.getRequestDispatcher("/pages/UserProfile.jsp").forward(request, response);
+                request.getRequestDispatcher("/pages/AdminUserProfile.jsp").forward(request, response);
                 return;
             }
         }

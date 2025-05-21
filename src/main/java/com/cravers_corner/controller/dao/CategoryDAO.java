@@ -167,13 +167,28 @@ public class CategoryDAO {
 	
 	public boolean deleteCategory(int categoryId) {
 	    boolean isDeleted = false;
-	    String sql = "DELETE FROM categories WHERE category_id = ?";
 
-	    try (PreparedStatement ps = conn.prepareStatement(sql)) {
-	        ps.setInt(1, categoryId);
-	        if (ps.executeUpdate() > 0) {
-	            isDeleted = true;
+	    try {
+	        // Step 1: Check if category has food items
+	        String checkSql = "SELECT COUNT(*) FROM foods WHERE category_id = ?";
+	        PreparedStatement checkStmt = conn.prepareStatement(checkSql);
+	        checkStmt.setInt(1, categoryId);
+	        ResultSet rs = checkStmt.executeQuery();
+
+	        if (rs.next() && rs.getInt(1) == 0) {
+	            // Step 2: If no food items, delete the category
+	            String deleteSql = "DELETE FROM categories WHERE category_id = ?";
+	            PreparedStatement deleteStmt = conn.prepareStatement(deleteSql);
+	            deleteStmt.setInt(1, categoryId);
+
+	            if (deleteStmt.executeUpdate() > 0) {
+	                isDeleted = true;
+	            }
+
+	            deleteStmt.close();
 	        }
+
+	        checkStmt.close();
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	    }

@@ -45,17 +45,18 @@ public class DeleteCategoryServlet extends HttpServlet {
             System.out.println("Category ID to delete: " +categoryId);
 
             if (deleted) {
-                session.setAttribute("messageType", "success");
-                session.setAttribute("message", "Category deleted successfully.");
+                
+                session.setAttribute("successMessage", "Category deleted successfully.");
             } else {
-                session.setAttribute("messageType", "error");
-                session.setAttribute("message", "Failed to delete category.");
+                
+                session.setAttribute("errorMessage", "Cannot delete category. It contains one or more associated food items.");
+                
             }
 
         } catch (Exception e) {
             e.printStackTrace();
-            session.setAttribute("messageType", "error");
-            session.setAttribute("message", "System error occurred during deleting.");
+            
+            session.setAttribute("errorMessage", "System error occurred during deleting.");
         }
 
         response.sendRedirect(request.getContextPath() + "/GetCategoryServlet");
