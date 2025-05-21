@@ -12,6 +12,8 @@
 <jsp:include page="Header.jsp" />
 
 <main>
+
+<div class="main-content">
     <div class="tabs">
         <a href="${pageContext.request.contextPath}/UserProfileServlet">Profile</a>
         <a href="#" class="active">My Orders</a>
@@ -63,6 +65,7 @@
                 <hr />
             </div>
         </c:forEach>
+    </div>
     </div>
 </main>
 
