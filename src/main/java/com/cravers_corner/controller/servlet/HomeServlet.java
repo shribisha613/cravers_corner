@@ -22,6 +22,18 @@ public class HomeServlet extends HttpServlet {
 	private FoodDAO foodDAO;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		 HttpSession session = request.getSession(false);
+	        if (session == null || session.getAttribute("userWithSession") == null) {
+	            response.sendRedirect(request.getContextPath() + "/pages/Login.jsp");
+	            return;
+	        }
+	        
+	        String role = (String) session.getAttribute("role");
+	        if ("admin".equals(role)) {
+	            response.sendRedirect(request.getContextPath() + "/pages/AccessDenied.jsp");
+	            return;
+	        }
+		
 		try {
 			categoryDAO = new CategoryDAO();
 			foodDAO = new FoodDAO();

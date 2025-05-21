@@ -19,7 +19,7 @@ public class AuthorizationFilter implements Filter {
     private static final String[] ADMIN_PAGES = { "AdminDashboard.jsp", "ManageFood.jsp", 
     		"AdminUserProfile.jsp", "AddCategory.jsp", "AddFood.jsp", "ManageCategory.jsp", 
     		"SideNavAdmin.jsp", "AdminHeader.jsp", "ManageUser"};
-    private static final String[] CUSTOMER_PAGES = { "Home.jsp", "UserProfile.jsp", "Menu.jsp", "FoodDetail.jsp", "MyOrders.jsp", "CheckOut.jsp", "Header.jsp", "Footer.jsp", "AddToCart.jsp", "/UserProfileServlet" };
+    private static final String[] CUSTOMER_PAGES = { "Home.jsp", "UserProfile.jsp", "Menu.jsp", "FoodDetail.jsp", "MyOrders.jsp", "CheckOut.jsp", "Header.jsp", "Footer.jsp", "AddToCart.jsp", "/UserProfileServlet", "AboutUs.jsp" };
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -42,25 +42,6 @@ public class AuthorizationFilter implements Filter {
             chain.doFilter(request, response);
             return;
         }
-        
-        if (uri.endsWith("/pages/Home.jsp")) {
-            // Redirect to HomeServlet instead of allowing direct access to Home.jsp
-            res.sendRedirect(req.getContextPath() + "/HomeServlet");
-            return;
-        }
-        
-        if (uri.endsWith("/pages/Menu.jsp")) {
-            // Redirect to HomeServlet instead of allowing direct access to Home.jsp
-            res.sendRedirect(req.getContextPath() + "/menu");
-            return;
-        }
-        
-        if (uri.endsWith("/pages/MyOrders.jsp")) {
-            // Redirect to HomeServlet instead of allowing direct access to Home.jsp
-            res.sendRedirect(req.getContextPath() + "/UserOrderServlet");
-            return;
-        }
-        
         
         
        
@@ -86,6 +67,27 @@ public class AuthorizationFilter implements Filter {
             res.sendRedirect(req.getContextPath() + "/pages/AccessDenied.jsp");
             return;
         }
+        
+
+        if (uri.endsWith("/pages/Home.jsp")) {
+            // Redirect to HomeServlet instead of allowing direct access to Home.jsp
+            res.sendRedirect(req.getContextPath() + "/HomeServlet");
+            return;
+        }
+        
+        if (uri.endsWith("/pages/Menu.jsp")) {
+            // Redirect to HomeServlet instead of allowing direct access to Home.jsp
+            res.sendRedirect(req.getContextPath() + "/menu");
+            return;
+        }
+        
+        if (uri.endsWith("/pages/MyOrders.jsp")) {
+            // Redirect to HomeServlet instead of allowing direct access to Home.jsp
+            res.sendRedirect(req.getContextPath() + "/UserOrderServlet");
+            return;
+        }
+        
+        
         
         if (uri.endsWith("/UserProfileServlet")) {
             if ("customer".equals(role)) {

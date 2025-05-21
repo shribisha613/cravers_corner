@@ -47,7 +47,20 @@ public class EditFoodServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		
+		HttpSession session = request.getSession(false);
+
+	    // Check if session exists and user is logged in
+	    if (session == null || session.getAttribute("userWithSession") == null) {
+	        response.sendRedirect(request.getContextPath() + "/pages/Login.jsp");
+	        return;
+	    }
+
+	    // Check if the logged-in user has the 'admin' role
+	    String role = (String) session.getAttribute("role"); // adjust attribute name as per your login logic
+	    if (role == null || !role.equalsIgnoreCase("admin")) {
+	        response.sendRedirect(request.getContextPath() + "/pages/AccessDenied.jsp");
+	        return;
+	    }
 		
 		 try {
 		        // Get food ID from request parameter
@@ -82,12 +95,21 @@ public class EditFoodServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		 HttpSession session = request.getSession(false);
-		    
-		    if (session == null || session.getAttribute("userWithSession") == null) {
-		        response.sendRedirect(request.getContextPath() + "/pages/Login.jsp");
-		        return;
-		    }
+		HttpSession session = request.getSession(false);
+
+	    // Check if session exists and user is logged in
+	    if (session == null || session.getAttribute("userWithSession") == null) {
+	        response.sendRedirect(request.getContextPath() + "/pages/Login.jsp");
+	        return;
+	    }
+
+	    // Check if the logged-in user has the 'admin' role
+	    String role = (String) session.getAttribute("role"); // adjust attribute name as per your login logic
+	    if (role == null || !role.equalsIgnoreCase("admin")) {
+	        response.sendRedirect(request.getContextPath() + "/pages/AccessDenied.jsp");
+	        return;
+	    }
+
 		    
 		    try {
 		        int foodId = Integer.parseInt(request.getParameter("food_id"));

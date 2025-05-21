@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.cravers_corner.controller.dao.FoodDAO;
 import com.cravers_corner.model.Food;
@@ -33,6 +34,18 @@ public class FoodDetailServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		 HttpSession session = request.getSession(false);
+	        if (session == null || session.getAttribute("userWithSession") == null) {
+	            response.sendRedirect(request.getContextPath() + "/pages/Login.jsp");
+	            return;
+	        }
+	        
+	        String role = (String) session.getAttribute("role");
+	        if ("admin".equals(role)) {
+	            response.sendRedirect(request.getContextPath() + "/pages/AccessDenied.jsp");
+	            return;
+	        }
+		
 		String idParam = request.getParameter("id");
         if (idParam != null) {
             try {
