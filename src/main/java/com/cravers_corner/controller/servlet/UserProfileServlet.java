@@ -155,6 +155,25 @@ public class UserProfileServlet extends HttpServlet {
             profile_image_url = existingImage;
         }
         
+        if (!username.equals(sessionUser.getUsername())) {
+            try {
+                String usernameAvailabilityMessage = ValidationUtil.validateUsernameAvailability(username);
+                if (usernameAvailabilityMessage != null) {
+                    request.setAttribute("errorMessage", usernameAvailabilityMessage);
+                    // Optionally preserve form data here for user convenience
+                    request.setAttribute("userProfile", sessionUser);
+                    request.getRequestDispatcher("/pages/UserProfile.jsp").forward(request, response);
+                    return;
+                }
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+                request.setAttribute("errorMessage", "System error occurred during username validation.");
+                request.getRequestDispatcher("/pages/UserProfile.jsp").forward(request, response);
+                return;
+            }
+        }
+        
+        
         if (ValidationUtil.isNullOrEmpty(firstName) || !ValidationUtil.isValidName(firstName)) {
             request.setAttribute("errorMessage", "First name is invalid. Please enter a valid first name.");
             request.getRequestDispatcher("/pages/UserProfile.jsp").forward(request, response);
@@ -272,19 +291,22 @@ public class UserProfileServlet extends HttpServlet {
                 boolean success = userDAO.updateUser(currentUser);
                 if (success) {
                     session.setAttribute("userWithSession", currentUser);
-                    request.setAttribute("success", "Your profile has been updated successfully. Please use your updated details to log in.");
+                    session.setAttribute("success", "Your profile has been updated successfully. Please use your updated details to log in.");
                     System.out.println("Successfully updated profile");
                 } else {
-                    request.setAttribute("errorMessage", "Failed to Update your profile. Please try again.");
+                   session.setAttribute("errorMessage", "Failed to Update your profile. Please try again.");
                 }
             } else {
-                request.setAttribute("info", "It looks like nothing was changed in your profile.");
+                session.setAttribute("info", "It looks like nothing was changed in your profile.");
             }
+            
+            session.setAttribute("userWithSession", currentUser);
 
-            request.setAttribute("userProfile", currentUser);
-            request.getRequestDispatcher("/pages/UserProfile.jsp").forward(request, response);
+         session.setAttribute("userProfile", currentUser);
+            
 
-         
+            response.sendRedirect(request.getContextPath() + "/UserProfileServlet");
+
 
 
         } catch (ClassNotFoundException | SQLException e) {

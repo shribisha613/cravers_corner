@@ -23,29 +23,29 @@
         <a href="${pageContext.request.contextPath}/UserOrderServlet">My Orders</a>
     </div>
 
-    <c:if test="${not empty errorMessage}">
+    <c:if test="${not empty sessionScope.errorMessage}">
      <div class="error-alert">
                   <c:out value="${errorMessage}" />
                   
                    <button class="close-btn" onclick="this.parentElement.style.display='none'">x</button>
       </div>
-      
+       <c:remove var="errorMessage" scope="session" />
 	</c:if>
 	
-	<c:if test="${not empty info}">
+	<c:if test="${not empty sessionScope.info}">
  <div class="info-alert">
       <c:out value="${info}" />
       <button class="close-btn" onclick="this.parentElement.style.display='none'">×</button>
  </div>
- 
+  <c:remove var="info" scope="session" />
 </c:if>
     
- <c:if test="${not empty success}">
+ <c:if test="${not empty sessionScope.success}">
     <div class="popup-container success">
         <c:out value="${success}" />
         <button class="close-btn" onclick="this.parentElement.style.display='none'">×</button>
     </div>
-   
+    <c:remove var="success" scope="session" />
 </c:if>
 
  <div id="fileMessage" class="popup-container success" style="display: none;">

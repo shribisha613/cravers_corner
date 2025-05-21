@@ -99,6 +99,7 @@ public class AdminUserProfileServlet extends HttpServlet {
         String newPassword = request.getParameter("password");
         String confirmPassword = request.getParameter("confirm_password");
         String profile_image_url = null;
+        String existingImage = request.getParameter("existing_profile_image");
         
         Part image = request.getPart("profile_image");
         
@@ -146,6 +147,29 @@ public class AdminUserProfileServlet extends HttpServlet {
            
         }
         }
+        
+        if (profile_image_url == null) {
+            profile_image_url = existingImage;
+        }
+        
+        if (!username.equals(sessionUser.getUsername())) {
+            try {
+                String usernameAvailabilityMessage = ValidationUtil.validateUsernameAvailability(username);
+                if (usernameAvailabilityMessage != null) {
+                    request.setAttribute("errorMessage", usernameAvailabilityMessage);
+                    // Optionally preserve form data here for user convenience
+                    request.setAttribute("userProfile", sessionUser);
+                    request.getRequestDispatcher("/pages/UserProfile.jsp").forward(request, response);
+                    return;
+                }
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+                request.setAttribute("errorMessage", "System error occurred during username validation.");
+                request.getRequestDispatcher("/pages/UserProfile.jsp").forward(request, response);
+                return;
+            }
+        }
+        
         
         if (ValidationUtil.isNullOrEmpty(firstName) || !ValidationUtil.isValidName(firstName)) {
             request.setAttribute("errorMessage", "First name is invalid. Please enter a valid first name.");

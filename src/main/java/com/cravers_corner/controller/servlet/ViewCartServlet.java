@@ -89,6 +89,18 @@ public class ViewCartServlet extends HttpServlet {
             if (returnPage.contains("/pages/MyOrders.jsp")) {
                 returnPage = returnPage.replace("/pages/MyOrders.jsp", "/UserOrderServlet");
             }
+            
+            if (returnPage.contains("/pages/UserProfile.jsp")) {
+                returnPage = returnPage.replace("/pages/UserProfile.jsp", "/UserProfileServlet");
+                
+                
+            }
+            
+            if (returnPage.contains("/pages/AdminUserProfile.jsp")) {
+                returnPage = returnPage.replace("/pages/AdminUserProfile.jsp", "/AdminUserProfileServlet");
+                
+                
+            }
             // Add openCart=true only if not already present
             if (!returnPage.contains("openCart=true")) {
                 if (returnPage.contains("?")) {

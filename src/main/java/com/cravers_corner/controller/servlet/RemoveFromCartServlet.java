@@ -71,6 +71,18 @@ public class RemoveFromCartServlet extends HttpServlet {
                 
             }
             
+            if (returnPage.contains("/pages/UserProfile.jsp")) {
+                returnPage = returnPage.replace("/pages/UserProfile.jsp", "/UserProfileServlet");
+                
+                
+            }
+            
+            if (returnPage.contains("/pages/AdminUserProfile.jsp")) {
+                returnPage = returnPage.replace("/pages/AdminUserProfile.jsp", "/AdminUserProfileServlet");
+                
+                
+            }
+            
             if (returnPage.contains("/pages/MyOrders.jsp")) {
                 returnPage = returnPage.replace("/pages/MyOrders.jsp", "/UserOrderServlet");
             }
