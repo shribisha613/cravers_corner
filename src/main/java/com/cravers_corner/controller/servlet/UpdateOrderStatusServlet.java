@@ -21,10 +21,27 @@ public class UpdateOrderStatusServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	
+    	
         int orderId = Integer.parseInt(request.getParameter("orderId"));
+        
+        
         String status = request.getParameter("status");
 
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
+
+	    // Check if session exists and user is logged in
+	    if (session == null || session.getAttribute("userWithSession") == null) {
+	        response.sendRedirect(request.getContextPath() + "/pages/Login.jsp");
+	        return;
+	    }
+
+	    // Check if the logged-in user has the 'admin' role
+	    String role = (String) session.getAttribute("role"); // adjust attribute name as per your login logic
+	    if (role == null || !role.equalsIgnoreCase("admin")) {
+	        response.sendRedirect(request.getContextPath() + "/pages/AccessDenied.jsp");
+	        return;
+	    }
         OrderDAO dao;
         boolean isFromAdminDashboard = false;
 

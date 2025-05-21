@@ -19,14 +19,20 @@ public class UpdateCartServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession(false);
+    	HttpSession session = request.getSession(false);
 
-        if (session == null || session.getAttribute("userWithSession") == null) {
-            response.sendRedirect(request.getContextPath() + "/pages/Login.jsp");
-            System.out.println("user is not logged in ");
-            
-            return;
-        }
+    	// Check if session exists and user is logged in
+    	if (session == null || session.getAttribute("userWithSession") == null) {
+    	    response.sendRedirect(request.getContextPath() + "/pages/Login.jsp");
+    	    return;
+    	}
+
+    	// Check if the logged-in user has the 'customer' role
+    	String role = (String) session.getAttribute("role");
+    	if (role == null || !role.equalsIgnoreCase("customer")) {
+    	    response.sendRedirect(request.getContextPath() + "/pages/AccessDenied.jsp");
+    	    return;
+    	}
         String returnPage = request.getParameter("returnPage");
         System.out.println("return page: " + returnPage);
         

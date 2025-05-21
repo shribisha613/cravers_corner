@@ -19,6 +19,21 @@ public class EditCategoryServlet extends HttpServlet {
 
     // Load existing category data to edit
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	
+    	HttpSession session = request.getSession(false);
+
+	    // Check if session exists and user is logged in
+	    if (session == null || session.getAttribute("userWithSession") == null) {
+	        response.sendRedirect(request.getContextPath() + "/pages/Login.jsp");
+	        return;
+	    }
+
+	    // Check if the logged-in user has the 'admin' role
+	    String role = (String) session.getAttribute("role"); // adjust attribute name as per your login logic
+	    if (role == null || !role.equalsIgnoreCase("admin")) {
+	        response.sendRedirect(request.getContextPath() + "/pages/AccessDenied.jsp");
+	        return;
+	    }
         try {
         	System.out.println("EditCategoryServlet called");
             int categoryId = Integer.parseInt(request.getParameter("id"));
@@ -30,7 +45,7 @@ public class EditCategoryServlet extends HttpServlet {
 
             //Null check
             if (category == null) {
-                HttpSession session = request.getSession();
+                
                 session.setAttribute("messageType", "error");
                 session.setAttribute("message", "Category not found.");
                 response.sendRedirect(request.getContextPath() + "/GetCategoryServlet"); // or categories.jsp
@@ -50,11 +65,20 @@ public class EditCategoryServlet extends HttpServlet {
 
     // Handle form submission to update category
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("userWithSession") == null) {
-            response.sendRedirect(request.getContextPath() + "/pages/Login.jsp");
-            return;
-        }
+    	HttpSession session = request.getSession(false);
+
+	    // Check if session exists and user is logged in
+	    if (session == null || session.getAttribute("userWithSession") == null) {
+	        response.sendRedirect(request.getContextPath() + "/pages/Login.jsp");
+	        return;
+	    }
+
+	    // Check if the logged-in user has the 'admin' role
+	    String role = (String) session.getAttribute("role"); // adjust attribute name as per your login logic
+	    if (role == null || !role.equalsIgnoreCase("admin")) {
+	        response.sendRedirect(request.getContextPath() + "/pages/AccessDenied.jsp");
+	        return;
+	    }
 
         try {
             int categoryId = Integer.parseInt(request.getParameter("category_id"));

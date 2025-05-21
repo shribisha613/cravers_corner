@@ -26,12 +26,21 @@ public class ProceedCheckoutServlet extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("userWithSession");
-        String returnPage = request.getParameter("returnPage");
-        if (user == null) {
-            response.sendRedirect("/pages/Login.jsp");
+        
+        
+       
+        if (session == null || session.getAttribute("userWithSession") == null) {
+            response.sendRedirect(request.getContextPath() + "/pages/Login.jsp");
             return;
         }
+        
+        String role = (String) session.getAttribute("role");
+        if ("admin".equals(role)) {
+            response.sendRedirect(request.getContextPath() + "/pages/AccessDenied.jsp");
+            return;
+        }
+        User user = (User) session.getAttribute("userWithSession");
+        String returnPage = request.getParameter("returnPage");
 
         try {
             // Step 1: Get the user's cart

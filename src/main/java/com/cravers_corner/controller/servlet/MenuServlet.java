@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.cravers_corner.controller.dao.CategoryDAO;
 import com.cravers_corner.controller.dao.FoodDAO;
@@ -20,7 +21,19 @@ public class MenuServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
+      
+    	 HttpSession session = request.getSession(false);
+         if (session == null || session.getAttribute("userWithSession") == null) {
+             response.sendRedirect(request.getContextPath() + "/pages/Login.jsp");
+             return;
+         }
+         
+         String role = (String) session.getAttribute("role");
+         if ("admin".equals(role)) {
+             response.sendRedirect(request.getContextPath() + "/pages/AccessDenied.jsp");
+             return;
+         }
+    	try {
             FoodDAO foodDAO = new FoodDAO();
             CategoryDAO categoryDAO = new CategoryDAO();
 

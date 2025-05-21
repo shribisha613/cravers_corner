@@ -17,14 +17,28 @@ public class RemoveFromCartServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	HttpSession session = request.getSession(false);
+    	 HttpSession session = request.getSession();
+	        
+	        
+	       
+	        if (session == null || session.getAttribute("userWithSession") == null) {
+	            response.sendRedirect(request.getContextPath() + "/pages/Login.jsp");
+	            return;
+	        }
+	        
+	        String role = (String) session.getAttribute("role");
+	        if ("admin".equals(role)) {
+	            response.sendRedirect(request.getContextPath() + "/pages/AccessDenied.jsp");
+	            return;
+	        }
 
-        if (session == null || session.getAttribute("userWithSession") == null) {
-            response.sendRedirect(request.getContextPath() + "/pages/Login.jsp");
-            System.out.println("user is not logged in ");
-            
-            return;
-        }
+    	// Check if session exists and user is logged in
+    	if (session == null || session.getAttribute("userWithSession") == null) {
+    	    response.sendRedirect(request.getContextPath() + "/pages/Login.jsp");
+    	    return;
+    	}
+
+    	
         String returnPage = request.getParameter("returnPage");
         System.out.println("return page: " + returnPage);
         try {

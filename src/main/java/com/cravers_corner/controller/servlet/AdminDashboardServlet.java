@@ -13,6 +13,21 @@ public class AdminDashboardServlet extends HttpServlet {
 	
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    	
+    	HttpSession session = request.getSession(false);
+
+	    // Check if session exists and user is logged in
+	    if (session == null || session.getAttribute("userWithSession") == null) {
+	        response.sendRedirect(request.getContextPath() + "/pages/Login.jsp");
+	        return;
+	    }
+
+	    // Check if the logged-in user has the 'admin' role
+	    String role = (String) session.getAttribute("role"); // adjust attribute name as per your login logic
+	    if (role == null || !role.equalsIgnoreCase("admin")) {
+	        response.sendRedirect(request.getContextPath() + "/pages/AccessDenied.jsp");
+	        return;
+	    }
 
         AdminDashboardDAO dao = new AdminDashboardDAO();
 

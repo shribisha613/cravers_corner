@@ -36,7 +36,20 @@ public class AddCategoryServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		HttpSession session = request.getSession(false);
+
+	    // Check if session exists and user is logged in
+	    if (session == null || session.getAttribute("userWithSession") == null) {
+	        response.sendRedirect(request.getContextPath() + "/pages/Login.jsp");
+	        return;
+	    }
+
+	    // Check if the logged-in user has the 'admin' role
+	    String role = (String) session.getAttribute("role"); // adjust attribute name as per your login logic
+	    if (role == null || !role.equalsIgnoreCase("admin")) {
+	        response.sendRedirect(request.getContextPath() + "/pages/AccessDenied.jsp");
+	        return;
+	    }
 		
 		request.getRequestDispatcher("/pages/AddCategory.jsp").forward(request, response);
 	}
@@ -46,11 +59,24 @@ public class AddCategoryServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
+		HttpSession session = request.getSession(false);
+
+	    // Check if session exists and user is logged in
+	    if (session == null || session.getAttribute("userWithSession") == null) {
+	        response.sendRedirect(request.getContextPath() + "/pages/Login.jsp");
+	        return;
+	    }
+
+	    // Check if the logged-in user has the 'admin' role
+	    String role = (String) session.getAttribute("role"); // adjust attribute name as per your login logic
+	    if (role == null || !role.equalsIgnoreCase("admin")) {
+	        response.sendRedirect(request.getContextPath() + "/pages/AccessDenied.jsp");
+	        return;
+	    }
 
         String name = request.getParameter("name");
         String description = request.getParameter("description");
-        HttpSession session = request.getSession();
+       
 
         // Validate inputs
         if (ValidationUtil.isNullOrEmpty(name)) {

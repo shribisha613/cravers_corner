@@ -31,13 +31,17 @@ public class AddToCartServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession(false);
-
-        // Check if session exists and user is logged in
-        if (session == null || session.getAttribute("userWithSession") == null) {
-            response.sendRedirect(request.getContextPath() + "/pages/Login.jsp");
-            return;
-        }
+    	 HttpSession session = request.getSession(false);
+         if (session == null || session.getAttribute("userWithSession") == null) {
+             response.sendRedirect(request.getContextPath() + "/pages/Login.jsp");
+             return;
+         }
+         
+         String role = (String) session.getAttribute("role");
+         if ("admin".equals(role)) {
+             response.sendRedirect(request.getContextPath() + "/pages/AccessDenied.jsp");
+             return;
+         }
 
         try {
             // Retrieve logged-in user from session

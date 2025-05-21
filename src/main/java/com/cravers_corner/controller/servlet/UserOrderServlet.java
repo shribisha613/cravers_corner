@@ -19,10 +19,18 @@ public class UserOrderServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-    	HttpSession session = request.getSession(false); // don't create new session
+    	HttpSession session = request.getSession(false);
 
+    	// Check if session exists and user is logged in
     	if (session == null || session.getAttribute("userWithSession") == null) {
     	    response.sendRedirect(request.getContextPath() + "/pages/Login.jsp");
+    	    return;
+    	}
+
+    	// Check if the logged-in user has the 'customer' role
+    	String role = (String) session.getAttribute("role");
+    	if (role == null || !role.equalsIgnoreCase("customer")) {
+    	    response.sendRedirect(request.getContextPath() + "/pages/AccessDenied.jsp");
     	    return;
     	}
     	
