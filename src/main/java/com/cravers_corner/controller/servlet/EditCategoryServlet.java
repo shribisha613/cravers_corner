@@ -109,12 +109,14 @@ public class EditCategoryServlet extends HttpServlet {
                 session.setAttribute("message", "Failed to update category.");
             }
 
-            response.sendRedirect(request.getContextPath() + "/GetCategoryServlet");
+            response.sendRedirect("pages/EditCategory.jsp");
+            
 
         } catch (Exception e) {
             e.printStackTrace();
             session.setAttribute("messageType", "error");
             session.setAttribute("message", "System error occurred.");
+            
             response.sendRedirect(request.getContextPath() + "/GetCategoryServlet");
         }
     }

@@ -46,9 +46,7 @@
   
 </c:if>
   
-  		 <c:if test="${empty category}">
-            <div style="color:red;">Category is NULL!</div>
-         </c:if> 
+  		
  		 
           <h3>Edit Food Category</h3>
          
