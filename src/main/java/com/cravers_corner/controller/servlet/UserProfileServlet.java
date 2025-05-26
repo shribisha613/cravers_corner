@@ -2,6 +2,8 @@ package com.cravers_corner.controller.servlet;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
@@ -140,9 +142,26 @@ public class UserProfileServlet extends HttpServlet {
                 image.write(filePath);
                 profile_image_url = "profile_photos/" + fileName; // relative path to use in JSP
                 System.out.println("File uploaded successfully: " + filePath);
+                
+                String externalFolderPath = "C:/Users/DELL/eclipse-workspace/cravers_corner/src/main/webapp/profile_photos";  // <-- Change this path as needed
+                File externalFolder = new File(externalFolderPath);
+                if (!externalFolder.exists()) {
+                    externalFolder.mkdirs();
+                }
+                File sourceFile = new File(filePath); // file just saved inside webapp
+                File externalFile = new File(externalFolder, fileName);
+
+                try {
+                    Files.copy(sourceFile.toPath(), externalFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                    System.out.println("Copied image to external folder: " + externalFile.getAbsolutePath());
+                } catch (IOException e) {
+                    System.err.println("Failed to copy image externally: " + e.getMessage());
+                }
             } catch (Exception e) {
                 System.out.println("File upload failed: " + e.getMessage());
             }
+            
+            
             
             String displayPath = request.getContextPath() + "/profile_photos/" + fileName;
             System.out.println(displayPath);// Add context to file path

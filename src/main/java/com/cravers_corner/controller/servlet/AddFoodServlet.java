@@ -2,7 +2,9 @@ package com.cravers_corner.controller.servlet;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
@@ -132,7 +134,20 @@ public class AddFoodServlet extends HttpServlet {
 
                 System.out.println("Food image File uploaded successfully: " + filePath);
 
-                
+                String externalFolderPath = "C:/Users/DELL/eclipse-workspace/cravers_corner/src/main/webapp/food_images";  // <-- Change this path as needed
+                File externalFolder = new File(externalFolderPath);
+                if (!externalFolder.exists()) {
+                    externalFolder.mkdirs();
+                }
+                File sourceFile = new File(filePath); // file just saved inside webapp
+                File externalFile = new File(externalFolder, fileName);
+
+                try {
+                    Files.copy(sourceFile.toPath(), externalFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                    System.out.println("Copied image to external folder: " + externalFile.getAbsolutePath());
+                } catch (IOException e) {
+                    System.err.println("Failed to copy image externally: " + e.getMessage());
+                }
                 String displayPath = request.getContextPath() + "/food_images/" + fileName;
                 System.out.println("Display Path (for JSP): " + displayPath);
 
@@ -266,5 +281,4 @@ public class AddFoodServlet extends HttpServlet {
 
 					 response.sendRedirect("pages/AddFood.jsp");
 }
-      }
-
+}
