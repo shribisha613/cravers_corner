@@ -35,14 +35,6 @@ public class DatabaseConnection {
 			}
 			
 		}
-		
-		
-		
-
-		
-		
-	 
-
 	}
 
 

@@ -25,7 +25,7 @@
 			    <img src="${pageContext.request.contextPath}/images/shribisha.jpg" alt="shribisha">
 			    <div class="social-icons">
 			      <a href="https://github.com/shribisha613" target="_blank"><i class="fab fa-github"></i></a>
-			      <a href="www.linkedin.com/in/shribisha-buddhacharya-6a64732a8 -linked in link" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+			      <a href="https://www.linkedin.com/in/shribisha-buddhacharya-6a64732a8" target="_blank"><i class="fab fa-linkedin-in"></i></a>
 			    </div>
 			 </div>        
 	          	<h3>Shribisha Buddhacharya</h3>
@@ -38,7 +38,7 @@
 			    <img src="${pageContext.request.contextPath}/images/yashica.jpg" alt="yashica">
 			    <div class="social-icons">
 			      <a href="https://github.com/Yashi-mgr" target="_blank"><i class="fab fa-github"></i></a>
-			      <a href="https://linkedin.com/in/member1" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+			      <a href="https://www.linkedin.com/in/yashica-magar-918279317/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
 			    </div>
 			</div>        
 	          	<h3>Yashica Kamu Magar</h3>
