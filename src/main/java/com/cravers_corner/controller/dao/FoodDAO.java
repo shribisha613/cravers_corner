@@ -15,16 +15,16 @@ import com.cravers_corner.model.Food;
 public class FoodDAO {
 	private Connection conn;
 	private PreparedStatement ps;
-	// Constructor: Initializes the database connection when an object is created
+	// Constructor initializes the database connection when an object is created
 	public FoodDAO() throws ClassNotFoundException, SQLException {
 		this.conn = DatabaseConnection.getConnection();
 	}
 	
-
+	// Method to add a new food record into 'foods' table
 	public boolean addFood(Food food) {
 	    boolean isFoodAdded = false;
 
-	    // Follow exact database column order (excluding auto-increment food_id and created_at, updated_at)
+	    // SQL insert query excluding auto-increment food_id and timestamps (set automatically)
 	    String query = "INSERT INTO foods (name, description, price, serving_size, category_id, image_url, status, created_at, updated_at) " +
 	                   "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -176,6 +176,7 @@ public class FoodDAO {
 	    return foodList;
 	}
 
+	// Helper method to get category_id from category name
 	public int getCategoryIdByName(String name) throws SQLException {
         String query = "SELECT category_id FROM categories WHERE name = ?";
         try (PreparedStatement ps = conn.prepareStatement(query)) {
@@ -186,17 +187,19 @@ public class FoodDAO {
                 }
             }
         }
-        return -1; // or throw exception if not found
+        return -1; //  throw exception if not found
     }
 
 
-
+	// Get food items by category name (e.g. "Nepali", "Italian")
     public List<Food> getFoodByCategory(String categoryName) throws SQLException {
         List<Food> foodList = new ArrayList<>();
-
+        
+        // First get category_id for given categoryName
         int categoryId = getCategoryIdByName(categoryName);
         if (categoryId == -1) return foodList; // no matching category
-
+        
+        // Query to get foods with the category_id and status 'available'
         String query = "SELECT f.*, c.name AS category_name " +
                 "FROM foods f JOIN categories c ON f.category_id = c.category_id " +
                 "WHERE f.category_id = ? AND f.status = 'available'";

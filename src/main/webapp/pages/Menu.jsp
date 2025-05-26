@@ -3,15 +3,6 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.cravers_corner.model.Category" %>
 
-
-
-<%
-    String type = request.getParameter("type");
-    if (type == null || type.isEmpty()) {
-        type = "Nepali";
-    }
-    request.setAttribute("type", type); // ✅ Add this line
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,7 +54,8 @@
 		</form>
 
         <h2>Cravers Corner Menu Board</h2>
-
+   
+        
         <!-- ✅ Food Items Display -->
         <div class="food-grid">
             <c:choose>
