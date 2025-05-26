@@ -46,20 +46,7 @@ public class RegisterServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 //		doGet(request, response);
-		 HttpSession session = request.getSession();
-	        
-	        
-	       
-	        if (session == null || session.getAttribute("userWithSession") == null) {
-	            response.sendRedirect(request.getContextPath() + "/pages/Login.jsp");
-	            return;
-	        }
-	        
-	        String role = (String) session.getAttribute("role");
-	        if ("admin".equals(role)) {
-	            response.sendRedirect(request.getContextPath() + "/pages/AccessDenied.jsp");
-	            return;
-	        }
+		
 		
 		String validationMessage = validateRegistrationForm(request);
 		if (validationMessage != null) {
