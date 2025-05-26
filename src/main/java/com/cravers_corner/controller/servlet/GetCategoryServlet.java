@@ -1,5 +1,6 @@
 package com.cravers_corner.controller.servlet;
 
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -12,9 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.cravers_corner.controller.dao.CategoryDAO;
-import com.cravers_corner.controller.dao.FoodDAO;
+
 import com.cravers_corner.model.Category;
-import com.cravers_corner.model.Food;
+
 
 /**
  * Servlet implementation class GetCategory Servlet

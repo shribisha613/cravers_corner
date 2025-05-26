@@ -12,7 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.sql.Timestamp;
+
 import java.util.List;
 
 @WebServlet("/PlaceOrderServlet")
@@ -39,7 +39,8 @@ public class PlaceOrderServlet extends HttpServlet {
 	        }
 
 	    Order order = (Order) session.getAttribute("order");
-	    List<OrderItem> orderItems = (List<OrderItem>) session.getAttribute("orderItems");
+	    @SuppressWarnings("unchecked")
+		List<OrderItem> orderItems = (List<OrderItem>) session.getAttribute("orderItems");
 
 	   
 
