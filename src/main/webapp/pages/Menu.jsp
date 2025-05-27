@@ -20,13 +20,14 @@
     <!-- Sidebar -->
 	<div class="sidebar">
 	  <h3>Categories</h3>
+	 
 		<ul>
 		  <c:choose>
 		    <c:when test="${not empty categoryList}">
 		      <c:forEach items="${categoryList}" var="category">
 				      <li>
 				  <a href="${pageContext.request.contextPath}/menu?type=${category.name}"
-				   class="category-link <c:if test='${category.name eq type}'>active</c:if>">
+				   class="category-link ${category.name.equals(type) ? 'active' : ''}">
 				    ${category.name}
 				  </a>
 				</li>

@@ -63,6 +63,16 @@
   color: white;
 }
 
+.category-link.active {
+  background: #FF8C42;
+  color: white;
+  
+}
+
+.category-link:active {
+  background: #FF8C42;
+  color: white;
+}
 /* Remove border from last item */
 .sidebar li:last-child .category-link {
   border-bottom: none;
